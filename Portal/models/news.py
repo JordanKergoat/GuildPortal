@@ -8,7 +8,7 @@ from django.db import models
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(_('Tag'), max_length=64)
 
     class Meta:
         verbose_name = _('Tag')
@@ -25,7 +25,7 @@ class Category(models.Model):
 
 class News(models.Model):
     creator = models.ForeignKey(User)
-    category = models.ForeignKey(_('Category'), Category, help_text=_('News category'))
+    category = models.ForeignKey(Category, help_text=_('News category'))
     tags = models.ManyToManyField(_('Tag'), Tag, help_text=_('Tags list'))
     published = models.BooleanField(_("Published"), default=False)
     published_date = models.DateTimeField(_('Published date'), auto_now_add=True)
@@ -33,7 +33,7 @@ class News(models.Model):
     title = models.CharField(_('Title'), max_length=100, primary_key=True)
     content = models.TextField(_('Body'))
     news_image = models.ImageField(_('News image'), upload_to='/news/')
-    
+
     class Meta:
         verbose_name = _('News')
         verbose_name_plural = _('News')
