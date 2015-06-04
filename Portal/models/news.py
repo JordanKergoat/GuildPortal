@@ -22,6 +22,8 @@ class Category(models.Model):
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
 
+class NewsFeed(models.Model):
+    url = models.URLField()
 
 class News(models.Model):
     creator = models.ForeignKey(User)

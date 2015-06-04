@@ -43,9 +43,3 @@ class CharacterAttribute(models.Model):
 
     def __unicode__(self):
         return '[' + self.for_game.name + '] ' + self.attribute_name + ' - ' +  self.attribute_value.field_value
-
-class Enrollement(models.Model):
-    user = models.ForeignKey(User)
-    introduction = models.TextField()
-    game_choice = models.ForeignKey(Game)
-    character_name = models.CharField(max_length=50)
