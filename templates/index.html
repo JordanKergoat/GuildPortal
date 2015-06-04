@@ -7,20 +7,17 @@
 <body>
 <form method="POST">
     {% csrf_token %}
-       {{ form.as_p }}
+    {{ form.as_p }}
+    {% for key, value in distinct.items %}
+        <label for="choice">{{ key }}</label>
+        <select id="choice" name="">
+            {% for i in value %}
+                <option value="{{ i.id }}">{{ i.attribute_value.field_value }}</option>
+            {% endfor %}
+        </select>
+    {% endfor %}
 </form>
 
-{% for value in choice_field_name %}
-<p>{{ value }}</p>
-{% endfor %}
-------------
-{% for key, value in distinct.items %}
-<label for="choice">{{ key }}</label>
-    <select id="choice" name="">
-        {% for i in value %}
-            <option value="{{ i.id }}">{{ i.field_value.field_value }}</option>
-        {% endfor %}
-    </select>
-{% endfor %}
+
 </body>
 </html>

@@ -68,9 +68,9 @@ WSGI_APPLICATION = 'GuildPortal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "test",
-        'USER': 'Nkio',
-        'PASSWORD': '310587a',
+        'NAME': "mydb",
+        'USER': 'portal_admin',
+        'PASSWORD': 'caca04',
         'HOST': 'localhost',
     }
 }

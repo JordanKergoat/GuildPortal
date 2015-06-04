@@ -35,14 +35,14 @@ class FieldValue(models.Model):
     def __unicode__(self):
         return self.field_value
 
-class FieldName(models.Model):
+class CharacterAttribute(models.Model):
 
-    field_name = models.CharField(max_length=64)
-    field_value = models.ForeignKey(FieldValue)
-    related_to = models.ForeignKey(Game)
+    attribute_name = models.CharField(max_length=64)
+    attribute_value = models.ForeignKey(FieldValue)
+    for_game = models.ForeignKey(Game)
 
     def __unicode__(self):
-        return '[' + self.related_to.name + '] ' + self.field_name + ' - ' +  self.field_value.field_value
+        return '[' + self.for_game.name + '] ' + self.attribute_name + ' - ' +  self.attribute_value.field_value
 
 class Enrollement(models.Model):
     user = models.ForeignKey(User)
