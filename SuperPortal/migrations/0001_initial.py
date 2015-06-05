@@ -8,7 +8,6 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sites', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -16,18 +15,23 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='GuildSettings',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('created', models.DateTimeField(auto_now_add=True, verbose_name='Created at')),
-                ('modified', models.DateTimeField(auto_now=True, verbose_name='Last Updated')),
-                ('guild_name', models.CharField(max_length=120, verbose_name='Guild name')),
-                ('guild_motto', models.CharField(max_length=256, verbose_name='Guild motto')),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('guild_name', models.CharField(verbose_name='Guild name', max_length=120)),
+                ('guild_motto', models.CharField(verbose_name='Guild motto', max_length=256)),
+                ('short_guild_description', models.CharField(verbose_name='Short description about your guild', max_length=120, default='')),
+                ('guild_description', models.TextField(verbose_name='Description about your guild', default='')),
+                ('tag', models.CharField(verbose_name='Tag', max_length=10, default='')),
                 ('guild_chief', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
-                ('site', models.OneToOneField(related_name='usersettings', null=True, editable=False, to='sites.Site')),
-                ('user', models.ForeignKey(related_name='usersettings', editable=False, to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'verbose_name': 'Guild Settings',
                 'verbose_name_plural': 'Guild Settings',
+                'verbose_name': 'Guild Settings',
             },
+        ),
+        migrations.CreateModel(
+            name='SuperPortal',
+            fields=[
+                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+            ],
         ),
     ]
