@@ -8,6 +8,4 @@ from .models import GuildSettings
 def index(request):
     context = {}
     context['short_description'] = GuildSettings.objects.all().first().short_guild_description
-    print(GuildSettings.objects.all().first()
-          )
     return render(request, "SuperPortal/index.html", context=context)
