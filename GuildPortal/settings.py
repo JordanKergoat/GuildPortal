@@ -36,8 +36,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'SuperPortal',
     'Portal',
     'PortalEnrollment',
+    'Forum',
 )
 
 MIDDLEWARE_CLASSES = (
