@@ -6,7 +6,14 @@ from django.utils.translation import ugettext as _
 # Create your models here.
 
 class EnrollmentSettings(models.Model):
+    '''
+        Admin Side enrollment configuration. Allow admin user to define what kind of character they are looking for.
+        An object of this class represent a specific kind of character.
+        E.g : If you want a Heal on World Of Warcraft and a Tank on World Of Warcraft as well, you need to have instance
+        object of this class to match the requirement
+    '''
     roles = models.ManyToManyField(CharacterAttribute)
+    game_choice = models.ForeignKey(Game)
     open = models.BooleanField(_('Open Enrollment'), default=False)
     limit = models.SmallIntegerField(_('Limit'))
     background_image = models.ImageField(_('Background image'), upload_to='/enrollment/background/', blank=True)
@@ -25,6 +32,10 @@ class EnrollmentSettings(models.Model):
 
 
 class Enrollement(models.Model):
+    '''
+        Define an enrollment application by a user
+        Each object of this class represent an application
+    '''
     user = models.ForeignKey(User)
     introduction = models.TextField()
     game_choice = models.ForeignKey(Game)
