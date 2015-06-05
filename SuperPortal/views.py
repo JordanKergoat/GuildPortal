@@ -1,8 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from .models import GuildSettings
 # Create your views here.
 
 
 def index(request):
-    return render(request, "SuperPortal/index.html")
+    context = {}
+    context['short_description'] = GuildSettings.objects.all().first().short_guild_description
+    print(GuildSettings.objects.all().first()
+          )
+    return render(request, "SuperPortal/index.html", context=context)
