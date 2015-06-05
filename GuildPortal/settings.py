@@ -56,7 +56,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'GuildPortal.urls'
 SITE_ID = 1
-USERSETTINGS_MODEL='Portal.SiteSettings'
+USERSETTINGS_MODEL='SuperPortal.GuildSettings'
 WSGI_APPLICATION = 'GuildPortal.wsgi.application'
 
 

@@ -8,7 +8,7 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Portal', '0003_auto_20150604_0856'),
+        ('Portal', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -43,6 +43,7 @@ class Migration(migrations.Migration):
                 ('limit', models.SmallIntegerField(verbose_name='Limit')),
                 ('background_image', models.ImageField(upload_to=b'/enrollment/background/', verbose_name='Background image', blank=True)),
                 ('thumbnail', models.ImageField(upload_to=b'/enrollment/thumbnail/', verbose_name='Thumbnail image', blank=True)),
+                ('game_choice', models.ForeignKey(to='Portal.Game')),
                 ('roles', models.ManyToManyField(to='Portal.CharacterAttribute')),
             ],
             options={
