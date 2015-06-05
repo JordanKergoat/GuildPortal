@@ -12,3 +12,6 @@ class GuildSettings(models.Model):
     class Meta:
         verbose_name = _('Guild Settings')
         verbose_name_plural = _('Guild Settings')
+
+    def __unicode__(self):
+        return u"[%s] %s - %s" % (self.guild_name, self.guild_motto, self.guild_chief.username)
