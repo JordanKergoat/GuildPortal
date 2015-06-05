@@ -14,4 +14,8 @@ class Portal(models.Model):
     guild_name = models.CharField(_("Portal guild name"), max_length=100, help_text="Can be blank. If blank, we will take guild name from SuperPortal")
     image = models.ImageField(_('Image'), upload_to='/portal/logo/')
 
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('Portal.views.index', args=[str(self.name)])
+
 
