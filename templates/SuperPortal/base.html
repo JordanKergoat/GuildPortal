@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <head>
     {% block head %}
         {% block title %}{% endblock %}
@@ -10,6 +12,8 @@
             <!-- Optional theme -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 
+            <link rel="stylesheet" href="{% static 'SuperPortal/css/base.css' %}">
+
         {% endblock %}
         {% block js %}
             <!-- Latest compiled and minified JavaScript -->
@@ -21,20 +25,30 @@
 
 
 <body>
-<div id="page-header" class="container-fluid">
-    <div>
+<div id="page-header" class="container-fluid row">
+    <div id="top-header">
         <div id="logo" class="col-xs-4">
-            toto
+            <img src="http://www.google.fr/url?source=imglanding&ct=img&q=http://www.colonyhaifa.com/images/Common/noImg.jpg&sa=X&ei=FpxxVZ-SM4X0UqPugIgI&ved=0CAkQ8wc&usg=AFQjCNHejY9747429-tXjPPqZqSt89RfJQ">
         </div>
-        <div id="banner" class="col-xs-8 col-xs-offset-4">
-            plop
+        <div id="banner" class="col-xs-8">
+            <img src="http://www.google.fr/url?source=imglanding&ct=img&q=http://www.psdgraphics.com/file/colorful-triangles-background.jpg&sa=X&ei=ZZxxVfidEYS6UaKUgYAB&ved=0CAkQ8wc&usg=AFQjCNE83r0T2e3A8y3_fJrP8ZJkuWgqtQ">
         </div>
-        <div id="connection-module">
+        <div id="connection-module" class="col-xs-8 col-xs-offset-4">
             aya
         </div>
     </div>
     <div id="navigation-menu" class="col-xs-12">
-
+        <ul>
+            <li><a>toto</a></li>
+            <li><a>toto</a></li>
+            <li><a>toto</a></li>
+            <li><a>toto</a></li>
+            <li><a>toto</a></li>
+            <li><a>toto</a></li>
+            <li><a>toto</a></li>
+            <li><a>toto</a></li>
+            <li><a>toto</a></li>
+        </ul>
     </div>
 </div>
 <div id="inner-body" class="container">

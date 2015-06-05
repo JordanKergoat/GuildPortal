@@ -1,0 +1,38 @@
+
+div#top-header {
+    background-color: #ecf0f1;
+    overflow: auto;
+}
+
+div#top-header div {
+    display: inline-block;
+}
+
+div#logo, div#banner {
+    height: 150px;
+    overflow: hidden;
+}
+
+div#navigation-menu ul
+{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+}
+
+div#navigation-menu ul li { display: inline; }
+
+div#navigation-menu ul li a
+{
+    text-decoration: none;
+    padding: .2em 1em;
+    color: #fff;
+    background-color: #036;
+}
+
+div#navigation-menu ul li a:hover
+{
+    color: #fff;
+    background-color: #369;
+}
