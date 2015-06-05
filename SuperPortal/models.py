@@ -2,8 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext as _
 
-from usersettings.models import UserSettings
-
 class GuildSettings(models.Model):
     guild_name = models.CharField(_('Guild name'), max_length=120)
     guild_motto = models.CharField(_('Guild motto'), max_length=256)

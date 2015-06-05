@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.http import HttpResponseRedirect
 
 from .models import GuildSettings
-from usersettings.admin import SettingsAdmin
 from django.utils.translation import ugettext_lazy as _
 
 
