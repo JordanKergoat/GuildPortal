@@ -20,3 +20,5 @@ def index(request):
 
 class Index(TemplateView):
     template_name = 'index.html'
+
+    def get(self, request, *args, **kwargs):
