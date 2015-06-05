@@ -4,3 +4,4 @@ from .news import *
 from .enrollment import *
 from .portal_user import *
 from .portal_guild import *
+from .settings import *

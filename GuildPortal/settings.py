@@ -31,11 +31,13 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'django.contrib.admin',
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'usersettings',
     'Portal',
     'PortalEnrollment',
 )
@@ -51,7 +53,8 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'GuildPortal.urls'
-
+SITE_ID = 1
+USERSETTINGS_MODEL='Portal.SiteSettings'
 WSGI_APPLICATION = 'GuildPortal.wsgi.application'
 
 

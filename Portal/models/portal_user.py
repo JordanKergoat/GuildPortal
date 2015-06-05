@@ -11,9 +11,9 @@ class Character(models.Model):
         Keep all characters from user for each game in database
     '''
     user = models.ForeignKey(User)
-    game = models.ForeignKey(Game)
+    game = models.ForeignKey(Game, default="")
     main_character = models.BooleanField(_("Main character"), default=False, help_text="You can specify if this character is your main")
-    level = models.SmallIntegerField(_('Character level'), blank=True, help_text="Specify your character level")
+    level = models.SmallIntegerField(_('Character level'), blank=True, help_text="Specify your character level", default=0)
     roles = models.ManyToManyField(CharacterAttribute)
 
 
