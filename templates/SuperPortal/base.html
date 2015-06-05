@@ -3,22 +3,43 @@
         {% block title %}{% endblock %}
         <meta name="description" content="{% block meta_description %}{% endblock %}" />
         {% block meta %}{% endblock %}
-        {% block css %}{% endblock %}
-        {% block js %}{% endblock %}
+        {% block css %}
+            <!-- Latest compiled and minified CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+            <!-- Optional theme -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+        {% endblock %}
+        {% block js %}
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+        {% endblock %}
     {% endblock %}
 </head>
 
-{% block header %}
-    {% block connexion %}
-
-    {% endblock %}
-    {% block menu %}
-
-    {% endblock %}
-{% endblock %}
 
 <body>
+<div id="page-header" class="container-fluid">
+    <div>
+        <div id="logo" class="col-xs-4">
+            toto
+        </div>
+        <div id="banner" class="col-xs-8 col-xs-offset-4">
+            plop
+        </div>
+        <div id="connection-module">
+            aya
+        </div>
+    </div>
+    <div id="navigation-menu" class="col-xs-12">
+
+    </div>
+</div>
+<div id="inner-body" class="container">
 {% block body %}
 
 {% endblock %}
+</div>
 </body>
