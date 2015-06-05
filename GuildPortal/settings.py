@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'usersettings',
+    # 'usersettings',
     'SuperPortal',
     'Portal',
     'PortalEnrollment',
@@ -56,7 +56,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'GuildPortal.urls'
 SITE_ID = 1
-USERSETTINGS_MODEL='SuperPortal.GuildSettings'
+# USERSETTINGS_MODEL='SuperPortal.GuildSettings'
 WSGI_APPLICATION = 'GuildPortal.wsgi.application'
 
 

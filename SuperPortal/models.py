@@ -4,7 +4,7 @@ from django.utils.translation import ugettext as _
 
 from usersettings.models import UserSettings
 
-class GuildSettings(UserSettings):
+class GuildSettings(models.Model):
     guild_name = models.CharField(_('Guild name'), max_length=120)
     guild_motto = models.CharField(_('Guild motto'), max_length=256)
     guild_chief = models.ForeignKey(User)
