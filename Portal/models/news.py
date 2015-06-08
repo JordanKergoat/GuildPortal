@@ -1,5 +1,7 @@
 __author__ = 'Alexandre Cloquet'
 
+import datetime
+
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from django.db import models
@@ -55,3 +57,15 @@ class News(models.Model):
         return reverse('Portal.views.news_detail', kwargs={'portal_name': str(self.portal.name),
                                                            'category': self.category.name,
                                                            'news_name': self.title})
+
+class Comment(models.Model):
+    user = models.ForeignKey(User)
+    published_date = models.DateTimeField(_('Published date'), auto_now_add=True)
+    content = models.TextField(_('Your comment'), default="")
+    response = models.ForeignKey('self', default=1, blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+class CommentNews(Comment):
+    news = models.ForeignKey(News)

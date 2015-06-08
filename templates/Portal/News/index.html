@@ -1,0 +1,39 @@
+{% extends 'SuperPortal/base.html' %}
+{% load i18n %}
+{% block meta_description %}{{ short_description }}{% endblock %}
+{% block body %}
+    <div id="superportal-slider" class="col-xs-12">
+
+    </div>
+
+    <div id="superportal-news_feed" class="col-xs-10">
+
+        <h2>Actualités :</h2>
+
+            {% for new in news %}
+                <div class="news col-xs-12">
+                <h3>{{ new.title }}</h3>
+                    Nombre de commentaire : {{new.commentnews_set.all|length}}
+                <div class="col-xs-2">
+{#                    <img src="{{ news.news_image.url }}">#}
+                </div>
+
+                    <p>{{ new.content }}</p>
+                    <em>{{ new.category.name }}</em> {% trans 'in' %} <em>{{ new.portal.name }}</em>
+                    <a href="{{ new.get_absolute_url }}">{% trans "See more" %}</a>
+                </div>
+            {% endfor %}
+
+    </div>
+    <div id="superportal-modules" class="col-xs-2">
+        <ul id="superportal-module-list">
+            <li class="superportal-module">
+                TS
+            </li>
+            <li class="superportal-module">
+                Twitch
+            </li>
+        </ul>
+    </div>
+
+{% endblock %}

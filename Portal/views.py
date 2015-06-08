@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from .models import Portal, Category, News
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from .forms import EnrollementForm
@@ -28,4 +29,6 @@ def index(request, portal_name):
 
 
 def news_detail(request, portal_name, category, news_name):
-    return
+    portal = Portal.objects.get(name=portal_name)
+    news = News.objects.filter(category__name=category, title=news_name)
+    return render(request, 'Portal/News/index.html', {'news' : news})

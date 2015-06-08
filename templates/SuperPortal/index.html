@@ -13,8 +13,9 @@
             {% for news in portal.news_set.all %}
                 <div class="news col-xs-12">
                 <h3>{{ news.title }}</h3>
+                    Nombre de commentaire : {{news.commentnews_set.all|length}}
                 <div class="col-xs-2">
-                    <img src="{{ news.news_image.url }}">
+{#                    <img src="{{ news.news_image.url }}">#}
                 </div>
 
                     <p>{{ news.content|slice:":150"|add:'...' }}</p>
