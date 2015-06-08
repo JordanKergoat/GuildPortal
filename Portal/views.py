@@ -24,3 +24,8 @@ def index(request, portal_name):
 #     template_name = 'index.html'
 #
 #     def get(self, request, *args, **kwargs):
+
+
+
+def news_detail(request, portal_name, category, news_name):
+    return

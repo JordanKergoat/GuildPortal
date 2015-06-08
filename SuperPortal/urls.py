@@ -9,5 +9,6 @@ from Forum.views import index as forum_index
 urlpatterns = patterns('',
     url(r'^$', index, name='super_portal_index'),
     # url(r'^/forum/$', forum_index, name='portal_index'),
-    url(r'^(?P<portal_name>(?:\w+\s*\w+)+)/$', portal_index, name='portal_index'),
+    #url(r'^(?P<portal_name>(?:\w+\s*\w+)+)/$', portal_index, name='portal_index'),
+    url(r'^(?P<portal_name>(?:\w+\s*\w+)+)/', include('Portal.urls')),
 )

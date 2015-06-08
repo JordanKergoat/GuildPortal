@@ -45,3 +45,4 @@ class Userprofile(models.Model):
     teamspeak_nickname = models.CharField(_("TeamSpeak Nickname"), max_length=64, blank=True)
     mumble_nickname = models.CharField(_("Mumble Nickname"), max_length=64, blank=True)
     skype_nickname = models.CharField(_("Skype Nickname"), max_length=64, blank=True)
+    games = models.ManyToManyField(Game, verbose_name=_('Games you play ?'))

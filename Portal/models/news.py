@@ -31,6 +31,7 @@ class NewsFeed(models.Model):
     url = models.URLField()
 
 class News(models.Model):
+    #TODO Faire en version API -> AngularJs et Mobile
     portal = models.ForeignKey(Portal, verbose_name=_('Which portal to publish on ?'), default=1)
     creator = models.ForeignKey(User)
     category = models.ForeignKey(Category, help_text=_('News category'), verbose_name=_('Select categories'))
@@ -48,3 +49,9 @@ class News(models.Model):
 
     def __str__(self):
         return u"%s [%s] | %s" % (self.title, self.portal.name, self.content[0:50])
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('Portal.views.news_detail', kwargs={'portal_name': str(self.portal.name),
+                                                           'category': self.category.name,
+                                                           'news_name': self.title})
