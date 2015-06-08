@@ -15,17 +15,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Absence',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('status', models.BooleanField(default=False, help_text=b'', verbose_name='On holiday')),
-                ('from_date', models.DateField(help_text=b'Please use the following format: DD-MM-YYYY', verbose_name='From')),
-                ('to_date', models.DateField(help_text=b'Please use the following format: DD-MM-YYYY', verbose_name='to')),
-                ('reason', models.TextField(help_text=b'You can explain why you are absent', verbose_name='Reason')),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('status', models.BooleanField(verbose_name='On holiday', default=False)),
+                ('from_date', models.DateField(verbose_name='From', help_text='Please use the following format: DD-MM-YYYY')),
+                ('to_date', models.DateField(verbose_name='to', help_text='Please use the following format: DD-MM-YYYY')),
+                ('reason', models.TextField(verbose_name='Reason', help_text='You can explain why you are absent')),
             ],
         ),
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('name', models.CharField(max_length=100)),
             ],
             options={
@@ -36,22 +36,22 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Character',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('main_character', models.BooleanField(default=False, help_text=b'You can specify if this character is your main', verbose_name='Main character')),
-                ('level', models.SmallIntegerField(default=0, help_text=b'Specify your character level', verbose_name='Character level', blank=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('main_character', models.BooleanField(verbose_name='Main character', default=False, help_text='You can specify if this character is your main')),
+                ('level', models.SmallIntegerField(verbose_name='Character level', blank=True, default=0, help_text='Specify your character level')),
             ],
         ),
         migrations.CreateModel(
             name='CharacterAttribute',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('attribute_name', models.CharField(max_length=64)),
             ],
         ),
         migrations.CreateModel(
             name='Class',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('name', models.CharField(max_length=64)),
             ],
             options={
@@ -62,14 +62,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FieldValue',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('field_value', models.CharField(max_length=64)),
             ],
         ),
         migrations.CreateModel(
             name='Game',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('name', models.CharField(max_length=128)),
             ],
             options={
@@ -80,12 +80,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='News',
             fields=[
-                ('published', models.BooleanField(default=False, verbose_name='Published')),
-                ('published_date', models.DateTimeField(auto_now_add=True, verbose_name='Published date')),
-                ('modification_date', models.DateTimeField(null=True, verbose_name='Modification date', blank=True)),
-                ('title', models.CharField(max_length=100, serialize=False, verbose_name='Title', primary_key=True)),
+                ('published', models.BooleanField(verbose_name='Published', default=False)),
+                ('published_date', models.DateTimeField(verbose_name='Published date', auto_now_add=True)),
+                ('modification_date', models.DateTimeField(verbose_name='Modification date', blank=True, null=True)),
+                ('title', models.CharField(verbose_name='Title', max_length=100, primary_key=True, serialize=False)),
                 ('content', models.TextField(verbose_name='Body')),
-                ('news_image', models.ImageField(upload_to=b'news/', verbose_name='News image')),
+                ('news_image', models.ImageField(verbose_name='News image', upload_to='news/')),
             ],
             options={
                 'verbose_name': 'News',
@@ -95,25 +95,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='NewsFeed',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('url', models.URLField()),
             ],
         ),
         migrations.CreateModel(
             name='Portal',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('active', models.BooleanField(default=True, verbose_name='Active ?')),
-                ('name', models.CharField(max_length=100, verbose_name='Portal name')),
-                ('guild_name', models.CharField(help_text=b'Can be blank. If blank, we will take guild name from SuperPortal', max_length=100, verbose_name='Portal guild name')),
-                ('image', models.ImageField(upload_to=b'portal/logo/', verbose_name='Image')),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('active', models.BooleanField(verbose_name='Active ?', default=True)),
+                ('name', models.CharField(verbose_name='Portal name', max_length=100)),
+                ('guild_name', models.CharField(verbose_name='Portal guild name', help_text='Can be blank. If blank, we will take guild name from SuperPortal', max_length=100)),
+                ('image', models.ImageField(verbose_name='Image', upload_to='portal/logo/')),
             ],
         ),
         migrations.CreateModel(
             name='Tag',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=64, verbose_name='Tag')),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('name', models.CharField(verbose_name='Tag', max_length=64)),
             ],
             options={
                 'verbose_name': 'Tag',
@@ -123,16 +123,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Userprofile',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
                 ('birthday_date', models.DateField(verbose_name='Birthday date')),
                 ('job_study', models.TextField(verbose_name='Job/Study')),
-                ('status', models.CharField(max_length=64, verbose_name='Member status', choices=[('Active', 'Active'), ('Inactive', 'Inactive'), ('Absent', 'Absent')])),
-                ('country', models.CharField(max_length=50, verbose_name='Country')),
-                ('town', models.CharField(max_length=256, verbose_name='Town')),
-                ('teamspeak_nickname', models.CharField(max_length=64, verbose_name='TeamSpeak Nickname', blank=True)),
-                ('mumble_nickname', models.CharField(max_length=64, verbose_name='Mumble Nickname', blank=True)),
-                ('skype_nickname', models.CharField(max_length=64, verbose_name='Skype Nickname', blank=True)),
-                ('games', models.ManyToManyField(to='Portal.Game', verbose_name='Games you play ?')),
+                ('status', models.CharField(verbose_name='Member status', max_length=64, choices=[('Active', 'Active'), ('Inactive', 'Inactive'), ('Absent', 'Absent')])),
+                ('country', models.CharField(verbose_name='Country', max_length=50)),
+                ('town', models.CharField(verbose_name='Town', max_length=256)),
+                ('teamspeak_nickname', models.CharField(verbose_name='TeamSpeak Nickname', blank=True, max_length=64)),
+                ('mumble_nickname', models.CharField(verbose_name='Mumble Nickname', blank=True, max_length=64)),
+                ('skype_nickname', models.CharField(verbose_name='Skype Nickname', blank=True, max_length=64)),
+                ('games', models.ManyToManyField(verbose_name='Games you play ?', to='Portal.Game')),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
         ),

@@ -8,21 +8,23 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('auth', '0006_require_contenttypes_0002'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('auth', '0006_require_contenttypes_0002'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='GuildSettings',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('guild_name', models.CharField(max_length=120, verbose_name='Guild name')),
-                ('guild_motto', models.CharField(max_length=256, verbose_name='Guild motto')),
-                ('short_guild_description', models.CharField(default=b'', max_length=120, verbose_name='Short description about your guild')),
-                ('guild_description', models.TextField(default=b'', verbose_name='Description about your guild')),
-                ('tag', models.CharField(default=b'', max_length=10, verbose_name='Tag')),
-                ('group_can_vote', models.ForeignKey(default=1, to='auth.Group')),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('guild_name', models.CharField(verbose_name='Guild name', max_length=120)),
+                ('guild_motto', models.CharField(verbose_name='Guild motto', max_length=256)),
+                ('short_guild_description', models.CharField(verbose_name='Short description about your guild', default='', max_length=120)),
+                ('guild_description', models.TextField(verbose_name='Description about your guild', default='')),
+                ('tag', models.CharField(verbose_name='Tag', default='', max_length=10)),
+                ('group_can_vote', models.ManyToManyField(blank=True, related_name='group_can_vote', to='auth.Group')),
+                ('group_can_write_news', models.ManyToManyField(blank=True, related_name='group_can_write_news', to='auth.Group')),
+                ('group_can_write_wiki', models.ManyToManyField(blank=True, related_name='group_can_write_wiki', to='auth.Group')),
                 ('guild_chief', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -33,7 +35,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SuperPortal',
             fields=[
-                ('id', models.CharField(default=b'2cf11621-7496-492a-bb0b-b9a5c1e776cd', max_length=36, serialize=False, editable=False, primary_key=True)),
+                ('id_uuid', models.CharField(max_length=36, default='c63cbbe9-d0b5-4c67-ae76-98b842445faa', editable=False, primary_key=True, serialize=False)),
             ],
         ),
     ]

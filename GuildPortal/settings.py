@@ -107,8 +107,6 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.getcwd(), 'media/')
 
-print(MEDIA_ROOT)
-
 # STATICFILES_DIRS = (
 #     MEDIA_ROOT,
 # )
