@@ -48,10 +48,11 @@
             <li><a>toto</a></li>
             <li><a>toto</a></li>
             <li><a>toto</a></li>
-            <li><a>toto</a></li>
-            <li><a>toto</a></li>
-            <li><a>toto</a></li>
-            <li><a>toto</a></li>
+            {% for portal in list_portal %}
+                <li class="superportal-portal-detail">
+                    <a href="{{ portal.get_absolute_url }}">{{ portal.name }} </a>
+                </li>
+            {% endfor %}
         </ul>
     </div>
 </div>
