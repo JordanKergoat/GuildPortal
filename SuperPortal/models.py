@@ -19,6 +19,11 @@ class GuildSettings(models.Model):
         return u"[%s][%s] %s - %s" % (self.tag, self.guild_name, self.guild_motto, self.guild_chief.username)
 
 
+class ItemMenuSuperPortal(models.Model):
+    superportal = models.ForeignKey('SuperPortal')
+    name = models.CharField(max_length=25)
+
+
 class SuperPortal(models.Model):
     id = models.CharField(max_length=36, primary_key=True,
                           default=str(uuid4()), editable=False)
