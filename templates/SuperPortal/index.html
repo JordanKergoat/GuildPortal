@@ -25,4 +25,16 @@
             </li>
         </ul>
     </div>
+        <div id="superportal-portal" class="col-xs-10">
+
+        <h2>Portail :</h2>
+        <ul id="superportal-portal-list">
+            {% for portal in list_portal %}
+                <li class="superportal-portal-detail">
+                <a href="{{ portal.get_absolute_url }}">{{ portal.name }} </a>
+                </li>
+            {% endfor %}
+
+        </ul>
+    </div>
 {% endblock %}

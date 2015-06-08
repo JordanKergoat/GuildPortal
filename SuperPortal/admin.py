@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.http import HttpResponseRedirect
 
-from .models import GuildSettings
+from .models import GuildSettings, SuperPortal
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -20,4 +20,5 @@ class GuildSettingsAdmin(admin.ModelAdmin):
             return False
         return True
 
+admin.site.register(SuperPortal)
 admin.site.register(GuildSettings, GuildSettingsAdmin)

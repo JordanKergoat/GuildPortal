@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext as _
+from uuid import uuid4
 
 class GuildSettings(models.Model):
     guild_name = models.CharField(_('Guild name'), max_length=120)
@@ -19,4 +20,5 @@ class GuildSettings(models.Model):
 
 
 class SuperPortal(models.Model):
-    pass
+    id = models.CharField(max_length=36, primary_key=True,
+                          default=str(uuid4()), editable=False)
