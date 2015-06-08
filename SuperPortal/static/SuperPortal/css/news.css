@@ -1,0 +1,25 @@
+
+.news {
+    height: 200px;
+    border: 1px solid black;
+    margin-top: 15px;
+}
+
+.news.col-xs-12 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.news img {
+    height: 100%;
+}
+
+.news:nth-child(odd) img {
+    float: left;
+    margin-right: 10px;
+}
+
+.news:nth-child(even) img {
+    float: right;
+    margin-left: 10px;
+}

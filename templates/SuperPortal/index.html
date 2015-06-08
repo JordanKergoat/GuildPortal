@@ -1,5 +1,14 @@
 {% extends 'SuperPortal/base.html' %}
+{% load staticfiles %}
 {% load i18n %}
+
+{% block css %}
+
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'SuperPortal/css/news.css' %}">
+
+{% endblock %}
+
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
     <div id="superportal-slider" class="col-xs-12">
@@ -11,19 +20,7 @@
         <h2>Actualités :</h2>
         {% for portal in list_portal %}
             {% for news in portal.news_set.all %}
-                <div class="news col-xs-12">
-                <h3>{{ news.title }}</h3>
-                    Nombre de commentaire : {{news.commentnews_set.all|length}}
-                <div class="col-xs-2">
-{#                    <img src="{{ news.news_image.url }}">#}
-                </div>
-
-                    <p>{{ news.content|slice:":150"|add:'...' }}</p>
-                    <em>{{ news.category.name }}</em> {% trans 'in' %} <em>{{ news.portal.name }}</em>
-                    <a href="{{ news.get_absolute_url }}">{% trans "See more" %}</a>
-                </div>
-
-
+                {% include 'SuperPortal/news_template.html' %}
             {% endfor %}
         {% endfor %}
     </div>
@@ -37,16 +34,16 @@
             </li>
         </ul>
     </div>
-{#    <div id="superportal-portal" class="col-xs-10">#}
-{##}
-{#        <h2>Portail :</h2>#}
-{#        <ul id="superportal-portal-list">#}
-{#            {% for portal in list_portal %}#}
-{#                <li class="superportal-portal-detail">#}
-{#                    <a href="{{ portal.get_absolute_url }}">{{ portal.name }} </a>#}
-{#                </li>#}
-{#            {% endfor %}#}
-{##}
-{#        </ul>#}
-{#    </div>#}
+    {#    <div id="superportal-portal" class="col-xs-10">#}
+    {##}
+    {#        <h2>Portail :</h2>#}
+    {#        <ul id="superportal-portal-list">#}
+    {#            {% for portal in list_portal %}#}
+    {#                <li class="superportal-portal-detail">#}
+    {#                    <a href="{{ portal.get_absolute_url }}">{{ portal.name }} </a>#}
+    {#                </li>#}
+    {#            {% endfor %}#}
+    {##}
+    {#        </ul>#}
+    {#    </div>#}
 {% endblock %}

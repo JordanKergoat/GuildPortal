@@ -8,9 +8,24 @@ div#top-header div {
     display: inline-block;
 }
 
+div#logo {
+    background-color: black;
+}
+
 div#logo, div#banner {
     height: 150px;
     overflow: hidden;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+div#connection-module {
+    position: absolute;
+    z-index: 100;
+    background-color: transparent;
+    top: 105px;
+    left: 0;
+    height: 45px;
 }
 
 div#navigation-menu ul
@@ -21,7 +36,9 @@ div#navigation-menu ul
     text-align: center;
 }
 
-div#navigation-menu ul li { display: inline; }
+div#navigation-menu ul li {
+    display: inline;
+}
 
 div#navigation-menu ul li a
 {
