@@ -14,6 +14,8 @@ class Tag(models.Model):
         verbose_name = _('Tag')
         verbose_name_plural = _('Tags')
 
+    def __unicode__(self):
+        return u"%s" % self.name
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -22,11 +24,14 @@ class Category(models.Model):
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
 
+    def __unicode__(self):
+        return u"%s" % self.name
+
 class NewsFeed(models.Model):
     url = models.URLField()
 
 class News(models.Model):
-    portal = models.ForeignKey(Portal, verbose_name=_('Publish on which portal ?'))
+    portal = models.ForeignKey(Portal, verbose_name=_('Publish on which portal ?'), default=1)
     creator = models.ForeignKey(User)
     category = models.ForeignKey(Category, help_text=_('News category'), verbose_name=_('Select categories'))
     tags = models.ManyToManyField(_('Tag'), Tag, help_text=_('Tags list'))
@@ -40,3 +45,6 @@ class News(models.Model):
     class Meta:
         verbose_name = _('News')
         verbose_name_plural = _('News')
+
+    def __unicode__(self):
+        return u"%s [%s] | %s" % (self.title, self.portal.name, self.content[0:50])
