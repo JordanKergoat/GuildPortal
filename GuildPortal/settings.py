@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'usersettings',
+    'debug_toolbar',
     'SuperPortal',
     'Portal',
     'PortalEnrollment',
@@ -45,6 +46,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -101,7 +103,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = 'media/'
+
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.getcwd(), 'media/')
 
 print(MEDIA_ROOT)
