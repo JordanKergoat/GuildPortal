@@ -18,4 +18,7 @@ class Portal(models.Model):
         from django.core.urlresolvers import reverse
         return reverse('Portal.views.index', args=[str(self.name)])
 
+    def __unicode__(self):
+        return u"%s - %s" % (self.guild_name, self.name)
+
 

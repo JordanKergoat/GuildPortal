@@ -8,30 +8,30 @@
     <div id="superportal-news_feed" class="col-xs-10">
 
         <h2>Actualités :</h2>
-        <div class="news col-xs-12">Aya</div>
-        <div class="news col-xs-12">Aya</div>
-        <div class="news col-xs-12">Aya</div>
-        <div class="news col-xs-12">Aya</div>
-        <div class="news col-xs-12">Aya</div>
-        <div class="news col-xs-12">Aya</div>
+        {% for portal in list_portal %}
+            {% for news in portal.news_set.all %}
+                <div class="news col-xs-12">{{ news.title }}</div>
+
+            {% endfor %}
+        {% endfor %}
     </div>
     <div id="superportal-modules" class="col-xs-2">
         <ul id="superportal-module-list">
             <li class="superportal-module">
-                    TS
+                TS
             </li>
             <li class="superportal-module">
-                    Twitch
+                Twitch
             </li>
         </ul>
     </div>
-        <div id="superportal-portal" class="col-xs-10">
+    <div id="superportal-portal" class="col-xs-10">
 
         <h2>Portail :</h2>
         <ul id="superportal-portal-list">
             {% for portal in list_portal %}
                 <li class="superportal-portal-detail">
-                <a href="{{ portal.get_absolute_url }}">{{ portal.name }} </a>
+                    <a href="{{ portal.get_absolute_url }}">{{ portal.name }} </a>
                 </li>
             {% endfor %}
 
