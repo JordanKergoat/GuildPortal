@@ -106,6 +106,10 @@ MEDIA_ROOT = os.path.join(os.getcwd(), 'media/')
 
 print(MEDIA_ROOT)
 
+# STATICFILES_DIRS = (
+#     MEDIA_ROOT,
+# )
+
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
 )
