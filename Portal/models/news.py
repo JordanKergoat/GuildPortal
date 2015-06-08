@@ -31,7 +31,7 @@ class NewsFeed(models.Model):
     url = models.URLField()
 
 class News(models.Model):
-    portal = models.ForeignKey(Portal, verbose_name=_('Publish on which portal ?'), default=1)
+    portal = models.ForeignKey(Portal, verbose_name=_('Which portal to publish on ?'), default=1)
     creator = models.ForeignKey(User)
     category = models.ForeignKey(Category, help_text=_('News category'), verbose_name=_('Select categories'))
     tags = models.ManyToManyField(_('Tag'), Tag, help_text=_('Tags list'))
