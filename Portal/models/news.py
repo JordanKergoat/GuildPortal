@@ -14,7 +14,7 @@ class Tag(models.Model):
         verbose_name = _('Tag')
         verbose_name_plural = _('Tags')
 
-    def __unicode__(self):
+    def __str__(self):
         return u"%s" % self.name
 
 class Category(models.Model):
@@ -24,7 +24,7 @@ class Category(models.Model):
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
 
-    def __unicode__(self):
+    def __str__(self):
         return u"%s" % self.name
 
 class NewsFeed(models.Model):
@@ -46,5 +46,5 @@ class News(models.Model):
         verbose_name = _('News')
         verbose_name_plural = _('News')
 
-    def __unicode__(self):
+    def __str__(self):
         return u"%s [%s] | %s" % (self.title, self.portal.name, self.content[0:50])

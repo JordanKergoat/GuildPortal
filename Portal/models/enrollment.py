@@ -13,7 +13,7 @@ class Game(models.Model):
         verbose_name = _('Game')
         verbose_name_plural = _('Games')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 class Class(models.Model):
@@ -24,7 +24,7 @@ class Class(models.Model):
         verbose_name = _('Class')
         verbose_name_plural = _('Class')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -32,7 +32,7 @@ class FieldValue(models.Model):
 
     field_value = models.CharField(max_length=64)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.field_value
 
 class CharacterAttribute(models.Model):
@@ -41,5 +41,5 @@ class CharacterAttribute(models.Model):
     attribute_value = models.ForeignKey(FieldValue)
     for_game = models.ForeignKey(Game)
 
-    def __unicode__(self):
+    def __str__(self):
         return '[' + self.for_game.name + '] ' + self.attribute_name + ' - ' +  self.attribute_value.field_value

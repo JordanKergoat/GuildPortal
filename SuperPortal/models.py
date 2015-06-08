@@ -15,7 +15,7 @@ class GuildSettings(models.Model):
         verbose_name = _('Guild Settings')
         verbose_name_plural = _('Guild Settings')
 
-    def __unicode__(self):
+    def __str__(self):
         return u"[%s][%s] %s - %s" % (self.tag, self.guild_name, self.guild_motto, self.guild_chief.username)
 
 
