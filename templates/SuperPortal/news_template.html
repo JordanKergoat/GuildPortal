@@ -1,13 +1,16 @@
 {% load i18n %}
 <div class="news col-xs-12">
-
-    <img src="{{ news.news_image.url }}">
+    {% if news.news_image %}
+        <img src="{{ news.news_image.url }}">
+    {% endif %}
     <div>
+        <em>{{ news.category.name }}</em> {% trans 'in' %} <em>{{ news.portal.name }}</em> <i class="fa fa-comments-o">{{news.commentnews_set.all|length}}</i> <br>
         <h3>{{ news.title }}</h3>
 
         <p>{{ news.content|slice:":150"|add:'...' }}</p>
         <em>{{ news.category.name }}</em> {% trans 'in' %} <em>{{ news.portal.name }}</em><br>
-        <a href="{{ news.get_absolute_url }}">{% trans "See more" %}</a><br>
-        Nombre de commentaire : {{news.commentnews_set.all|length}}
+        {% trans 'Comments' %} : {{news.commentnews_set.all|length}}<br>
+
+        <a href="{{ news.get_absolute_url }}">{% trans "Read more" %}</a>
     </div>
 </div>

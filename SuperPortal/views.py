@@ -11,5 +11,5 @@ from Portal.models import Portal
 def index(request):
     context = {}
     context['short_description'] = GuildSettings.objects.all().first().short_guild_description
-    context['list_portal'] = Portal.objects.all()
+    # context['list_portal'] = Portal.objects.all()
     return render(request, "SuperPortal/index.html", context=context)
