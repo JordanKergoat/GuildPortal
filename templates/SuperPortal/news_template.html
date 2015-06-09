@@ -8,6 +8,8 @@
         <h3>{{ news.title }}</h3>
 
         <p>{{ news.content|slice:":150"|add:'...' }}</p>
+        <em>{{ news.category.name }}</em> {% trans 'in' %} <em>{{ news.portal.name }}</em><br>
+        {% trans 'Comments' %} : {{news.commentnews_set.all|length}}<br>
 
         <a href="{{ news.get_absolute_url }}">{% trans "Read more" %}</a>
     </div>

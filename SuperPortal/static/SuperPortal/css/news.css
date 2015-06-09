@@ -13,13 +13,3 @@
 .news img {
     height: 100%;
 }
-
-.news:nth-child(odd) img {
-    float: left;
-    margin-right: 10px;
-}
-
-.news:nth-child(even) img {
-    float: right;
-    margin-left: 10px;
-}
