@@ -13,7 +13,7 @@
 
                 <div class="news col-xs-12">
                 <h3>{{ news.title }}</h3>
-                    Nombre de commentaire : {{news.commentnews_set.all|length}}
+                    Nombre de commentaire : {{news.commentnews_set.all|length}} Vue par {{ news.view }}
                 <div class="col-xs-2">
 {#                    <img src="{{ news.news_image.url }}">#}
                 </div>

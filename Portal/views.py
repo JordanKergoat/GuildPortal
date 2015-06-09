@@ -31,4 +31,6 @@ def index(request, portal_name):
 def news_detail(request, portal_name, category, news_name):
     portal = Portal.objects.get(name=portal_name)
     news = News.objects.get(category__name=category, title=news_name)
+    news.view += 1
+    news.save()
     return render(request, 'Portal/News/index.html', {'news' : news})

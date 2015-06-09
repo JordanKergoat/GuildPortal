@@ -43,6 +43,7 @@ class News(models.Model):
     modification_date = models.DateTimeField(_('Modification date'), blank=True, null=True)
     title = models.CharField(_('Title'), max_length=100, primary_key=True)
     content = models.TextField(_('Body'))
+    view = models.IntegerField(default=0)
     news_image = models.ImageField(_('News image'), upload_to='news/')
 
     class Meta:
