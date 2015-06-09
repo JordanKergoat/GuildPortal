@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Enrollement',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('introduction', models.TextField()),
                 ('age', models.SmallIntegerField(verbose_name='Your age')),
                 ('character_name', models.CharField(max_length=50)),
@@ -31,24 +31,24 @@ class Migration(migrations.Migration):
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
-                'verbose_name': 'Enrollment',
                 'verbose_name_plural': 'Enrollments',
+                'verbose_name': 'Enrollment',
             },
         ),
         migrations.CreateModel(
             name='EnrollmentSettings',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('open', models.BooleanField(verbose_name='Open Enrollment', default=False)),
                 ('limit', models.SmallIntegerField(verbose_name='Limit')),
-                ('background_image', models.ImageField(verbose_name='Background image', blank=True, upload_to='/enrollment/background/')),
-                ('thumbnail', models.ImageField(verbose_name='Thumbnail image', blank=True, upload_to='/enrollment/thumbnail/')),
+                ('background_image', models.ImageField(upload_to='/enrollment/background/', blank=True, verbose_name='Background image')),
+                ('thumbnail', models.ImageField(upload_to='/enrollment/thumbnail/', blank=True, verbose_name='Thumbnail image')),
                 ('game_choice', models.ForeignKey(to='Portal.Game')),
                 ('roles', models.ManyToManyField(to='Portal.CharacterAttribute')),
             ],
             options={
-                'verbose_name': 'Enrollment settings',
                 'verbose_name_plural': 'Enrollments settings',
+                'verbose_name': 'Enrollment settings',
             },
         ),
     ]

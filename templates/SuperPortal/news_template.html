@@ -7,6 +7,7 @@
 
         <p>{{ news.content|slice:":150"|add:'...' }}</p>
         <em>{{ news.category.name }}</em> {% trans 'in' %} <em>{{ news.portal.name }}</em><br>
-        <a href="{{ news.get_absolute_url }}">{% trans "See more" %}</a> Nombre de commentaire : {{news.commentnews_set.all|length}}
+        <a href="{{ news.get_absolute_url }}">{% trans "See more" %}</a><br>
+        Nombre de commentaire : {{news.commentnews_set.all|length}}
     </div>
 </div>

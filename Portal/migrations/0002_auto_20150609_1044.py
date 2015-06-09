@@ -9,8 +9,8 @@ from django.conf import settings
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Portal', '0001_initial'),
         ('SuperPortal', '0001_initial'),
+        ('Portal', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -18,12 +18,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='portal',
             name='portal',
-            field=models.ForeignKey(null=True, blank=True, to='SuperPortal.SuperPortal'),
+            field=models.ForeignKey(to='SuperPortal.SuperPortal', null=True, blank=True),
         ),
         migrations.AddField(
             model_name='news',
             name='category',
-            field=models.ForeignKey(verbose_name='Select categories', help_text='News category', to='Portal.Category'),
+            field=models.ForeignKey(to='Portal.Category', help_text='News category', verbose_name='Select categories'),
         ),
         migrations.AddField(
             model_name='news',
@@ -33,12 +33,27 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='news',
             name='portal',
-            field=models.ForeignKey(verbose_name='Which portal to publish on ?', default=1, to='Portal.Portal'),
+            field=models.ForeignKey(to='Portal.Portal', default=1, verbose_name='Which portal to publish on ?'),
         ),
         migrations.AddField(
             model_name='news',
             name='tags',
-            field=models.ManyToManyField(help_text='Tags list', db_constraint=Portal.models.news.Tag, to='Portal.Tag'),
+            field=models.ManyToManyField(help_text='Tags list', to='Portal.Tag', db_constraint=Portal.models.news.Tag),
+        ),
+        migrations.AddField(
+            model_name='commentnews',
+            name='news',
+            field=models.ForeignKey(to='Portal.News'),
+        ),
+        migrations.AddField(
+            model_name='commentnews',
+            name='response',
+            field=models.ForeignKey(to='Portal.CommentNews', default=1, null=True, blank=True),
+        ),
+        migrations.AddField(
+            model_name='commentnews',
+            name='user',
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
             model_name='class',
@@ -58,7 +73,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='character',
             name='game',
-            field=models.ForeignKey(default='', to='Portal.Game'),
+            field=models.ForeignKey(to='Portal.Game', default=''),
         ),
         migrations.AddField(
             model_name='character',
