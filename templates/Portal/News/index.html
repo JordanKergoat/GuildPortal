@@ -10,19 +10,28 @@
 
         <h2>Actualités :</h2>
 
-            {% for new in news %}
+
                 <div class="news col-xs-12">
-                <h3>{{ new.title }}</h3>
-                    Nombre de commentaire : {{new.commentnews_set.all|length}}
+                <h3>{{ news.title }}</h3>
+                    Nombre de commentaire : {{news.commentnews_set.all|length}}
                 <div class="col-xs-2">
 {#                    <img src="{{ news.news_image.url }}">#}
                 </div>
 
-                    <p>{{ new.content }}</p>
-                    <em>{{ new.category.name }}</em> {% trans 'in' %} <em>{{ new.portal.name }}</em>
-                    <a href="{{ new.get_absolute_url }}">{% trans "See more" %}</a>
+                    <p>{{ news.content|linebreaks }}</p>
+                    <em>{{ news.category.name }}</em> {% trans 'in' %} <em>{{ news.portal.name }}</em>
                 </div>
-            {% endfor %}
+                <div class="comments">
+                {% for comment in news.commentnews_set.all %}
+                    <div class="comment">
+                        <div class="comment-user">
+                            {{ comment.user.username }} - {{ comment.published_date }}
+                        </div>
+                        {{ comment.content|linebreaks }}
+                    </div>
+                    {% endfor %}
+                </div>
+
 
     </div>
     <div id="superportal-modules" class="col-xs-2">
