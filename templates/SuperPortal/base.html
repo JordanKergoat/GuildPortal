@@ -33,6 +33,22 @@
 <body>
 <div id="page-header" class="container-fluid row">
     <div id="top-header">
+        <div id="navigation-menu" class="col-xs-12">
+        <ul>
+        {% if guild.forum_active %}
+            <li><a href="{% url 'forum_index' %}">Forum</a></li>
+        {% endif %}
+            <li><a>toto</a></li>
+            <li><a>toto</a></li>
+            <li><a>toto</a></li>
+            <li><a>toto</a></li>
+            {% for portal in list_portal %}
+                <li class="superportal-portal-detail">
+                    <a href="{{ portal.get_absolute_url }}">{{ portal.name }} </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
         <div id="logo" class="col-xs-4">
             <img src="http://semper-umbra.guildi.com/uploads/websites/2316/images/site%20internet.png">
         </div>
@@ -47,20 +63,7 @@
             </form>
         </div>
     </div>
-    <div id="navigation-menu" class="col-xs-12">
-        <ul>
-            <li><a>toto</a></li>
-            <li><a>toto</a></li>
-            <li><a>toto</a></li>
-            <li><a>toto</a></li>
-            <li><a>toto</a></li>
-            {% for portal in list_portal %}
-                <li class="superportal-portal-detail">
-                    <a href="{{ portal.get_absolute_url }}">{{ portal.name }} </a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+
 </div>
 <div id="inner-body" class="container">
 {% block body %}

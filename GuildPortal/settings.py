@@ -122,6 +122,7 @@ TEMPLATES = [
                 # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
                 # list if you haven't customized them:
                 'GuildPortal.ContextProcessor.menu.menu',
+                'GuildPortal.ContextProcessor.menu.guild_info',
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.i18n',

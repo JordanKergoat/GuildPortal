@@ -10,6 +10,7 @@ class GuildSettings(models.Model):
     short_guild_description = models.CharField(_("Short description about your guild"), max_length=120, default="")
     guild_description = models.TextField(_("Description about your guild"), default="")
     tag = models.CharField(_('Tag'), max_length=10, default="")
+    forum_active = models.BooleanField(_('Forum active'), default=True)
     group_can_vote = models.ManyToManyField(Group, blank=True, related_name='group_can_vote')
     group_can_write_news = models.ManyToManyField(Group, blank=True, related_name='group_can_write_news')
     group_can_write_wiki = models.ManyToManyField(Group, blank=True, related_name='group_can_write_wiki')

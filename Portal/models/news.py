@@ -59,6 +59,11 @@ class News(models.Model):
         return reverse('Portal.views.news_detail', kwargs={'portal_name': str(self.portal.name),
                                                            'category': self.category.name,
                                                            'news_name': self.title})
+    def get_date_formated(self):
+        import arrow
+        date = arrow.get(self.published_date)
+        date = date.humanize(locale='fr')
+        return date
 
 class Comment(models.Model):
     user = models.ForeignKey(User)
