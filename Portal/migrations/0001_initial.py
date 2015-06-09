@@ -82,6 +82,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=128)),
+                ('image', models.ImageField(upload_to=b'game/', blank=True)),
+                ('image_thumbnail', models.ImageField(upload_to=b'game/thumbnail/', blank=True)),
             ],
             options={
                 'verbose_name': 'Game',
@@ -96,6 +98,7 @@ class Migration(migrations.Migration):
                 ('modification_date', models.DateTimeField(null=True, verbose_name='Modification date', blank=True)),
                 ('title', models.CharField(max_length=100, serialize=False, verbose_name='Title', primary_key=True)),
                 ('content', models.TextField(verbose_name='Body')),
+                ('view', models.IntegerField(default=0)),
                 ('news_image', models.ImageField(upload_to=b'news/', verbose_name='News image')),
             ],
             options={
