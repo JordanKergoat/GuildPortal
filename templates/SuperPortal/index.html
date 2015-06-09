@@ -17,7 +17,7 @@
 
     <div id="superportal-news_feed" class="col-xs-10">
 
-        <h2>Actualités :</h2>
+        <h2>{% trans "News" %} :</h2>
         {% for portal in list_portal %}
             {% for news in portal.news_set.all %}
                 {% include 'SuperPortal/news_template.html' %}
