@@ -15,7 +15,7 @@
                 <h3>{{ news.title }}</h3>
                     Nombre de commentaire : {{news.commentnews_set.all|length}} Vue par {{ news.view }}
                 <div class="col-xs-2">
-{#                    <img src="{{ news.news_image.url }}">#}
+                    <img src="{{ news.news_image.url }}">
                 </div>
 
                     <p>{{ news.content|linebreaks }}</p>

@@ -49,6 +49,7 @@ class News(models.Model):
     class Meta:
         verbose_name = _('News')
         verbose_name_plural = _('News')
+        ordering = ['modification_date']
 
     def __str__(self):
         return u"%s [%s] | %s" % (self.title, self.portal.name, self.content[0:50])
