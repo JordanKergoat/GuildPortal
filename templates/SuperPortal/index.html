@@ -22,6 +22,8 @@
             {% for news in portal.news_set.all %}
                 {% include 'SuperPortal/news_template.html' %}
             {% endfor %}
+            LAST NEWS
+            {{ portal.get_last_news }}
         {% endfor %}
     </div>
     <div id="superportal-modules" class="col-xs-2">

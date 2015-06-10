@@ -1,16 +1,24 @@
 {% load i18n %}
 <div class="news col-xs-12">
     {% if news.news_image %}
-        <img src="{{ news.news_image.url }}">
+        <div class="col-xs-2">
+            <img src="{{ news.news_image.url }}">
+        </div>
     {% endif %}
-    <div>
-        <em>{{ news.category.name }}</em> {% trans 'in' %} <em>{{ news.portal.name }}</em> <i class="fa fa-comments-o">{{news.commentnews_set.all|length}}</i> <br>
-        <h3>{{ news.title }}</h3>
+    {% if news.news_image %}
+        <div class="col-xs-10">
+    {% else %}
+        <div class="col-xs-12">
+    {% endif %}
 
-        <p>{{ news.content|slice:":150"|add:'...' }}</p>
-        <em>{{ news.category.name }}</em> {% trans 'in' %} <em>{{ news.portal.name }}</em><br>
-        {% trans 'Comments' %} : {{news.commentnews_set.all|length}}<br>
+    <em>{{ news.category.name }}</em> {% trans 'in' %} <em>{{ news.portal.name }}</em> <i class="fa fa-comments-o">{{news.commentnews_set.all|length}}</i> <br>
+    <h3>{{ news.title }}</h3>
 
-        <a href="{{ news.get_absolute_url }}">{% trans "Read more" %}</a>
+    <p>{{ news.content|slice:":150"|add:'...' }}</p>
+    <em>{{ news.category.name }}</em> {% trans 'in' %} <em>{{ news.portal.name }}</em><br>
+
+    {% trans 'Comments' %} : {{news.commentnews_set.all|length}}<br>
+
+    <a href="{{ news.get_absolute_url }}">{% trans "Read more" %}</a>
     </div>
-</div>
+    </div>

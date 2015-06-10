@@ -12,7 +12,7 @@ class Portal(models.Model):
     active = models.BooleanField(_('Active ?'), default=True)
     name = models.CharField(_("Portal name"), max_length=100)
     guild_name = models.CharField(_("Portal guild name"), max_length=100, help_text="Can be blank. If blank, we will take guild name from SuperPortal")
-    image = models.ImageField(_('Image'), upload_to='portal/logo/')
+    image = models.ImageField(_('Icon'), upload_to='portal/logo/')
 
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
@@ -20,3 +20,6 @@ class Portal(models.Model):
 
     def __str__(self):
         return u"%s - %s" % (self.guild_name, self.name)
+
+    def get_last_news(self):
+        return self.news_set.all().order_by('published_date')
