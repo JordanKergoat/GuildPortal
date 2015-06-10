@@ -8,7 +8,8 @@ from .models.enrollment import CharacterAttribute, Game
 
 def index(request, portal_name):
     portal = get_object_or_404(Portal, name=portal_name)
-    return render(request, "SuperPortal/index.html", context={'portal': portal})
+    news_list = News.objects.filter(portal=portal).order_by('-published_date')
+    return render(request, "SuperPortal/index.html", context={'portal': portal, 'news_list': news_list})
     # form = EnrollementForm()
     #
     # choice_field_name = CharacterAttribute.objects.filter(for_game=Game.objects.filter(name="Guild Wars 2"))
