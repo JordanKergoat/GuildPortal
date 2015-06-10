@@ -1,3 +1,7 @@
+body {
+    background-color: #132e4b;
+}
+
 
 div#top-header {
     background-color: #ecf0f1;
@@ -26,6 +30,10 @@ div#connection-module {
     top: 105px;
     left: 0;
     height: 45px;
+}
+
+div#navigation-menu {
+    background-color: black;
 }
 
 div#navigation-menu ul
