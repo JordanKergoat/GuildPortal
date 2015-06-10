@@ -18,10 +18,11 @@
     <div id="superportal-news_feed" class="col-xs-10">
 
         <h2>{% trans "News" %} :</h2>
-        {% for portal in list_portal %}
-            {% for news in portal.news_set.all %}
+
+            {% for news in news_list %}
                 {% include 'SuperPortal/news_template.html' %}
             {% endfor %}
+     {% for portal in list_portal %}
             LAST NEWS
             {{ portal.get_last_news }}
         {% endfor %}
