@@ -6,11 +6,27 @@
     background-color: white;
 }
 
+#superportal-slider {
+    height: 200px;
+    background-color: #fff;;
+}
+
 .news.col-xs-12 {
     padding-left: 0px;
     padding-right: 0px;
 }
 
-.news img {
+.info-news {
+    font-size: 12px;
+}
+
+.news-img-portal {
+    height: 15px;
+    width: 15px;
+}
+
+.news-img {
     height: 100%;
 }
+
+
