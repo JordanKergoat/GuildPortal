@@ -125,7 +125,7 @@
         <div id="navigation-menu" class="col-xs-12">
             <div class="parent2">
                 {% for portal in list_portal %}
-                    <div class="test{{ forloop.counter }} game_portal"><img src="{{ portal.image.url }}" height="40px"></div>
+                    <div class="test{{ forloop.counter }} game_portal"><a href="{{ portal.get_absolute_url }}"><img src="{{ portal.image.url }}" height="40px"></a></div>
                 {% endfor %}
                 <div class="mask2"><i class="fa fa-gamepad fa-3x"></i></div>
             </div>

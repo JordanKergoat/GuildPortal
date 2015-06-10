@@ -1,13 +1,14 @@
 from django.http import HttpResponse
 from .models import Portal, Category, News
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
 from .forms import EnrollementForm
 from .models.enrollment import CharacterAttribute, Game
 # Create your views here.
 
 def index(request, portal_name):
-    return HttpResponse('Portail ' + portal_name)
+    portal = get_object_or_404(Portal, name=portal_name)
+    return render(request, "SuperPortal/index.html", context={'portal': portal})
     # form = EnrollementForm()
     #
     # choice_field_name = CharacterAttribute.objects.filter(for_game=Game.objects.filter(name="Guild Wars 2"))
