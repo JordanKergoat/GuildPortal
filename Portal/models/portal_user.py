@@ -48,3 +48,13 @@ class Userprofile(models.Model):
     twitch_page = models.CharField(_("Twitch page"), max_length=64, blank=True)
     dailymotion_stream_page = models.CharField(_("Dailymotion stream page"), max_length=64, blank=True)
     games = models.ManyToManyField(Game, verbose_name=_('Games you play ?'))
+
+from django.db.models.signals import post_save
+
+def create_profile(sender, **kw):
+    user = kw["instance"]
+    if kw["created"]:
+        up = UserProfile(user=user)
+        up.save()
+
+post_save.connect(create_profile, sender=User)

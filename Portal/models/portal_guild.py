@@ -2,9 +2,9 @@ __author__ = 'Alexandre Cloquet'
 
 
 from django.utils.translation import ugettext as _
-
+from django.db.models import Count
 from django.db import models
-from SuperPortal.models import SuperPortal
+from SuperPortal.models.superportal import SuperPortal
 
 
 class Portal(models.Model):
@@ -22,4 +22,10 @@ class Portal(models.Model):
         return u"%s - %s" % (self.guild_name, self.name)
 
     def get_last_news(self):
-        return self.news_set.all().order_by('published_date')
+        return self.news_set.all().order_by('-published_date')
+
+    def get_most_viewed_news(self):
+        return self.news_set.all().order_by('view')
+
+    def get_most_commented_news(self):
+        return self.news_set.all().annotate(num_comments=Count('commentnews')).order_by('-num_comments')

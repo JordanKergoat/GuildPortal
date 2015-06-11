@@ -10,24 +10,6 @@ def index(request, portal_name):
     portal = get_object_or_404(Portal, name=portal_name)
     news_list = News.objects.filter(portal=portal).order_by('-published_date')
     return render(request, "SuperPortal/index.html", context={'portal': portal, 'news_list': news_list})
-    # form = EnrollementForm()
-    #
-    # choice_field_name = CharacterAttribute.objects.filter(for_game=Game.objects.filter(name="Guild Wars 2"))
-    #
-    # distinct = CharacterAttribute.objects.filter(for_game=Game.objects.filter(name="Guild Wars 2")).distinct('attribute_name')
-    #
-    # choices = {}
-    #
-    # for d in distinct:
-    #     choices[d.attribute_name] = CharacterAttribute.objects.filter(for_game=Game.objects.filter(name="Guild Wars 2"), attribute_name=d.attribute_name)
-    # return render(request, 'index.html', {'form': form, "choice_field_name": choice_field_name, "distinct":choices})
-
-
-# class Index(TemplateView):
-#     template_name = 'index.html'
-#
-#     def get(self, request, *args, **kwargs):
-
 
 
 def news_detail(request, portal_name, category, news_name):

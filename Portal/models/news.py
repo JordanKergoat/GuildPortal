@@ -6,8 +6,8 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from django.db import models
 
-
 from .portal_guild import Portal
+
 
 class Tag(models.Model):
     name = models.CharField(_('Tag'), max_length=64)
