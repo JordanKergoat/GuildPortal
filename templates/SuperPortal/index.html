@@ -23,9 +23,10 @@
             slider = $(".owl-carousel");
             slider.owlCarousel({
                 margin: 0,
-{#                autoplay: true,#}
-{#                autoplayTimeout: 2000,#}
-{#                autoplayHoverPause: true,#}
+                autoplay: true,
+                autoplayTimeout: 2000,
+                autoplayHoverPause: true,
+                center: true,
                 loop: true,
                 item: 3,
             });
@@ -37,6 +38,13 @@
                 slider.trigger('next.owl.carousel');
             });
 
+            $.getJSON("https://api.twitch.tv/kraken/streams/" + "{{ guild.twitch_channel }}" + "?callback=?", function(data) {
+                if (data['stream']) {
+                    $("#twitch.superportal-modules").html('<a rel="external" href="#button" id="stream-on"><i class="fa fa-power-off fa-lg"></i></a> <span></span>')
+                } else {
+                    $("#twitch.superportal-modules").html('<a rel="external" href="#button" id="stream-off"><i class="fa fa-power-off fa-lg"></i></a> <span></span>')
+                }
+            });
         });
 
     </script>
@@ -45,6 +53,7 @@
 
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
+{#    {% url 'profile' %}#}
     <div id="superportal-slider">
         <div id="inner-slider" class="col-xs-8 col-xs-offset-2 content-wrapper">
             <div id="prev-slider" class="control prev"><i class="fa fa-angle-left"></i></div>
@@ -64,7 +73,6 @@
         <div id="inner-slider" class="col-xs-6 col-xs-offset-2 content-wrapper">
 
             <h2>{% trans "News" %} :</h2>
-
             {% for news in news_list %}
                 {% include 'SuperPortal/news_template.html' %}
             {% endfor %}
@@ -73,26 +81,17 @@
                 {{ portal.get_last_news }}
             {% endfor %}
         </div>
-        <div id="superportal-modules" class="col-xs-2">
-            <ul id="superportal-module-list">
-                <li class="superportal-module">
-                    TS
-                </li>
-                <li class="superportal-module">
-                    Twitch
-                </li>
-            </ul>
-        </div>
-        {#    <div id="superportal-portal" class="col-xs-10">#}
-        {##}
-        {#        <h2>Portail :</h2>#}
-        {#        <ul id="superportal-portal-list">#}
-        {#            {% for portal in list_portal %}#}
-        {#                <li class="superportal-portal-detail">#}
-        {#                    <a href="{{ portal.get_absolute_url }}">{{ portal.name }} </a>#}
-        {#                </li>#}
-        {#            {% endfor %}#}
-        {##}
-        {#        </ul>#}
-        {#    </div>#}
+    </div>
+    <div id="superportal-modules" class="col-xs-2">
+        <ul id="superportal-module-list">
+            <li class="superportal-module">
+                TS
+            </li>
+            {#            <li class="twitch superportal-module">#}
+            {##}
+            {#            </li>#}
+        </ul>
+    </div>
+    <div id="twitch" class="twitch superportal-modules col-xs-2">
+    </div>
 {% endblock %}

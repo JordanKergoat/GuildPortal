@@ -33,7 +33,7 @@
             <script type="text/javascript">
                 $(document).ready(function () {
 
-                    $('#navigation-menu').addClass('original').clone().insertAfter('#navigation-menu').addClass('cloned').css('position','fixed').css('top','0').css('margin-top','0').css('z-index','500').removeClass('original').hide();
+                    $('#navigation-menu').addClass('original').clone().insertAfter('#navigation-menu').addClass('sticky-cloned').css('position','fixed').css('top','0').css('margin-top','0').css('z-index','500').removeClass('original').hide();
 
                     scrollIntervalID = setInterval(stickIt, 10);
 

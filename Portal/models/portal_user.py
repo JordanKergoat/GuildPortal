@@ -34,10 +34,16 @@ STATUS_USER = (
     (_("Absent"), _("Absent")),
 )
 
+GENDER_CHOICE = (
+    (_('Man'), _('Man')),
+    (_('Woman'), _('Woman'))
+)
+
 
 class Userprofile(models.Model):
     user = models.OneToOneField(User)
     birthday_date = models.DateField(_('Birthday date'))
+    gender = models.CharField(_('Gender'), choices=GENDER_CHOICE, max_length=50, default=_('Man'))
     job_study = models.TextField(_("Job/Study"))
     status = models.CharField(_('Member status'), choices=STATUS_USER, max_length=64)
     country = models.CharField(_('Country'), max_length=50)
@@ -48,13 +54,15 @@ class Userprofile(models.Model):
     twitch_page = models.CharField(_("Twitch page"), max_length=64, blank=True)
     dailymotion_stream_page = models.CharField(_("Dailymotion stream page"), max_length=64, blank=True)
     games = models.ManyToManyField(Game, verbose_name=_('Games you play ?'))
+    about_you = models.TextField(_('About you'), default="")
+    image_profile = models.ImageField(_('Image profile'), upload_to='profile/', blank=True, null=True)
 
 from django.db.models.signals import post_save
 
 def create_profile(sender, **kw):
     user = kw["instance"]
     if kw["created"]:
-        up = UserProfile(user=user)
+        up = Userprofile(user=user)
         up.save()
 
 post_save.connect(create_profile, sender=User)

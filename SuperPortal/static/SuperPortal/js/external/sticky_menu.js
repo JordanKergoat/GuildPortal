@@ -15,11 +15,11 @@ function stickIt() {
         coordsOrgElement = orgElement.offset();
         leftOrgElement = coordsOrgElement.left;
         widthOrgElement = orgElement.css('width');
-        $('.cloned').css('left',leftOrgElement+'px').css('top',0).css('width',widthOrgElement).show();
+        $('.sticky-cloned').css('left',leftOrgElement+'px').css('top',0).css('width',widthOrgElement).show();
         $('.original').css('visibility','hidden');
     } else {
         // not scrolled past the menu; only show the original menu.
-        $('.cloned').hide();
+        $('.sticky-cloned').hide();
         $('.original').css('visibility','visible');
     }
 }
