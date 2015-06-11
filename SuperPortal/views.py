@@ -21,4 +21,6 @@ class Profile(TemplateView):
     template_name = 'SuperPortal/profile/index.html'
 
     def get(self, request, *args, **kwargs):
-        print(kwargs)
+        print(self.request.user.userprofile)
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
