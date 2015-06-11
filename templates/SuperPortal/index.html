@@ -2,6 +2,21 @@
 {% load staticfiles %}
 {% load i18n %}
 
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript">
+    $( document ).ready(function() {
+        $.getJSON("https://api.twitch.tv/kraken/streams/" + "{{ guild.twitch_channel }}" + "?callback=?", function(data) {
+            if (data['stream']) {
+                $("#twitch.superportal-modules").html('<a rel="external" href="#button" id="stream-on"><i class="fa fa-power-off fa-lg"></i></a> <span></span>')
+            } else {
+                $("#twitch.superportal-modules").html('<a rel="external" href="#button" id="stream-off"><i class="fa fa-power-off fa-lg"></i></a> <span></span>')
+            }
+        })
+    });
+    </script>
+{% endblock %}
+
 {% block css %}
 
     {{ block.super }}
@@ -19,10 +34,10 @@
 
         <h2>{% trans "News" %} :</h2>
 
-            {% for news in news_list %}
-                {% include 'SuperPortal/news_template.html' %}
-            {% endfor %}
-     {% for portal in list_portal %}
+        {% for news in news_list %}
+            {% include 'SuperPortal/news_template.html' %}
+        {% endfor %}
+        {% for portal in list_portal %}
             LAST NEWS
             {{ portal.get_last_news }}
         {% endfor %}
@@ -32,10 +47,12 @@
             <li class="superportal-module">
                 TS
             </li>
-            <li class="superportal-module">
-                Twitch
-            </li>
+{#            <li class="twitch superportal-module">#}
+{##}
+{#            </li>#}
         </ul>
+    </div>
+    <div id="twitch" class="twitch superportal-modules col-xs-2">
     </div>
     {#    <div id="superportal-portal" class="col-xs-10">#}
     {##}
