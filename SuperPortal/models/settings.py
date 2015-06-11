@@ -21,13 +21,14 @@ class GuildSettings(models.Model):
     tag = models.CharField(_('Tag'), max_length=10, default="")
     forum_active = models.BooleanField(_('Forum active'), default=True)
     youtube_channel = models.URLField(_('Youtube channel'), default="", blank=True, null=True)
-    twith_channel = models.URLField(_('Twitch channel'), default="", blank=True, null=True)
+    twitch_channel = models.CharField(_('Twitch channel'), default="", blank=True, null=True, max_length=50)
     facebook_page = models.URLField(_('Facebook Page'), default="", blank=True, null=True)
     twitter_page = models.URLField(_('Twitter page'), default="", blank=True, null=True)
     category_slider = models.ForeignKey(Category, blank=True, null=True)
     group_can_vote = models.ManyToManyField(Group, blank=True, related_name='group_can_vote')
     group_can_write_news = models.ManyToManyField(Group, blank=True, related_name='group_can_write_news')
     group_can_write_wiki = models.ManyToManyField(Group, blank=True, related_name='group_can_write_wiki')
+    icon_guild = models.ImageField(upload_to='superportal/setting', blank=True, null=True)
 
     class Meta:
         verbose_name = _('Guild Settings')
