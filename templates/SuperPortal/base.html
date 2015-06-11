@@ -1,9 +1,10 @@
 {% load staticfiles %}
+{% load multiply %}
 
 <head>
     {% block head %}
         {% block title %}{% endblock %}
-        <meta name="description" content="{% block meta_description %}{% endblock %}" />
+        <meta name="description" content="{% block meta_description %}{% endblock %}"/>
         {% block meta %}{% endblock %}
         {% block css %}
             <!-- Latest compiled and minified CSS -->
@@ -15,62 +16,7 @@
             <!-- END FontAwesome -->
             <link rel="stylesheet" href="{% static 'SuperPortal/css/base.css' %}">
             <style type="text/css">
-                .parent2 {
-                    top:15px;
-                    left:15px;
-                    position:fixed;
-                    display:block;
-                    width:70px;
-                    height:70px;
-                    background-color:transparent;
-                    border-radius:50%;
-                    z-index:20;
-                    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-                    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-                    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-                }
-                .game_portal img {
-                    position: absolute;
-                    left: 9px;
-                    top: 9px;
-                 }
 
-                .mask2 i {
-                    position: absolute;
-                    top: 10px;
-                    left: 13px
-                }
-                .test1, .test2, .test3, .test4 {
-                    width:60px;
-                    height:60px;
-                    background-color:#EEF2EB;
-                    border-radius:50%;
-                    border: 1px solid #0D0907;
-                    position:absolute;
-                    color:white;
-                    text-align:center;
-                    line-height:70px;
-                    top: 5px;;
-                    left: 5px;
-                    z-index:19;
-                    transition: all 500ms cubic-bezier(0.680, -0.550, 0.265, 1.550);
-                    position:absolute;
-                }
-                .mask2 {
-                    top:15px;
-                    left:15px;
-                    width: 70px;
-                    height: 70px;
-                    background:#EEF2EB;
-                    border-radius:50%;
-                    position:absolute;
-                    z-index:21;
-                    color:#400E0E;
-                    text-align:center;
-                    line-height:120px;
-                    cursor:pointer;
-                    position:fixed;
-                }
 
             </style>
         {% endblock %}
@@ -82,35 +28,38 @@
             <!-- Latest compiled and minified JavaScript -->
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
             <script type="text/javascript">
-                $(document).ready(function() {
+                $(document).ready(function () {
 
-                    var active1 = false;
-                    var active2 = false;
-                    var active3 = false;
-                    var active4 = false;
+                    var active = [];
+                    var active_home = false;
 
-                    $('.parent2').on('mousedown touchstart', function() {
+                    $('.quick-portal-access').on('mousedown touchstart', function () {
 
-                        if (!active1)
-                            $(this).find('.test1').css({'background-color': '#EEF2EB', 'transform': 'translate(0px,80px)'});
+                        {% for portal in list_portal %}
+                            if (!active[{{ forloop.counter0 }}])
+                                $(this).find('.quick-portal.access-{{ forloop.counter }}').css({
+                                    'background-color': '#EEF2EB',
+                                    'transform': 'translate(0px,{{ forloop.counter|multiply:80 }}px)'
+                                });
+                            else
+                                $(this).find('.quick-portal.access-{{ forloop.counter }}').css({
+                                    'background-color': '#EEF2EB',
+                                    'transform': 'none'
+                                });
+                            active[{{ forloop.counter0 }}] = !active[{{ forloop.counter0 }}];
+                        {% endfor %}
+
+                        if (!active_home)
+                            $(this).find('.quick-portal.quick-home').css({
+                                'background-color': '#EEF2EB',
+                                'transform': 'translate(80px,0px)'
+                            });
                         else
-                            $(this).find('.test1').css({'background-color': '#EEF2EB', 'transform': 'none'});
-                        if (!active2)
-                            $(this).find('.test2').css({'background-color': '#EEF2EB', 'transform': 'translate(0px,155px)'});
-                        else
-                            $(this).find('.test2').css({'background-color': '#EEF2EB', 'transform': 'none'});
-                        if (!active3)
-                            $(this).find('.test3').css({'background-color': '#EEF2EB', 'transform': 'translate(0px,230px)'});
-                        else
-                            $(this).find('.test3').css({'background-color': '#EEF2EB', 'transform': 'none'});
-                        if (!active4)
-                            $(this).find('.test4').css({'background-color': '#EEF2EB', 'transform': 'translate(0px,295px)'});
-                        else
-                            $(this).find('.test4').css({'background-color': '#EEF2EB', 'transform': 'none'});
-                        active1 = !active1;
-                        active2 = !active2;
-                        active3 = !active3;
-                        active4 = !active4;
+                            $(this).find('.quick-portal.quick-home').css({
+                                'background-color': '#EEF2EB',
+                                'transform': 'none'
+                            });
+                        active_home = !active_home;
 
                     });
                 });
@@ -123,33 +72,40 @@
 <body>
 <div id="page-header" class="container-fluid row">
     <div id="top-header">
-            <div id="navigation-menu">
-                <div class="col-xs-8 col-xs-offset-2 content-wrapper">
-                    <div class="parent2">
-                        {% for portal in list_portal %}
-                            <div class="test{{ forloop.counter }} game_portal"><a href="{{ portal.get_absolute_url }}"><img src="{{ portal.image.url }}" height="40px"></a></div>
-                        {% endfor %}
-                        <div class="mask2"><i class="fa fa-gamepad fa-3x"></i></div>
-                    </div>
-                    <ul>
-                        {% if guild.forum_active %}
-                            <li><a href="{% url 'forum_index' %}">Forum</a></li>
-                        {% endif %}
-                        <li><a>0 message</a></li>
-                        <li><a>Recrutement</a></li>
-                        <li><a>toto</a></li>
-                        <li><a>toto</a></li>
-                    </ul>
+        <div id="navigation-menu">
+            <div class="col-xs-8 col-xs-offset-2 content-wrapper">
+                <div class="quick-portal-access">
+                    <div class="quick-portal-main-access"><i class="fa fa-gamepad fa-3x"></i></div>
+                    {% for portal in list_portal %}
+                        <div class="quick-portal access-{{ forloop.counter }}"><a
+                                href="{{ portal.get_absolute_url }}"><img src="{{ portal.image.url }}"
+                                                                          height="40px"></a></div>
+                    {% endfor %}
+                    {% if portal %}
+                    <div class="quick-portal quick-home"><a
+                                href="/"><img src="{{ guild.icon.url }}"
+                                                                          height="40px"></a></div>
+                    {% endif %}
                 </div>
+                <ul>
+                    {% if guild.forum_active %}
+                        <li><a href="{% url 'forum_index' %}">Forum</a></li>
+                    {% endif %}
+                    <li><a>0 message</a></li>
+                    <li><a>Recrutement</a></li>
+                    <li><a>toto</a></li>
+                    <li><a>toto</a></li>
+                </ul>
             </div>
+        </div>
 
-            <div id="banner">
-                <div class="col-xs-8 col-xs-offset-2 content-wrapper">
-                    <img src="{{ super_portal.banner.url }}">
-                </div>
+        <div id="banner">
+            <div class="col-xs-8 col-xs-offset-2 content-wrapper">
+                <img src="{{ super_portal.banner.url }}">
             </div>
         </div>
     </div>
+</div>
 
 </div>
 <div id="inner-body" class="container">

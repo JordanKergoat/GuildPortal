@@ -28,8 +28,6 @@ div#banner img {
     margin-right: auto;
 }
 
-
-
 div#banner {
     height: 200px;
     overflow: hidden;
@@ -51,8 +49,7 @@ div#navigation-menu {
     width: 100%;
 }
 
-div#navigation-menu ul
-{
+div#navigation-menu ul {
     margin: 0;
     padding: 0;
     list-style-type: none;
@@ -66,3 +63,68 @@ div#navigation-menu ul li {
 div#navigation-menu ul li a {
     line-height: 3.7em;
 }
+
+/* Top menu . Quick portal access */
+
+.quick-portal-access {
+    top: 15px;
+    left: 15px;
+    position: fixed;
+    display: block;
+    width: 70px;
+    height: 70px;
+    background-color: transparent;
+    border-radius: 50%;
+    z-index: 20;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.quick-portal-main-access {
+    top: 15px;
+    left: 15px;
+    width: 70px;
+    height: 70px;
+    background: #EEF2EB;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 21;
+    color: #400E0E;
+    text-align: center;
+    line-height: 120px;
+    cursor: pointer;
+    position: fixed;
+}
+
+.quick-portal-main-access i {
+    position: absolute;
+    top: 10px;
+    left: 13px
+}
+
+.quick-portal {
+    width: 60px;
+    height: 60px;
+    background-color: #EEF2EB;
+    border-radius: 50%;
+    border: 1px solid #0D0907;
+    position: absolute;
+    color: white;
+    text-align: center;
+    line-height: 70px;
+    top: 5px;;
+    left: 5px;
+    z-index: 19;
+    transition: all 500ms cubic-bezier(0.680, -0.550, 0.265, 1.550);
+    position: absolute;
+}
+
+.quick-portal img {
+    position: absolute;
+    left: 9px;
+    top: 9px;
+}
+
+
+
