@@ -4,7 +4,7 @@ body {
 }
 
 div.content-wrapper {
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 div#top-header {
@@ -19,6 +19,10 @@ div#top-header div {
 div#banner {
     background-color: #0D0907;
     width: 100%;
+    height: 200px;
+    overflow: hidden;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 div#banner img {
@@ -26,42 +30,53 @@ div#banner img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-}
-
-div#banner {
-    height: 200px;
-    overflow: hidden;
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
-div#connection-module {
-    position: absolute;
-    z-index: 100;
-    background-color: transparent;
-    top: 105px;
-    left: 0;
-    height: 45px;
+    z-index: 80;
 }
 
 div#navigation-menu {
     background-color: #735F58;
     width: 100%;
+    /*position: fixed;*/
+    z-index: 100;
 }
 
-div#navigation-menu ul {
+/*div#navigation-menu:after {*/
+    /*display: block;*/
+    /*height: 50px;*/
+    /*background-color: #0D0907!important;*/
+    /*content: '';*/
+    /*margin-top: 50px;*/
+    /*z-index: 0!important;*/
+/*}*/
+
+div#navigation-menu ul#top-menu {
     margin: 0;
     padding: 0;
     list-style-type: none;
     text-align: center;
+    height: 50px;
 }
 
-div#navigation-menu ul li {
-    display: inline;
+div#navigation-menu ul#top-menu li {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    line-height: 100%;
 }
 
-div#navigation-menu ul li a {
-    line-height: 3.7em;
+div#navigation-menu ul#top-menu li a {
+    display: inline-block;
+    line-height: 50px;
+    font-size: 1.2em;
+    color: #EEF2EB;
+    padding: 0 15px;
+    margin: 0;
+}
+
+div#navigation-menu ul#top-menu li a:hover {
+    color: #400E0E;
+    background-color: #EEF2EB;
+    text-decoration: none;
 }
 
 /* Top menu . Quick portal access */
@@ -75,7 +90,7 @@ div#navigation-menu ul li a {
     height: 70px;
     background-color: transparent;
     border-radius: 50%;
-    z-index: 20;
+    z-index: 500;
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
@@ -89,7 +104,7 @@ div#navigation-menu ul li a {
     background: #EEF2EB;
     border-radius: 50%;
     position: absolute;
-    z-index: 21;
+    z-index: 500;
     color: #400E0E;
     text-align: center;
     line-height: 120px;
@@ -115,7 +130,7 @@ div#navigation-menu ul li a {
     line-height: 70px;
     top: 5px;;
     left: 5px;
-    z-index: 19;
+    z-index: 499;
     transition: all 500ms cubic-bezier(0.680, -0.550, 0.265, 1.550);
     position: absolute;
 }
@@ -124,6 +139,10 @@ div#navigation-menu ul li a {
     position: absolute;
     left: 9px;
     top: 9px;
+}
+
+div#inner-body {
+    margin-top: 30px;
 }
 
 

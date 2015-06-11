@@ -23,12 +23,19 @@
         {% block js %}
             <!-- JQUERY BEGIN -->
             <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-            <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+{#            <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>#}
             <!-- JQUERY END -->
             <!-- Latest compiled and minified JavaScript -->
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+            <script type="text/javascript" src="{% static 'SuperPortal/js/external/sticky_menu.js' %}"></script>
+
             <script type="text/javascript">
                 $(document).ready(function () {
+
+                    $('#navigation-menu').addClass('original').clone().insertAfter('#navigation-menu').addClass('cloned').css('position','fixed').css('top','0').css('margin-top','0').css('z-index','500').removeClass('original').hide();
+
+                    scrollIntervalID = setInterval(stickIt, 10);
 
                     var active = [];
                     var active_home = false;
@@ -72,6 +79,11 @@
 <body>
 <div id="page-header" class="container-fluid row">
     <div id="top-header">
+        <div id="banner">
+            <div class="col-xs-8 col-xs-offset-2 content-wrapper">
+                <img src="{{ super_portal.banner.url }}">
+            </div>
+        </div>
         <div id="navigation-menu">
             <div class="col-xs-8 col-xs-offset-2 content-wrapper">
                 <div class="quick-portal-access">
@@ -82,33 +94,32 @@
                                                                           height="40px"></a></div>
                     {% endfor %}
                     {% if portal %}
-                    <div class="quick-portal quick-home"><a
-                                href="/"><img src="{{ guild.icon.url }}"
-                                                                          height="40px"></a></div>
+                        <div class="quick-portal quick-home"><a
+                                href="/"><img src="{{ guild.icon_guild.url }}"
+                                              height="40px"></a></div>
                     {% endif %}
                 </div>
-                <ul>
+                <ul id="top-menu">
+                    <li><a href="#">{{ guild.guild_name }}</a></li>
                     {% if guild.forum_active %}
                         <li><a href="{% url 'forum_index' %}">Forum</a></li>
                     {% endif %}
-                    <li><a>0 message</a></li>
-                    <li><a>Recrutement</a></li>
-                    <li><a>toto</a></li>
-                    <li><a>toto</a></li>
+                    <li><a href="#">Membres</a></li>
+                    <li><a href="#">Recrutement</a></li>
+                    <li><a href="#">Calendrier</a></li>
+                    <li><a href="#">Profil</a></li>
+                    <li><a href="#">0 message</a></li>
                 </ul>
             </div>
         </div>
 
-        <div id="banner">
-            <div class="col-xs-8 col-xs-offset-2 content-wrapper">
-                <img src="{{ super_portal.banner.url }}">
-            </div>
-        </div>
+
     </div>
 </div>
 
 </div>
-<div id="inner-body" class="container">
+
+<div id="inner-body">
     {% block body %}
 
     {% endblock %}

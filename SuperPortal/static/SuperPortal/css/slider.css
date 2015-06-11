@@ -1,0 +1,46 @@
+
+#superportal-slider {
+    height: 200px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+div#superportal-news_feed, div#superportal-slider {
+    width: 100%;
+}
+
+div#superportal-slider {
+    background-color: #400E0E;
+}
+
+div#inner-slider {
+    /*background-color: #EEF2EB;*/
+    height: 100%;
+}
+
+div.last-news {
+    background-color: #EEF2EB;
+    height: 100%;
+    border: 1px black solid;
+}
+
+div.control {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 80px;
+    color: #EEF2EB;
+    font-size: 40px;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+div.control.prev {
+    left: -55px;
+}
+
+div.control.next {
+    right: -55px;
+}
