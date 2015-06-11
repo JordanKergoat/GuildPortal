@@ -1,29 +1,90 @@
 
 .news {
-    height: 200px;
-    border: 1px solid black;
+    /*height: 200px;*/
     margin-top: 15px;
-    background-color: white;
+    background-color: #9799A6;
+    border:solid 0px #000000;
+    -webkit-border-top-right-radius: 50px;
+    -moz-border-radius-topright: 50px;
+    border-top-right-radius: 50px;    /*-moz-border-radius-topleft: 0px;*/
+    /*-moz-border-radius-topright:75px;*/
+    /*-moz-border-radius-bottomleft:75px;*/
+    /*-moz-border-radius-bottomright:0px;*/
+    /*-webkit-border-top-left-radius:0px;*/
+    /*-webkit-border-top-right-radius:75px;*/
+    /*-webkit-border-bottom-left-radius:75px;*/
+    /*-webkit-border-bottom-right-radius:0px;*/
+    /*border-top-left-radius:0px;*/
+    /*border-top-right-radius:75px;*/
+    /*border-bottom-left-radius:75px;*/
+    /*border-bottom-right-radius:0px;*/
 }
 
-.news.col-xs-12 {
+.news #news-meta {
+    padding-right: 15px!important;
+}
+
+.news .col-xs-12 {
     padding-left: 0px;
     padding-right: 0px;
 }
 
-.info-news {
-    font-size: 12px;
+/*.info-news {*/
+    /*font-size: 12px;*/
+/*}*/
+
+#news-body {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#news-body, #news-img {
+    height: 200px;
+}
+
+#news-description {
+    margin-right: 380px;
+}
+
+#news-img img {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    height: 100%;
+    max-width: 356px;
+}
+
+#news-author {
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+    font-size: 1.2em;
+}
+
+#news-read-more {
+    position: absolute;
+    bottom: 0;
+    right: 386px;
+}
+
+#news-tag {
+    margin-bottom: 15px;
+}
+
+#news-comment {
+    margin-right: 15px;
+}
+
+.news hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-color: #EEF2EB;
 }
 
 .news-img-portal {
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
 }
-
-.news-img {
-    height: 100%;
-}
-
 
 /*STREAM*/
 /*STREAM ON*/
@@ -37,9 +98,9 @@
     text-decoration: none;
     background-color: rgb(83,87,93);
     box-shadow: 0px 0px 0px 0px rgb(34,34,34),
-                0px 3px 7px 0px rgb(17,17,17),
-                inset 0px 1px 1px 0px rgba(250, 250, 250, .2),
-                inset 0px -10px 35px 5px rgba(0, 0, 0, .5);
+    0px 3px 7px 0px rgb(17,17,17),
+    inset 0px 1px 1px 0px rgba(250, 250, 250, .2),
+    inset 0px -10px 35px 5px rgba(0, 0, 0, .5);
     width: 70px;
     height: 70px;
     border: 0;
@@ -53,7 +114,7 @@
     width: 8px;
     height: 8px;
     box-shadow: inset 0px 1px 0px 0px rgba(250,250,250,0.5),
-                0px 0px 3px 2px rgba(135,187,83,0.5);
+    0px 0px 3px 2px rgba(135,187,83,0.5);
     background-color: rgb(135,187,83);
     border-radius: 4px;
     clear: both;
@@ -80,9 +141,9 @@
     text-decoration: none;
     background-color: rgb(83,87,93);
     box-shadow: 0px 3px 0px 0px rgb(34,34,34), /* 1st Shadow */
-                0px 7px 10px 0px rgb(17,17,17), /* 1nd Shadow */
-                inset 0px 1px 1px 0px rgba(250, 250, 250, .2), /* 3rd Shadow */
-                inset 0px -12px 35px 0px rgba(0, 0, 0, .5); /* 4th Shadow */
+    0px 7px 10px 0px rgb(17,17,17), /* 1nd Shadow */
+    inset 0px 1px 1px 0px rgba(250, 250, 250, .2), /* 3rd Shadow */
+    inset 0px -12px 35px 0px rgba(0, 0, 0, .5); /* 4th Shadow */
     width: 70px;
     height: 70px;
     border: 0;
@@ -97,7 +158,7 @@
     height: 8px;
     background-color: rgb(226,0,0);
     box-shadow: inset 0px 1px 0px 0px rgba(250,250,250,0.5),
-                0px 0px 3px 2px rgba(226,0,0,0.5);
+    0px 0px 3px 2px rgba(226,0,0,0.5);
     border-radius: 4px;
     clear: both;
     position: absolute;
