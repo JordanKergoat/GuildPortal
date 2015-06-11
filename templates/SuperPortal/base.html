@@ -31,8 +31,8 @@
                 }
                 .game_portal img {
                     position: absolute;
-                    left: 10px;
-                    top: 10px;
+                    left: 9px;
+                    top: 9px;
                  }
 
                 .mask2 i {
@@ -45,6 +45,7 @@
                     height:60px;
                     background-color:#EEF2EB;
                     border-radius:50%;
+                    border: 1px solid #0D0907;
                     position:absolute;
                     color:white;
                     text-align:center;
@@ -122,43 +123,31 @@
 <body>
 <div id="page-header" class="container-fluid row">
     <div id="top-header">
-        <div id="navigation-menu" class="col-xs-12">
-            <div class="parent2">
-                {% for portal in list_portal %}
-                    <div class="test{{ forloop.counter }} game_portal"><a href="{{ portal.get_absolute_url }}"><img src="{{ portal.image.url }}" height="40px"></a></div>
-                {% endfor %}
-                <div class="mask2"><i class="fa fa-gamepad fa-3x"></i></div>
+            <div id="navigation-menu">
+                <div class="col-xs-8 col-xs-offset-2 content-wrapper">
+                    <div class="parent2">
+                        {% for portal in list_portal %}
+                            <div class="test{{ forloop.counter }} game_portal"><a href="{{ portal.get_absolute_url }}"><img src="{{ portal.image.url }}" height="40px"></a></div>
+                        {% endfor %}
+                        <div class="mask2"><i class="fa fa-gamepad fa-3x"></i></div>
+                    </div>
+                    <ul>
+                        {% if guild.forum_active %}
+                            <li><a href="{% url 'forum_index' %}">Forum</a></li>
+                        {% endif %}
+                        <li><a>0 message</a></li>
+                        <li><a>Recrutement</a></li>
+                        <li><a>toto</a></li>
+                        <li><a>toto</a></li>
+                    </ul>
+                </div>
             </div>
-            <ul>
-                {% if guild.forum_active %}
-                    <li><a href="{% url 'forum_index' %}">Forum</a></li>
-                {% endif %}
-                <li><a>0 message</a></li>
-                <li><a>Recrutement</a></li>
-                <li><a>toto</a></li>
-                <li><a>toto</a></li>
 
-
-
-                {% for portal in list_portal %}
-                    <li class="superportal-portal-detail">
-                        <a href="{{ portal.get_absolute_url }}">{{ portal.name }} </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div id="logo" class="col-xs-4">
-            <img src="http://semper-umbra.guildi.com/uploads/websites/2316/images/site%20internet.png">
-        </div>
-        <div id="banner" class="col-xs-8">
-            <img src="http://img15.hostingpics.net/pics/521887Sanstitre.png">
-        </div>
-        <div id="connection-module" class="col-xs-8 col-xs-offset-4">
-            <form class="col-xs-offset-1">
-                <input value="login">
-                <input value="password">
-                <input type="submit" value="Connexion">
-            </form>
+            <div id="banner">
+                <div class="col-xs-8 col-xs-offset-2 content-wrapper">
+                    <img src="{{ super_portal.banner.url }}">
+                </div>
+            </div>
         </div>
     </div>
 
