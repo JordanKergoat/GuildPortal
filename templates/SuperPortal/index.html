@@ -53,9 +53,9 @@
 
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
-{#    {% url 'profile' %}#}
-    <div id="superportal-slider">
-        <div id="inner-slider" class="col-xs-8 col-xs-offset-2 content-wrapper">
+    {#    {% url 'profile' %}#}
+    <div id="superportal-slider" class="hidden-xs visible-lg">
+        <div id="inner-slider" class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
             <div id="prev-slider" class="control prev"><i class="fa fa-angle-left"></i></div>
             <div class="owl-carousel">
                 <div class="last-news item">1</div>
@@ -70,7 +70,7 @@
     </div>
 
     <div id="superportal-news_feed">
-        <div id="inner-slider" class="col-xs-6 col-xs-offset-2 content-wrapper">
+        <div id="inner-slider" class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
 
             <h2>{% trans "News" %} :</h2>
             {% for news in news_list %}
@@ -82,16 +82,16 @@
             {% endfor %}
         </div>
     </div>
-    <div id="superportal-modules" class="col-xs-2">
-        <ul id="superportal-module-list">
+    <div id="superportal-modules" class="col-xs-12">
+        <ul id="superportal-module-list" class="col-xs-12 col-lg-2 content-wrapper">
             <li class="superportal-module">
-                TS
+                <div id="twitch" class="twitch superportal-modules col-xs-2">
+                </div>
             </li>
             {#            <li class="twitch superportal-module">#}
             {##}
             {#            </li>#}
         </ul>
     </div>
-    <div id="twitch" class="twitch superportal-modules col-xs-2">
-    </div>
+
 {% endblock %}

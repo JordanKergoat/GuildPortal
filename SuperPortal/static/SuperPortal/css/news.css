@@ -46,6 +46,8 @@
     margin-right: 380px;
 }
 
+/* News image should be 19/6 ratio */
+/* Max size expected 356 / 200 */
 #news-img img {
     position: absolute;
     top: 0;
