@@ -13,14 +13,27 @@
         </div>
     </div>
     <div id="news-body" class="col-xs-12">
-        <div id="news-description" class="pull-left">
-            {{ news.content|slice:":600"|add:'...' }}
-            <i id="news-author" class="fa fa-pencil"> {{ news.creator }}</i>
-            <input id="news-read-more" type="button" value="{% trans 'Read more' %}">
+        <div id="news-description" class="pull-left visible-lg">
+            <div id="news-description-content">
+                {{ news.content }}
+            </div>
+            <div id="news-description-footer">
+                <i id="news-author" class="fa fa-pencil"> {{ news.creator }}</i>
+                <input id="news-read-more" type="button" value="{% trans 'Read more' %}" class="pull-right">
+            </div>
         </div>
-        <div id="news-img" class="pull-right">
+        <div id="news-img" class="pull-right visible-lg">
             <img class="news-img" src="{{ news.news_image.url }}">
         </div>
+{#        <div id="news-img" class="col-xs-12 hidden-lg">#}
+{#            <img class="news-img" src="{{ news.news_image.url }}">#}
+{#        </div>#}
+{#        <div id="news-description" class="col-xs-12 hidden-lg">#}
+{#            {{ news.content|slice:":200"|add:'...' }}#}
+{#            <i id="news-author" class="fa fa-pencil"> {{ news.creator }}</i>#}
+{#            <input id="news-read-more" type="button" value="{% trans 'Read more' %}">#}
+{#        </div>#}
+
     </div>
     <div id="news-tag" class="col-xs-12">
         <i class="fa fa-tag">
