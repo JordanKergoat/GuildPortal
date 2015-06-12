@@ -1,6 +1,6 @@
 {% load staticfiles %}
 {% load multiply %}
-
+{% load i18n %}
 <head>
     {% block head %}
         {% block title %}{% endblock %}
@@ -104,10 +104,10 @@
                     {% if guild.forum_active %}
                         <li><a href="{% url 'forum_index' %}">Forum</a></li>
                     {% endif %}
-                    <li><a href="#">Membres</a></li>
+                    <li><a href="{% url 'members' %}">{% trans 'Members' %}</a></li>
                     <li><a href="#">Recrutement</a></li>
-                    <li><a href="#">Calendrier</a></li>
-                    <li><a href="#">Profil</a></li>
+                    <li><a href="#">{% trans 'Calendar' %}</a></li>
+                    <li><a href="{% url 'profile' %}">{% trans 'Profile' %}</a></li>
                     <li><a href="#">0 message</a></li>
                 </ul>
             </div>
