@@ -1,0 +1,12 @@
+{% extends 'SuperPortal/base.html' %}
+{% load i18n %}
+{% block meta_description %}{% endblock %}
+{% block body %}
+
+    <ul>
+        {% for userprofile in userprofile_list %}
+            <li>{{ userprofile.user.username }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
