@@ -2,10 +2,10 @@
 
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import View, TemplateView
+from django.views.generic import View, TemplateView, ListView
 
 from .models import GuildSettings
-from Portal.models import News
+from Portal.models import News, Userprofile
 # Create your views here.
 
 
@@ -24,3 +24,8 @@ class Profile(TemplateView):
         print(self.request.user.userprofile)
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
+
+
+class Members(ListView):
+    model = Userprofile
+    template_name = 'SuperPortal/members.html'
