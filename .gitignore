@@ -60,3 +60,4 @@ media/
 Portal/migrations/
 PortalEnrollment/migrations/
 SuperPortal/migrations/
+PortalMessaging/migration

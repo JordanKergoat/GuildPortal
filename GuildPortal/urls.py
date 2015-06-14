@@ -12,6 +12,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^forum/', include('Forum.urls')),
+    url(r'^message/', include('PortalMessaging.urls')),
     url(r'', include('SuperPortal.urls')),
 )
 
