@@ -1,25 +1,62 @@
 {% load i18n %}
 <div class="news col-xs-12">
-    {% if news.news_image %}
-        <div class="col-xs-2">
+    <div id="news-title" class="col-xs-12">
+        <h3>{{ news.title }}</h3>
+    </div>
+    <hr class="col-xs-12">
+    <div id="news-meta" class="col-xs-12">
+        <div class="pull-left">
+            <img src="{{ news.portal.image.url }}" class="news-img-portal"/> {{ news.portal.name }} / {{ news.category|title }}
+        </div>
+        <div class="pull-right">
+            <i class="fa fa-calendar"> {{ news.published_date|date:"d M Y" }} </i>
+        </div>
+    </div>
+    <div id="news-body" class="col-xs-12">
+        <div id="news-description" class="pull-left visible-lg">
+            <div id="news-description-content">
+                {{ news.content }}
+            </div>
+            <div id="news-description-footer">
+                <i id="news-author" class="fa fa-pencil"> {{ news.creator }}</i>
+                <input id="news-read-more" type="button" value="{% trans 'Read more' %}" class="pull-right">
+            </div>
+        </div>
+        <div id="news-img" class="pull-right visible-lg">
             <img class="news-img" src="{{ news.news_image.url }}">
         </div>
-    {% endif %}
-    {% if news.news_image %}
-        <div class="col-xs-10">
-    {% else %}
-        <div class="col-xs-12">
-    {% endif %}
-
-    <h3>{{ news.title }}</h3>
-    <p>{{ news.content|slice:":200"|add:'...' }}</p>
-    <a href="{{ news.get_absolute_url }}">{% trans "Read more" %}</a>
+{#        <div id="news-img" class="col-xs-12 hidden-lg">#}
+{#            <img class="news-img" src="{{ news.news_image.url }}">#}
+{#        </div>#}
+{#        <div id="news-description" class="col-xs-12 hidden-lg">#}
+{#            {{ news.content|slice:":200"|add:'...' }}#}
+{#            <i id="news-author" class="fa fa-pencil"> {{ news.creator }}</i>#}
+{#            <input id="news-read-more" type="button" value="{% trans 'Read more' %}">#}
+{#        </div>#}
 
     </div>
-    <div class="info-news pull-right">
-        <i class="fa fa-calendar"> {{ news.published_date|date:"d M Y" }}</i>
-        <i class="fa fa-folder-open">{{ news.category.name }}</i> {% trans 'in' %}
-        <img src="{{ news.portal.image.url }}" class="news-img-portal"/> {{ news.portal.name }}
-        <i class="fa fa-comments-o">{{news.commentnews_set.all|length}}</i>
+    <div id="news-tag" class="col-xs-12">
+        <i class="fa fa-tag">
+            {% for tag in news.tags.all %}
+                {% if forloop.counter0 > 0 %}
+                    {{ ", " }}{{ tag }}
+                {% else %}
+                    {{ tag }}
+                {% endif %}
+            {% endfor %}
+        </i>
+        <i id="news-comment" class="fa fa-comment pull-right"> {{news.commentnews_set.all|length}}</i>
     </div>
-    </div>
+
+{#    <h3></h3>#}
+{#    <p>{{ news.content|slice:":200"|add:'...' }}</p>#}
+{#    <a href="{{ news.get_absolute_url }}">{% trans "Read more" %}</a>#}
+
+</div>
+{#    <div class="info-news pull-right">#}
+{#        <i class="fa fa-calendar"> {{ news.published_date|date:"d M Y" }}</i>#}
+{#        <i class="fa fa-folder-open">{{ news.category.name }}</i> {% trans 'in' %}#}
+{#        <img src="{{ news.portal.image.url }}" class="news-img-portal"/> {{ news.portal.name }}#}
+{#        <i class="fa fa-comments-o">{{news.commentnews_set.all|length}}</i>#}
+{#    </div>#}
+{#    </div>#}

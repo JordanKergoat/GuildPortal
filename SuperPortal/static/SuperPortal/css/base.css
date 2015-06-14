@@ -9,7 +9,7 @@ div.content-wrapper {
 
 div#top-header {
     background-color: #ecf0f1;
-    overflow: auto;
+    /*overflow: auto;*/
 }
 
 div#top-header div {
@@ -79,6 +79,16 @@ div#navigation-menu ul#top-menu li a:hover {
     text-decoration: none;
 }
 
+/* Sticky menu */
+
+div#navigation-menu.sticky-cloned {
+    position: fixed;
+    top: 0;
+    margin-top: 0;
+    z-index: 100;
+    opacity: 0.9;
+}
+
 /* Top menu . Quick portal access */
 
 .quick-portal-access {
@@ -94,6 +104,7 @@ div#navigation-menu ul#top-menu li a:hover {
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    opacity: 1!important;
 }
 
 .quick-portal-main-access {

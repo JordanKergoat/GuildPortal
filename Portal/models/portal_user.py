@@ -42,7 +42,7 @@ GENDER_CHOICE = (
 
 class Userprofile(models.Model):
     user = models.OneToOneField(User)
-    birthday_date = models.DateField(_('Birthday date'))
+    birthday_date = models.DateField(_('Birthday date'), blank=True, null=True)
     gender = models.CharField(_('Gender'), choices=GENDER_CHOICE, max_length=50, default=_('Man'))
     job_study = models.TextField(_("Job/Study"))
     status = models.CharField(_('Member status'), choices=STATUS_USER, max_length=64)
@@ -56,6 +56,9 @@ class Userprofile(models.Model):
     games = models.ManyToManyField(Game, verbose_name=_('Games you play ?'))
     about_you = models.TextField(_('About you'), default="")
     image_profile = models.ImageField(_('Image profile'), upload_to='profile/', blank=True, null=True)
+
+    def __str__(self):
+        return "%s" % self.user.username
 
 from django.db.models.signals import post_save
 
