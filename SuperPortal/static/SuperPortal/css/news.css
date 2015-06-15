@@ -1,6 +1,7 @@
 
 .news {
     margin-top: 15px;
+    margin-bottom: 15px;
     background-color: #9799A6;
     border:solid 0px #000000;
     -webkit-border-top-right-radius: 50px;
@@ -31,12 +32,17 @@
     overflow: hidden;
     whitespace: no-wrap;
     padding-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+#news-author {
+    padding-top: 5px;
 }
 
 /* News image should be 19/6 ratio */
 /* Max size expected 356 / 200 */
 
-@media screen and (min-width: 0px) and (max-width: 768px) {
+@media screen and (min-width: 0px) and (max-width: 1199px) {
 
     #news-img img {
         width: 100%;
@@ -75,7 +81,6 @@
 
     #news-description #news-description-content {
         height: 165px;
-        margin-bottom: 10px;
     }
 
     #news-description #news-description-footer {
