@@ -1,0 +1,14 @@
+{% extends 'SuperPortal/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+
+{% block meta_description %}{{ short_description }}{% endblock %}
+{% block body %}
+    <ul>
+    {% for message in message_list %}
+        <li> <a href= "{% url 'message_details' message.id %}"> {{ message }}</a></li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
