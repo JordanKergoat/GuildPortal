@@ -24,7 +24,7 @@ class MessageDetails(TemplateView):
         if self.request.user == message.receiver or self.request.user == message.sender:
             print(self.request.user.userprofile)
             context = self.get_context_data(**kwargs)
-            print kwargs, args, request
+            print(kwargs, args, request)
             context['message'] = message
             return self.render_to_response(context)
         else:
