@@ -71,8 +71,18 @@ class Comment(models.Model):
     content = models.TextField(_('Your comment'), default="")
     response = models.ForeignKey('self', default=1, blank=True, null=True)
 
+    def __str__(self):
+        return self.content[0:25]
+
+    def get_date_formated(self):
+        import arrow
+        date = arrow.get(self.published_date)
+        date = date.humanize(locale='fr')
+        return date
+
     class Meta:
         abstract = True
+
 
 class CommentNews(Comment):
     news = models.ForeignKey(News)

@@ -64,6 +64,11 @@ div#navigation-menu ul#top-menu li {
     line-height: 100%;
 }
 
+/*div#navigation-menu ul#top-menu span.fa {*/
+    /*line-height: 50px;*/
+    /*font-size: 1.2em;*/
+/*}*/
+
 div#navigation-menu ul#top-menu li a {
     display: inline-block;
     line-height: 50px;

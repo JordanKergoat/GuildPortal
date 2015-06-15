@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from .models import Portal, Category, News
+from .models import Portal, Category, News, CommentNews
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
 from .forms import EnrollementForm
@@ -17,4 +17,9 @@ def news_detail(request, portal_name, category, news_name):
     news = News.objects.get(category__name=category, title=news_name)
     news.view += 1
     news.save()
-    return render(request, 'Portal/News/index.html', {'news': news})
+    raw_comments = CommentNews.objects.filter(news=news, response=None).order_by('published_date')
+    comments = {}
+    for comment in raw_comments:
+        comments[comment] = CommentNews.objects.filter(response=comment).order_by('published_date')
+
+    return render(request, 'Portal/News/index.html', {'news': news, 'comments': comments})

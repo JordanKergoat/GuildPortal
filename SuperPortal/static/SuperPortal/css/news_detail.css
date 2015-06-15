@@ -1,0 +1,32 @@
+
+div#news-img img {
+    max-width: 100%;
+    max-height: 500px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+
+div#news-meta {
+    margin-bottom: 15px;
+}
+
+div#news-meta h2 {
+    margin-top: 10px;
+    margin-bottom: 12px;
+}
+
+.news-img-portal {
+    height: 20px;
+    width: 20px;
+}
+
+hr {
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
+    /*padding-left: 20px;*/
+    /*padding-right: 20px;*/
+    border-color: #735F58;
+}
