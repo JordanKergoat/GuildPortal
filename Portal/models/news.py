@@ -19,6 +19,10 @@ class Tag(models.Model):
     def __str__(self):
         return u"%s" % self.name
 
+
+    def get_news(self):
+        return self.news_set.all()
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
@@ -64,6 +68,15 @@ class News(models.Model):
         date = arrow.get(self.published_date)
         date = date.humanize(locale='fr')
         return date
+
+
+    def get_related(self):
+        list_related = []
+        for tag in  self.tags.all():
+            for news in tag.get_news():
+                list_related.append(news)
+        return list_related
+
 
 class Comment(models.Model):
     user = models.ForeignKey(User)

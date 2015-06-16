@@ -33,7 +33,12 @@
         </div>
 
         <hr>
+    <div class="related-news">
+        <h3>{% trans 'Reated news' %} :</h3>
+    </div>
 
+    {% if comments %}
+        <hr>
         <div class="comments">
             <h3>{% trans 'Comments' %} : </h3>
             {#            {% for comment in news.commentnews_set.all %}#}
@@ -50,6 +55,7 @@
                 </div>
             {% endfor %}
         </div>
+    {% endif %}
     </div>
 
 {% endblock %}
