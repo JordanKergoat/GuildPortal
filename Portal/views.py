@@ -2,7 +2,6 @@ from django.http import HttpResponse
 from .models import Portal, Category, News, CommentNews
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
-from .forms import EnrollementForm
 from .models.enrollment import CharacterAttribute, Game
 # Create your views here.
 
