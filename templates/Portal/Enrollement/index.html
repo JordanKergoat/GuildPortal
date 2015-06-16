@@ -2,9 +2,24 @@
 {% load staticfiles %}
 {% load i18n %}
 {% block meta_description %}{{ short_description }}{% endblock %}
-
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript">
+        function charactersAPI(data, selector) {
+            var game_name = $("select#"+selector+" option:selected").text();
+            $('div#characters-attribute').load('{% url 'character_attributes' %}' + '?game='+ encodeURI(game_name) + '&selected=0')
+        }
+    </script>
+{% endblock %}
 {% block body %}
+    <form method="POST">
+    {% csrf_token %}
+        <div id="characters-attribute">
 
+    </div>
     {{ form.as_p }}
+    <input type="submit">
+    </form>
+
 
 {% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'Portal/Enrollement/base_enrollement.html' %}
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript">
+        function charactersAPI(data, selector) {
+            var game_name = $("select#"+selector+" option:selected").text();
+            $('div#characters-attribute').load('{% url 'character_attributes' %}' + '?game='+ encodeURI(game_name))
+        }
+    </script>
+{% endblock %}

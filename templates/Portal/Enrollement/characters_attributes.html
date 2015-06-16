@@ -1,6 +1,6 @@
 {% for key, value in distinct.items %}
     <label for="choice">{{ key }}</label>
-    <select id="choice" name="">
+    <select id="choice" name="{{ key }}">
         {% for i in value %}
             <option value="{{ i.id }}">{{ i.attribute_value.field_value }}</option>
         {% endfor %}
