@@ -20,7 +20,7 @@ class Portal(models.Model):
 
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
-        return reverse('Portal.views.index', args=[str(self.name)])
+        return reverse('Portal.views.index', args=[str(self.name.replace(' ', '_'))])
 
     def __str__(self):
         return u"%s - %s" % (self.guild_name, self.name)

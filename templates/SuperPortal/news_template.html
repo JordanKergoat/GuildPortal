@@ -19,20 +19,24 @@
             </div>
             <div id="news-description-footer">
                 <i id="news-author" class="fa fa-pencil"> {{ news.creator }}</i>
-                <input id="news-read-more" type="button" value="{% trans 'Read more' %}" class="pull-right">
+                <a id="news-read-more" href="{{ news.get_absolute_url }}" class="pull-right">{% trans 'Read more' %}</a>
             </div>
         </div>
         <div id="news-img" class="pull-right visible-lg">
             <img class="news-img" src="{{ news.news_image.url }}">
         </div>
-{#        <div id="news-img" class="col-xs-12 hidden-lg">#}
-{#            <img class="news-img" src="{{ news.news_image.url }}">#}
-{#        </div>#}
-{#        <div id="news-description" class="col-xs-12 hidden-lg">#}
-{#            {{ news.content|slice:":200"|add:'...' }}#}
-{#            <i id="news-author" class="fa fa-pencil"> {{ news.creator }}</i>#}
-{#            <input id="news-read-more" type="button" value="{% trans 'Read more' %}">#}
-{#        </div>#}
+        <div id="news-img" class="col-xs-12 hidden-lg">
+            <img class="news-img" src="{{ news.news_image.url }}">
+        </div>
+        <div id="news-description" class="col-xs-12 hidden-lg">
+            <div id="news-description-content">
+                {{ news.content }}
+            </div>
+            <div id="news-description-footer">
+                <i id="news-author" class="fa fa-pencil"> {{ news.creator }}</i>
+                <a id="news-read-more" href="{{ news.get_absolute_url }}" class="pull-right btn btn-default">{% trans 'Read more' %}</a>
+            </div>
+        </div>
 
     </div>
     <div id="news-tag" class="col-xs-12">
@@ -45,7 +49,8 @@
                 {% endif %}
             {% endfor %}
         </i>
-        <i id="news-comment" class="fa fa-comment pull-right"> {{news.commentnews_set.all|length}}</i>
+        <i id="news-comment" class="fa fa-eye pull-right"> {{ news.view }}</i>
+        <i id="news-comment" class="fa fa-comment pull-right"> {{ news.commentnews_set.all|length }}</i>
     </div>
 
 {#    <h3></h3>#}

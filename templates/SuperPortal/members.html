@@ -2,11 +2,9 @@
 {% load i18n %}
 {% block meta_description %}{% endblock %}
 {% block body %}
-
     <ul>
         {% for userprofile in userprofile_list %}
             <li>{{ userprofile.user.username }} - {% for group in userprofile.user.groups.all %}{{ group.name }} {% endfor %}</li>
         {% endfor %}
     </ul>
-
 {% endblock %}
