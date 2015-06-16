@@ -60,9 +60,9 @@ class News(models.Model):
 
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
-        return reverse('Portal.views.news_detail', kwargs={'portal_name': str(self.portal.name),
-                                                           'category': self.category.name,
-                                                           'news_name': self.title})
+        return reverse('Portal.views.news_detail', kwargs={'portal_name': str(self.portal.name).replace(' ', '_'),
+                                                           'category': self.category.name.replace(' ', '_'),
+                                                           'news_name': self.title.replace(' ', '_')})
     def get_date_formated(self):
         import arrow
         date = arrow.get(self.published_date)
