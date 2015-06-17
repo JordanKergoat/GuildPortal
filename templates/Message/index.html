@@ -5,6 +5,7 @@
 
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
+    <a href= "{% url 'write_msg' %}"> Ecrire un nouveau message. </a>
     <ul>
     {% for message in message_list %}
         <li> <a href= "{% url 'message_details' message.id %}"> {{ message }}</a></li>

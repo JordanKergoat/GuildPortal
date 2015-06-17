@@ -2,8 +2,42 @@
 {% load staticfiles %}
 {% load i18n %}
 
+<head>
+
+    {% block css %}
+
+        {{ block.super }}
+        <style type="text/css">
+            #moncadre {
+                width:800px;
+                margin:0 auto;
+                padding:10px;
+                background:#ffffff;
+                border:1px solid #DDD;
+                border-radius:5px;
+                -webkit-border-radius:5px;
+                -moz-border-radius:5px;
+            }
+        </style>
+         <style type="text/css">
+            #plop {
+                width:800px;
+                margin:0 auto;
+                padding:10px;
+            }
+        </style>
+    {% endblock %}
+
+</head>
+
 
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
-        <li> {{ message }} </li>
+    <ul>
+        <li id="plop">De : <a href="{% url 'profile' profile.id %}">{{ message.sender }}</a></li>
+        <li id="plop">Sujet :<div id="moncadre">{{ message.topic }} </div></li>
+        <li id="plop"> Message :  <div id="moncadre">{{ message.message }}</div></li>
+        <div id="plop"><a href= "{% url 'reply_msg' message.id %}"> Repondre. </a></div>
+    </ul>
+
 {% endblock %}

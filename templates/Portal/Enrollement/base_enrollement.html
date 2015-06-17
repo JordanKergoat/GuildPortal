@@ -1,0 +1,17 @@
+{% extends 'SuperPortal/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% block meta_description %}{{ short_description }}{% endblock %}
+{% block body %}
+
+    <form method="POST">
+    {% csrf_token %}
+        <div id="characters-attribute">
+
+    </div>
+    {{ form.as_p }}
+    <input type="submit">
+    </form>
+
+
+{% endblock %}

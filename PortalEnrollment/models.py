@@ -20,7 +20,7 @@ class EnrollmentSettings(models.Model):
     thumbnail = models.ImageField(_('Thumbnail image'), upload_to='/enrollment/thumbnail/', blank=True)
 
     def __str__(self):
-        return u'%s, ' % [" ".join((i.attribute_name, i.attribute_value.field_value, i.for_game.name)) for i in self.roles.all()]
+        return u'%s, ' % [" ".join((i.attribute_name.field_value, i.attribute_value.field_value, i.for_game.name)) for i in self.roles.all()]
 
     def reach_limit(self):
         pass

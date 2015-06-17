@@ -19,6 +19,10 @@ class Tag(models.Model):
     def __str__(self):
         return u"%s" % self.name
 
+
+    def get_news(self):
+        return self.news_set.all()
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
@@ -56,14 +60,23 @@ class News(models.Model):
 
     def get_absolute_url(self):
         from django.core.urlresolvers import reverse
-        return reverse('Portal.views.news_detail', kwargs={'portal_name': str(self.portal.name),
-                                                           'category': self.category.name,
-                                                           'news_name': self.title})
+        return reverse('Portal.views.news_detail', kwargs={'portal_name': str(self.portal.name).replace(' ', '_'),
+                                                           'category': self.category.name.replace(' ', '_'),
+                                                           'news_name': self.title.replace(' ', '_')})
     def get_date_formated(self):
         import arrow
         date = arrow.get(self.published_date)
         date = date.humanize(locale='fr')
         return date
+
+
+    def get_related(self):
+        list_related = []
+        for tag in  self.tags.all():
+            for news in tag.get_news():
+                list_related.append(news)
+        return list_related
+
 
 class Comment(models.Model):
     user = models.ForeignKey(User)

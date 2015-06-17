@@ -106,7 +106,7 @@
                         <li><a href="{% url 'forum_index' %}">Forum</a></li>
                     {% endif %}
                     <li><a href="{% url 'members' %}">{% trans 'Members' %}</a></li>
-                    <li><a href="#">Recrutement</a></li>
+                    <li><a href="{% url 'enrollement_index' %}">Recrutement</a></li>
                     <li><a href="#">{% trans 'Calendar' %}</a></li>
                     {% if user.is_authenticated  %}
                         <li><a href="{% url 'profile' %}">{% trans 'Profile' %}</a></li>

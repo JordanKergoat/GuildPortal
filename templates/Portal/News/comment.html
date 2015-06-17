@@ -4,7 +4,8 @@
         <i class="fa fa-clock pull-right"> {{ comment.get_date_formated }}</i>
     </div>
     <div class="comments-body">
-        <img src="{{ comment.user.userprofile.image_profile.url }}">
+{#        <img src="{{ comment.user.userprofile.image_profile.url }}">#}
+        <img src="http://teratoday.com/sites/default/files/content/icons/priest/purifying_circle.png">
         <div>{{ comment.content|linebreaks }}</div>
     </div>
 </div>
