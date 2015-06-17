@@ -6,8 +6,12 @@
     <form method="POST">
         {% csrf_token %}
 
-        {{ form.game_choice.label }}
-        {{ form.game_choice }}
+        <div class="fieldWrapper">
+            {{ form.game_choice.errors }}
+            <label for="{{ form.game_choice.id_for_label }}">{{ form.game_choice.label }}: </label>
+            {{ form.game_choice }}
+        </div>
+
 
         <div id="characters-attribute"></div>
 
