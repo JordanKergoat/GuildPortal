@@ -7,7 +7,7 @@ from .models import Enrollement, EnrollmentSettings
 class OpenEnrollementForm(forms.ModelForm):
     class Meta:
         model = Enrollement
-        exclude = ('user',)
+        exclude = ('user', 'roles')
         widgets = {
             'game_choice': forms.Select(attrs={
                 'onchange' : "charactersAPI(this.value, this.id)"
