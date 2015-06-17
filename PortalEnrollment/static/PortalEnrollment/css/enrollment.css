@@ -1,0 +1,31 @@
+
+div.field-wrapper:nth-child(odd) {
+    background-color: #bdc3c7;
+}
+
+div.field-wrapper {
+    /*margin-top: 20px;*/
+    margin-bottom: 20px;
+}
+
+div.field-wrapper.col-xs-12 {
+    padding: 0;
+}
+
+div.field-wrapper label {
+    margin-top: 10px;
+}
+
+div.field-wrapper hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-color: #735F58;
+}
+
+div.field-wrapper-content {
+    margin-bottom: 10px;
+}
+
+div.field-wrapper textarea, div.field-wrapper input {
+    width: 100%;
+}

@@ -15,10 +15,7 @@
             <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
             <!-- END FontAwesome -->
             <link rel="stylesheet" href="{% static 'SuperPortal/css/base.css' %}">
-            <style type="text/css">
 
-
-            </style>
         {% endblock %}
         {% block js %}
             <!-- JQUERY BEGIN -->
@@ -112,7 +109,9 @@
                     <li><a href="{% url 'enrollement_list' %}">{% trans 'Ongoing Enrollment' %} <span class="badge">{{ number_enrollment }}</span></a></li>
                 {% endif %}
                     <li><a href="#">{% trans 'Calendar' %}</a></li>
-                    <li><a href="{% url 'profile' %}">{% trans 'Profile' %}</a></li>
+                    {% if user.is_authenticated  %}
+                        <li><a href="{% url 'profile' %}">{% trans 'Profile' %}</a></li>
+                    {% endif %}
                     <li><a href="{% url 'message_index' %}">0 message</a></li>
                 </ul>
             </div>

@@ -1,8 +1,11 @@
 {% for key, value in distinct.items %}
+    <div class="col-xs-2">
     <label for="choice">{{ key }}</label>
+    <hr>
     <select id="choice" name="{{ key }}">
         {% for i in value %}
             <option value="{{ i.id }}">{{ i.attribute_value.field_value }}</option>
         {% endfor %}
     </select>
+    </div>
 {% endfor %}

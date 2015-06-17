@@ -21,8 +21,6 @@ class OpenEnrollementView(FormView):
     template_name = "Portal/Enrollement/open_enrollment.html"
     form_class = OpenEnrollementForm
 
-
-
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.save()
