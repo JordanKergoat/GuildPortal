@@ -24,7 +24,14 @@ class OpenEnrollementView(FormView):
 
 
     def form_valid(self, form):
-        print self.request.POST
+        form.instance.user = self.request.user
+        form.save()
+        for x in CharacterAttribute.objects.filter(for_game=Game.objects.filter(id=self.request.POST['game_choice'])).distinct('attribute_name'):
+            form.instance.roles.add(CharacterAttribute.objects.filter(attribute_name=x.attribute_name, id=self.request.POST[x.attribute_name.field_value]).first())
+
+        form.save()
+
+
 
 class EnrollementView(FormView):
     template_name = "Portal/Enrollement/enrollment.html"

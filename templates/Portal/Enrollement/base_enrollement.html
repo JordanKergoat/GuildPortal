@@ -3,14 +3,43 @@
 {% load i18n %}
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
-
     <form method="POST">
-    {% csrf_token %}
-        <div id="characters-attribute">
+        {% csrf_token %}
 
-    </div>
-    {{ form.as_p }}
-    <input type="submit">
+        {{ form.game_choice.label }}
+        {{ form.game_choice }}
+
+        <div id="characters-attribute"></div>
+
+        {{ form.introduction.label }}
+        {{ form.introduction }}
+
+
+
+        {{ form.age.label }}
+        {{ form.age }}
+
+        {{ form.character_name.label }}
+        {{ form.character_name }}
+
+        {{ form.another_characters.label }}
+        {{ form.another_characters }}
+
+        {{ form.availability.label }}
+        {{ form.availability }}
+
+        {{ form.motivations.label }}
+        {{ form.motivations }}
+
+        {{ form.experience_PVE.label }}
+        {{ form.experience_PVE }}
+
+        {{ form.experience_PVP.label }}
+        {{ form.experience_PVP }}
+
+        {{ form.old_guild.label }}
+        {{ form.old_guild }}
+        <input type="submit">
     </form>
 
 
