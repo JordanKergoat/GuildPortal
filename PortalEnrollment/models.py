@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from Portal.models import CharacterAttribute, Game
+from Portal.models import CharacterAttribute, Game, Comment
 from django.utils.translation import ugettext as _
 
 # Create your models here.
@@ -30,7 +30,7 @@ class EnrollmentSettings(models.Model):
         verbose_name = _('Enrollment settings')
         verbose_name_plural = _('Enrollments settings')
 
-
+import datetime
 class Enrollement(models.Model):
     '''
         Define an enrollment application by a user
@@ -48,8 +48,29 @@ class Enrollement(models.Model):
     experience_PVE = models.TextField(_('Experiences PVE'))
     experience_PVP = models.TextField(_('Experiences PVP'))
     old_guild = models.TextField(_('Old Guilds'))
+    enrollement_date = models.DateField(default=datetime.date.today)
+    open = models.BooleanField(_('Open'), default=True)
 
     class Meta:
         app_label = "PortalEnrollment"
         verbose_name = _('Enrollment')
         verbose_name_plural = _('Enrollments')
+        #ordering = ["-enrollment_date"]
+
+    def get_vote_up(self):
+        return len(self.enrollmentvote_set.filter(vote=True))
+
+
+    def get_vote_down(self):
+        return len(self.enrollmentvote_set.filter(vote=False))
+
+
+class EnrollmentVote(models.Model):
+    user = models.ForeignKey(User)
+    enrollment = models.ForeignKey(Enrollement)
+    vote = models.BooleanField(_('Vote'), default=False)
+    # 0 refus, 1 accept
+
+
+class CommentEnrollment(Comment):
+    enrollment = models.ForeignKey(Enrollement)

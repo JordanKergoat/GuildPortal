@@ -2,9 +2,11 @@
 {% load i18n %}
 {% block meta_description %}{% endblock %}
 {% block body %}
+    <div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
     <ul>
         {% for userprofile in userprofile_list %}
             <li>{{ userprofile.user.username }} - {% for group in userprofile.user.groups.all %}{{ group.name }} {% endfor %}</li>
         {% endfor %}
     </ul>
+    </div>
 {% endblock %}

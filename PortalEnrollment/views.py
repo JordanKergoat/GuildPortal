@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, render_to_response
 
 # Create your views here.
 from django.template.loader import render_to_string
-from django.views.generic import FormView, View, TemplateView
+from django.views.generic import FormView, View, TemplateView, ListView
 from Portal.models import Game, CharacterAttribute
 from PortalEnrollment.forms import OpenEnrollementForm, EnrollementForm
 
@@ -48,6 +48,11 @@ class EnrollementView(FormView):
     def form_valid(self, form):
         form.instance.game_choice = EnrollmentSettings.objects.filter(id=self.kwargs['id_application']).first().game_choice
         form.instance.user = self.request.user
+
+
+class EnrollementListView(ListView):
+    template_name = 'Portal/Enrollement/enrollement_list.html'
+    model = Enrollement
 
 
 class CharacterAttributesView(TemplateView):

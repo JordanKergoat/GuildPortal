@@ -1,0 +1,44 @@
+{% extends 'SuperPortal/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'SuperPortal/css/enrollment_list.css' %}">
+{% endblock %}
+{% block meta_description %}{{ short_description }}{% endblock %}
+{% block body %}
+    <div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
+        {% for enrollment in object_list %}
+            <div class="col-xs-12 enrollment">
+                <div class="col-xs-2 profile-enrollment">
+{#                    <span class="helper"></span>#}
+                    <img class="game-enrollment" src="{{ enrollment.game_choice.image_thumbnail.url }}">
+
+                    {{ enrollment.user.username }}, {{ enrollment.age }} {% trans 'years' %}
+                    {{ enrollment.character_name }}
+                    <hr>
+                    {% trans 'Comments' %}: {{ enrollment.commentenrollment_set.all|length }}
+                    <hr>
+                    {% trans 'Total vote' %}: {{ enrollment.enrollmentvote_set.all|length }}
+                    <hr>
+                    {% trans 'Vote up' %}: {{ enrollment.get_vote_up }}
+                    <hr>
+                    {% trans 'Vote down' %}: {{ enrollment.get_vote_down }}
+                </div>
+                <div class="col-xs-10 details-enrollment">
+                    <h3>{% trans 'Enrollment for'%} : {{ enrollment.character_name }}</h3>
+                    <ul>{% for role in enrollment.roles.all %} <li>{{ role }}</li> {% endfor %}</ul>
+                    <h4>{% trans 'Introduction' %}</h4>
+                    {{ enrollment.introduction|linebreaks|slice:":300"|add:" ..." }}
+                    <hr>
+                    <h4>{% trans 'Motivations' %}</h4>
+                    {{ enrollment.motivations|linebreaks|slice:"300"|add:" ..." }}
+                </div>
+                <div class="pull-right"><a href="#">{% trans 'Details' %}</a></div>
+            </div>
+        {% empty %}
+            {% trans 'No Enrollment ongoing' %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

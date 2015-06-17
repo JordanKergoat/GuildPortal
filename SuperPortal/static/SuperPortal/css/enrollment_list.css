@@ -1,0 +1,29 @@
+img.game-enrollment {
+    max-height: 40px;
+    max-width: 40px;
+    vertical-align: middle;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.enrollment {
+    background-color: #bdc3c7;
+    height: auto;
+    -moz-box-shadow: 5px 5px 5px 0px #656565;
+    -webkit-box-shadow: 5px 5px 5px 0px #656565;
+    -o-box-shadow: 5px 5px 5px 0px #656565;
+    box-shadow: 5px 5px 5px 0px #656565;
+}
+
+.profile-enrollment {
+    text-align: center;
+    padding: 30px;
+
+}
+
+.details-enrollment {
+}

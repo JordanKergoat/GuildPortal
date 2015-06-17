@@ -4,3 +4,5 @@ from .models import *
 
 admin.site.register(Enrollement)
 admin.site.register(EnrollmentSettings)
+admin.site.register(CommentEnrollment)
+admin.site.register(EnrollmentVote)
