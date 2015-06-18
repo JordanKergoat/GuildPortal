@@ -18,7 +18,11 @@
                     <i class="fa fa-thumbs-down fa-red"> {{ enrollment.get_vote_down }}</i>
                 </h4>
             </div>
-            <ul>{% for role in enrollment.roles.all %} <li><b>{{ role }}</b></li> {% endfor %}</ul>
+            <ul>
+                {% for role in enrollment.roles.all %}
+                    <li><b>{{ role }}</b></li>
+                {% endfor %}
+            </ul>
             <div class="checkbox">
                 {% if enrollment.another_characters %}
                     <label>
