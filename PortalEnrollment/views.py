@@ -123,7 +123,6 @@ class EnrollmentDetail(View):
         return view(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        print "je suis dans le post de enrollment detail"
         view = CommentEnrollmentFormView.as_view()
         return view(request, *args, **kwargs)
 

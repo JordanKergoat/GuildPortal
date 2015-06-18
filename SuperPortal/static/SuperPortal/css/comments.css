@@ -35,6 +35,10 @@
 }
 
 
+textarea {
+    width: 100%;
+    height: 100px;
+}
 
 .comments-answers {
     margin-left: 20px;
