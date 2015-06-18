@@ -14,10 +14,10 @@ from PortalEnrollment.models import Enrollement, EnrollmentSettings
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 
-#decorator
+
 from SuperPortal.models import GuildSettings
 
-
+#decorator
 def can_see(user):
     for group in GuildSettings.objects.all().first().group_can_vote.all():
         if group in user.groups.all():
@@ -37,10 +37,6 @@ class OpenEnrollementView(FormView):
             form.instance.roles.add(CharacterAttribute.objects.filter(attribute_name=x.attribute_name, id=self.request.POST[x.attribute_name.field_value]).first())
         form.instance.open = True
         form.save()
-
-    def form_invalid(self, form):
-        print form
-
 
 
 class EnrollementView(FormView):
