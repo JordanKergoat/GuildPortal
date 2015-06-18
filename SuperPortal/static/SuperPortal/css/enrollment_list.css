@@ -34,5 +34,10 @@ img.game-enrollment {
 
 }
 
+.votedown, .voteup {
+    cursor: pointer;
+    cursor: hand;
+}
+
 .details-enrollment {
 }

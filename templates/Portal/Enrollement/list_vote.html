@@ -1,0 +1,10 @@
+{% load i18n %}
+{% for vote in enrollment.enrollmentvote_set.all %}
+    {%  if vote.vote %}
+        <li><i class="fa fa-thumbs-up fa-green"></i> {% trans 'by' %} {{ vote.user.username }}</li>
+    {% else %}
+        <li><i class="fa fa-thumbs-down fa-red"></i> {% trans 'by' %} {{ vote.user.username }}</li>
+    {% endif %}
+{% empty %}
+    {% trans 'No votes yet' %}
+{% endfor %}

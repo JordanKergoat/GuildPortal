@@ -21,9 +21,9 @@
                     <hr>
                     {% trans 'Total vote' %}: {{ enrollment.enrollmentvote_set.all|length }}
                     <hr>
-                    <i class="fa fa-thumbs-up"> {{ enrollment.get_vote_up }}</i>
+                    <i class="fa fa-thumbs-up fa-green"> {{ enrollment.get_vote_up }}</i>
                     <hr>
-                    <i class="fa fa-thumbs-down"> {{ enrollment.get_vote_down }}</i>
+                    <i class="fa fa-thumbs-down fa-red"> {{ enrollment.get_vote_down }}</i>
 
 
 
