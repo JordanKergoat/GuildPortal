@@ -21,9 +21,12 @@
                     <hr>
                     {% trans 'Total vote' %}: {{ enrollment.enrollmentvote_set.all|length }}
                     <hr>
-                    {% trans 'Vote up' %}: {{ enrollment.get_vote_up }}
+                    <i class="fa fa-thumbs-up"> {{ enrollment.get_vote_up }}</i>
                     <hr>
-                    {% trans 'Vote down' %}: {{ enrollment.get_vote_down }}
+                    <i class="fa fa-thumbs-down"> {{ enrollment.get_vote_down }}</i>
+
+
+
                 </div>
                 <div class="col-xs-10 details-enrollment">
                     <h3>{% trans 'Enrollment for'%} : {{ enrollment.character_name }}</h3>
@@ -34,7 +37,7 @@
                     <h4>{% trans 'Motivations' %}</h4>
                     {{ enrollment.motivations|linebreaks|slice:"300"|add:" ..." }}
                 </div>
-                <div class="pull-right"><a href="#">{% trans 'Details' %}</a></div>
+                <div class="pull-right"><a href="{% url 'enrollment_detail' enrollment.id %}">{% trans 'Details' %}</a></div>
             </div>
         {% empty %}
             {% trans 'No Enrollment ongoing' %}

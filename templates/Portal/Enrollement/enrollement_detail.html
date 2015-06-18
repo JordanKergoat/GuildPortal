@@ -1,0 +1,83 @@
+{% extends 'SuperPortal/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'SuperPortal/css/enrollment_list.css' %}">
+{% endblock %}
+{% block meta_description %}{{ short_description }}{% endblock %}
+{% block body %}
+    <div class="col-xs-12 col-lg-8 col-lg-offset-1 content-wrapper">
+        <div class="col-xs-10">
+            <div class="details-enrollment-date">
+                <h4><i class="fa fa-calendar"> {{ enrollment.enrollement_date|date:"d M Y" }}</i> {% trans 'Enrollment for' %}: {{ enrollment.character_name }} - <a href="#">{{ enrollment.user.username }}</a> - {{ enrollment.age }} {% trans 'years' %}
+                    {% trans 'in' %} <img class="game-enrollment" src="{{ enrollment.game_choice.image_thumbnail.url }}">   {{ enrollment.game_choice }}
+                    <i class="fa fa-thumbs-up fa-green"> {{ enrollment.get_vote_up }}</i>
+                    <i class="fa fa-thumbs-down fa-red"> {{ enrollment.get_vote_down }}</i>
+                </h4>
+            </div>
+            <ul>{% for role in enrollment.roles.all %} <li><b>{{ role }}</b></li> {% endfor %}</ul>
+            <hr>
+            <h4>{% trans 'Introduction' %}</h4>
+            {{ enrollment.introduction|linebreaks}}
+            <hr>
+            <h4>{% trans 'Motivations' %}</h4>
+            {{ enrollment.motivations|linebreaks}}
+            <hr>
+            <h4>{% trans 'Availability' %}</h4>
+            {{ enrollment.availability|linebreaks}}
+            <hr>
+            <h4>{% trans 'PVE experience' %}</h4>
+            {{ enrollment.experience_PVE|linebreaks}}
+            <hr>
+            <h4>{% trans 'PVP experience' %}</h4>
+            {{ enrollment.experience_PVP|linebreaks}}
+            <hr>
+            <h4>{% trans 'Old guild' %}</h4>
+            {{ enrollment.old_guild|linebreaks}}
+
+            <hr>
+
+            <div class="checkbox">
+                {% if enrollment.another_characters %}
+                    <label>
+                        <input type="checkbox" disabled="disabled" checked="checked"> {% trans 'Another characters' %}
+                    </label>
+                {% else %}
+                    <label>
+                        <input type="checkbox" disabled="disabled">  {% trans 'Another characters' %}
+                    </label>
+                {% endif %}
+            </div>
+
+
+
+        </div>
+        <div class="col-xs-2">
+            <h4>{% trans 'List votes' %}</h4>
+        <ul>
+            {% for vote in enrollment.enrollmentvote_set.all %}
+                <li>{{ vote }}</li>
+                {% empty %}
+                {% trans 'No votes yet' %}
+            {% endfor %}
+        </ul>
+
+        </div>
+        <div class="col-xs-2">
+            <div class="comments">
+                <h4>{% trans 'Comments' %}</h4>
+                {% for comment in enrollment.commentenrollment_set.all %}
+                    <div class="comment">
+                        <div class="comment-header">
+                            {{ comment.user }}
+                        </div>
+                        {{ comment }}
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

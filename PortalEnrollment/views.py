@@ -3,18 +3,23 @@ from django.shortcuts import render, get_object_or_404, render_to_response
 
 # Create your views here.
 from django.template.loader import render_to_string
-from django.views.generic import FormView, View, TemplateView, ListView
+from django.utils.decorators import method_decorator
+from django.views.generic import FormView, View, TemplateView, ListView, DetailView
 from Portal.models import Game, CharacterAttribute
 from PortalEnrollment.forms import OpenEnrollementForm, EnrollementForm
-
-#
-# def EnrollementView(request):
-#     print request.GET
-#     context = {
-#         'form': EnrollementForm()
-#     }
-#     return render_to_response('Portal/Enrollement/index.html', context=context)
 from PortalEnrollment.models import Enrollement, EnrollmentSettings
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+
+#decorator
+from SuperPortal.models import GuildSettings
+
+
+def can_see(user):
+    for group in GuildSettings.objects.all().first().group_can_vote.all():
+        if group in user.groups.all():
+            return True
+    return False
 
 
 class OpenEnrollementView(FormView):
@@ -22,12 +27,16 @@ class OpenEnrollementView(FormView):
     form_class = OpenEnrollementForm
 
     def form_valid(self, form):
+        print form
         form.instance.user = self.request.user
         form.save()
         for x in CharacterAttribute.objects.filter(for_game=Game.objects.filter(id=self.request.POST['game_choice'])).distinct('attribute_name'):
             form.instance.roles.add(CharacterAttribute.objects.filter(attribute_name=x.attribute_name, id=self.request.POST[x.attribute_name.field_value]).first())
-
+        form.instance.open = True
         form.save()
+
+    def form_invalid(self, form):
+        print form
 
 
 
@@ -51,6 +60,30 @@ class EnrollementView(FormView):
 class EnrollementListView(ListView):
     template_name = 'Portal/Enrollement/enrollement_list.html'
     model = Enrollement
+
+    @method_decorator(login_required)
+    @method_decorator(user_passes_test(can_see))
+    def dispatch(self, request, *args, **kwargs):
+        return super(EnrollementListView, self).dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        qs = super(EnrollementListView, self).get_queryset()
+        return qs.filter(open=True)
+
+
+class EnrollmentDetailView(DetailView):
+    template_name = 'Portal/Enrollement/enrollement_detail.html'
+    model = Enrollement
+    context_object_name = 'enrollment'
+
+    @method_decorator(login_required)
+    @method_decorator(user_passes_test(can_see))
+    def dispatch(self, request, *args, **kwargs):
+        return super(EnrollmentDetailView, self).dispatch(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(self.model, pk=self.kwargs.get('pk', None))
+
 
 
 class CharacterAttributesView(TemplateView):

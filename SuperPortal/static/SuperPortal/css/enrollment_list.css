@@ -4,6 +4,14 @@ img.game-enrollment {
     vertical-align: middle;
 }
 
+.fa-red {
+    color: #cc0000;;
+}
+
+.fa-green {
+    color: #41c838;;
+}
+
 .helper {
     display: inline-block;
     height: 100%;
@@ -17,6 +25,7 @@ img.game-enrollment {
     -webkit-box-shadow: 5px 5px 5px 0px #656565;
     -o-box-shadow: 5px 5px 5px 0px #656565;
     box-shadow: 5px 5px 5px 0px #656565;
+    margin-bottom: 20px;
 }
 
 .profile-enrollment {
