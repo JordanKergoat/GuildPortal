@@ -77,6 +77,11 @@
                     {% include 'Portal/News/comment.html' %}
                 {% endfor %}
             </div>
+        <form method="post" > {% csrf_token %}
+            {{ form }}
+            <input type="submit">
+        </form>
+
         </div>
 
     </div>

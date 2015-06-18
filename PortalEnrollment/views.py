@@ -1,12 +1,15 @@
-from django.http import HttpResponse
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, render_to_response
 
 # Create your views here.
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View, TemplateView, ListView, DetailView
+from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import FormMixin
 from Portal.models import Game, CharacterAttribute
-from PortalEnrollment.forms import OpenEnrollementForm, EnrollementForm
+from PortalEnrollment.forms import OpenEnrollementForm, EnrollementForm, CommentEnrollmentForm
 from PortalEnrollment.models import Enrollement, EnrollmentSettings
 from django.contrib.auth.decorators import login_required, user_passes_test
 
@@ -76,6 +79,11 @@ class EnrollmentDetailView(DetailView):
     model = Enrollement
     context_object_name = 'enrollment'
 
+    def get_context_data(self, **kwargs):
+        context = super(EnrollmentDetailView, self).get_context_data(**kwargs)
+        context['form'] = CommentEnrollmentForm()
+        return context
+
     @method_decorator(login_required)
     @method_decorator(user_passes_test(can_see))
     def dispatch(self, request, *args, **kwargs):
@@ -84,6 +92,40 @@ class EnrollmentDetailView(DetailView):
     def get_object(self, queryset=None):
         return get_object_or_404(self.model, pk=self.kwargs.get('pk', None))
 
+
+class CommentEnrollmentFormView(SingleObjectMixin, FormView):
+    form_class = CommentEnrollmentForm
+    template_name = 'Portal/Enrollement/enrollement_detail.html'
+    model = Enrollement
+
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden()
+        self.object = self.get_object()
+        return super(CommentEnrollmentFormView, self).post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('enrollment_detail', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        form.instance.enrollment = self.object
+        form.instance.user = self.request.user
+        form.instance.response = None
+        form.save()
+        return super(CommentEnrollmentFormView, self).form_valid(form)
+
+
+class EnrollmentDetail(View):
+
+    def get(self, request, *args, **kwargs):
+        view = EnrollmentDetailView.as_view()
+        return view(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        print "je suis dans le post de enrollment detail"
+        view = CommentEnrollmentFormView.as_view()
+        return view(request, *args, **kwargs)
 
 
 class CharacterAttributesView(TemplateView):

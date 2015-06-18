@@ -2,7 +2,7 @@ __author__ = 'Alexandre Cloquet'
 
 
 from django import forms
-from .models import Enrollement, EnrollmentSettings
+from .models import Enrollement, EnrollmentSettings, CommentEnrollment
 
 class OpenEnrollementForm(forms.ModelForm):
     class Meta:
@@ -19,3 +19,9 @@ class EnrollementForm(forms.ModelForm):
     class Meta:
         model = Enrollement
         exclude = ('user', 'game_choice')
+
+
+class CommentEnrollmentForm(forms.ModelForm):
+    class Meta:
+        model = CommentEnrollment
+        exclude = ('user', 'enrollment', 'response')
