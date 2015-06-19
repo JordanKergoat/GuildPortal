@@ -7,7 +7,18 @@
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'SuperPortal/css/news_feed.css' %}">
     <link rel="stylesheet" href="{% static 'SuperPortal/css/slider.css' %}">
+    <link rel="stylesheet" href="{% static 'PortalEnrollment/css/unit-enrollment-setting.css' %}">
     <link rel="stylesheet" href="{% static 'SuperPortal/css/external/owl.carousel.css' %}">
+
+    <style type="text/css">
+
+{#        {% for enrollment in enrollments %}#}
+{#            .unit-enrollment-setting.id-{{ enrollment.id }} {#}
+{#                background-image: url("{{ enrollment.background_image.url }}");#}
+{#            }#}
+{#        {% endfor %}#}
+
+    </style>
 
 {% endblock %}
 
@@ -15,7 +26,12 @@
 
     {{ block.super }}
 
-    <script type="text/javascript" src="{% static 'SuperPortal/js/external/owl.carousel.min.js' %}"></script>
+    {% if settings.DEBUG %}
+        <script type="text/javascript" src="{% static 'SuperPortal/js/external/owl.carousel.min.js' %}"></script>
+    {% else %}
+    {% endif %}
+
+{#    <script type="text/javascript" src="{% static 'SuperPortal/js/external/owl.carousel.min.js' %}"></script>#}
 
     <script type="text/javascript">
 
@@ -28,7 +44,7 @@
                 autoplayHoverPause: true,
                 center: true,
                 loop: true,
-                item: 3,
+                item: 1,
             });
 
             $('div.control.prev').click(function() {
@@ -54,8 +70,9 @@
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
     {#    {% url 'profile' %}#}
+    {% if guild.slider_active %}
     <div id="superportal-slider" class="hidden-xs visible-lg">
-        <div id="inner-slider" class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
+        <div id="inner-slider" class="col-xs-12 col-lg-10 col-lg-offset-1 content-wrapper">
             <div id="prev-slider" class="control prev"><i class="fa fa-angle-left"></i></div>
             <div class="owl-carousel">
                 <div class="last-news item">1</div>
@@ -68,14 +85,16 @@
             <div id="next-slider" class="control next"><i class="fa fa-angle-right"></i></div>
         </div>
     </div>
+    {% endif %}
 
     <div id="superportal-news_feed">
-        <div id="inner-news-feed" class="col-xs-12 col-lg-6 col-lg-offset-2 content-wrapper">
+        <div id="inner-news-feed" class="col-xs-12 col-lg-7 col-lg-offset-1 content-wrapper">
 
             <h2>{% trans "News" %} :</h2>
             {% for news in news_list %}
                 {% include 'SuperPortal/news_template.html' %}
             {% endfor %}
+
 {#            {% for portal in list_portal %}#}
 {#                LAST NEWS#}
 {#                {{ portal.get_last_news }}#}
@@ -83,11 +102,20 @@
         </div>
     </div>
     <div id="superportal-modules">
-        <ul id="superportal-module-list" class="col-xs-12 col-lg-2 content-wrapper">
-            <li class="superportal-module">
-                <div id="twitch" class="twitch superportal-modules col-xs-2">
+        <ul id="superportal-module-list" class="col-xs-12 col-lg-3 content-wrapper">
+            <div class="superportal-module">
+                <div id="enrollment" class="superportal-modules col-xs-12">
+                    <h3>{% trans 'Enrollment' %} :</h3>
+
+                    {% for enrollment in enrollments %}
+                        {% include 'PortalEnrollment/unit_enrollment_setting_module.html' %}
+                    {% endfor %}
                 </div>
-            </li>
+            </div>
+            <div class="superportal-module">
+                <div id="twitch" class="twitch superportal-modules col-xs-12">
+                </div>
+            </div>
             {#            <li class="twitch superportal-module">#}
             {##}
             {#            </li>#}

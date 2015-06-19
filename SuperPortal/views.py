@@ -6,6 +6,7 @@ from django.views.generic import View, TemplateView, ListView
 
 from .models import GuildSettings
 from Portal.models import News, Userprofile
+from PortalEnrollment.models import EnrollmentSettings
 # Create your views here.
 
 
@@ -14,6 +15,9 @@ def index(request):
     context['short_description'] = GuildSettings.objects.all().first().short_guild_description
     # context['list_portal'] = Portal.objects.all()
     context['news_list'] = News.objects.all().order_by('-published_date')
+    print(str(type(EnrollmentSettings.openned_enrollement)))
+    context['enrollments'] = EnrollmentSettings.openned_enrollement.all()
+
     return render(request, "SuperPortal/index.html", context=context)
 
 

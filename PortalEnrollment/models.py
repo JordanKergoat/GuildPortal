@@ -5,6 +5,15 @@ from django.utils.translation import ugettext as _
 
 # Create your models here.
 
+class OpennedEnrollmentManager(models.Manager):
+
+    def get_queryset(self):
+        enrollments = []
+        for enrollment in EnrollmentSettings.objects.filter(open=True):
+            if enrollment.reach_limit() == False:
+                enrollments.append(enrollment)
+        return enrollments
+
 class EnrollmentSettings(models.Model):
     '''
         Admin Side enrollment configuration. Allow admin user to define what kind of character they are looking for.
@@ -16,14 +25,17 @@ class EnrollmentSettings(models.Model):
     game_choice = models.ForeignKey(Game)
     open = models.BooleanField(_('Open Enrollment'), default=False)
     limit = models.SmallIntegerField(_('Limit'))
-    background_image = models.ImageField(_('Background image'), upload_to='/enrollment/background/', blank=True)
-    thumbnail = models.ImageField(_('Thumbnail image'), upload_to='/enrollment/thumbnail/', blank=True)
+    # Images should be 992*250px
+    background_image = models.ImageField(_('Background image'), upload_to='enrollment/background/', blank=True)
+    thumbnail = models.ImageField(_('Thumbnail image'), upload_to='enrollment/thumbnail/', blank=True)
+    objects = models.Manager()
+    openned_enrollement = OpennedEnrollmentManager()
 
     def __str__(self):
         return u'%s, ' % [" ".join((i.attribute_name.field_value, i.attribute_value.field_value, i.for_game.name)) for i in self.roles.all()]
 
     def reach_limit(self):
-        pass
+        return False
 
     class Meta:
         app_label = "PortalEnrollment"

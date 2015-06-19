@@ -20,6 +20,7 @@ class GuildSettings(models.Model):
     guild_description = models.TextField(_("Description about your guild"), default="")
     tag = models.CharField(_('Tag'), max_length=10, default="")
     forum_active = models.BooleanField(_('Forum active'), default=True)
+    slider_active = models.BooleanField(_('Slider active'), default=False)
     youtube_channel = models.URLField(_('Youtube channel'), default="", blank=True, null=True)
     twitch_channel = models.CharField(_('Twitch channel'), default="", blank=True, null=True, max_length=50)
     facebook_page = models.URLField(_('Facebook Page'), default="", blank=True, null=True)
