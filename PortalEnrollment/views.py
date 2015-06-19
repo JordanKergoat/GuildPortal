@@ -1,16 +1,17 @@
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.shortcuts import render, get_object_or_404, render_to_response
 
 # Create your views here.
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import FormView, View, TemplateView, ListView, DetailView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
 from Portal.models import Game, CharacterAttribute
 from PortalEnrollment.forms import OpenEnrollementForm, EnrollementForm, CommentEnrollmentForm
-from PortalEnrollment.models import Enrollement, EnrollmentSettings
+from PortalEnrollment.models import Enrollement, EnrollmentSettings, EnrollmentVote
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 
@@ -24,6 +25,45 @@ def can_see(user):
             return True
     return False
 
+@csrf_exempt
+def voteUp(request, pk):
+    if can_see(request.user):
+        enrollment = Enrollement.objects.get(pk=pk)
+        for enrollment_vote in enrollment.enrollmentvote_set.all():
+            if enrollment_vote.user == request.user:
+                enrollment_vote.vote = True
+                enrollment_vote.save()
+                serialize = render_to_string('Portal/Enrollement/list_vote.html', {'enrollment': enrollment})
+                return JsonResponse({'voteup': enrollment.get_vote_up(), 'votedown': enrollment.get_vote_down(), 'list_vote': serialize })
+        vote = EnrollmentVote()
+        vote.enrollment = enrollment
+        vote.user = request.user
+        vote.vote = True
+        serialize = render_to_string('Portal/Enrollement/list_vote.html', {'enrollment': enrollment})
+        return JsonResponse({'voteup': enrollment.get_vote_up(), 'votedown': enrollment.get_vote_down(), 'list_vote': serialize })
+    return HttpResponseForbidden()
+
+
+@csrf_exempt
+def voteDown(request, pk):
+    if can_see(request.user):
+        enrollment = Enrollement.objects.get(pk=pk)
+        for enrollment_vote in enrollment.enrollmentvote_set.all():
+            if enrollment_vote.user == request.user:
+                enrollment_vote.vote = False
+                enrollment_vote.save()
+                serialize = render_to_string('Portal/Enrollement/list_vote.html', {'enrollment': enrollment})
+                return JsonResponse({'voteup': enrollment.get_vote_up(), 'votedown': enrollment.get_vote_down(),
+                                     'list_vote': serialize})
+        vote = EnrollmentVote()
+        vote.enrollment = enrollment
+        vote.user = request.user
+        vote.vote = False
+        vote.save()
+        serialize = render_to_string('Portal/Enrollement/list_vote.html', {'enrollment': enrollment})
+        return JsonResponse(
+            {'voteup': enrollment.get_vote_up(), 'votedown': enrollment.get_vote_down(), 'list_vote': serialize})
+    return HttpResponseForbidden()
 
 class OpenEnrollementView(FormView):
     template_name = "Portal/Enrollement/open_enrollment.html"
