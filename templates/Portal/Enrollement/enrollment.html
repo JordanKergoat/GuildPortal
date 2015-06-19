@@ -1,1 +1,22 @@
 {% extends 'Portal/Enrollement/base_enrollement.html' %}
+{% load i18n %}
+{% block enrollment %}
+    <div class="field-wrapper col-xs-12">
+        <div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
+            <label for="{{ enrollment_setting.game_choice }}">{% trans 'Game choice' %}:</label>
+            <hr>
+            <div class="field-wrapper-content">
+                {{ enrollment_setting.game_choice.name }}
+                <div id="characters-attribute">
+                    {% for role in enrollment_setting.roles.all %}
+                        <div class="col-xs-2">
+                            <label for="choice">{{ role.attribute_name.field_value }}</label>
+                            <hr>
+                            {{ role.attribute_value.field_value }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock%}

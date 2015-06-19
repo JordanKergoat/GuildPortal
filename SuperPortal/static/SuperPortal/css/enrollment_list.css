@@ -4,6 +4,12 @@ img.game-enrollment {
     vertical-align: middle;
 }
 
+img.game-enrollment-20 {
+    max-height: 20px;
+    max-width: 20px;
+    vertical-align: middle;
+}
+
 .fa-red {
     color: #cc0000;;
 }

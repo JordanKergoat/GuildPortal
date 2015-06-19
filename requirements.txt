@@ -4,3 +4,4 @@ psycopg2
 django-debug-toolbar
 arrow
 django-battlenet
+requests_oauthlib

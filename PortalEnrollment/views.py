@@ -18,6 +18,18 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 from SuperPortal.models import GuildSettings
 
+from battlenet.oauth2 import BattleNetOAuth2
+from django.http import HttpResponseRedirect
+
+
+def redirect_to_bnet(request):
+
+    bnet = BattleNetOAuth2()
+    url, state = bnet.get_authorization_url()
+    # save state somewhere for checking the redirect response against
+    request.session['state'] = state
+    return HttpResponseRedirect(url)
+
 #decorator
 def can_see(user):
     for group in GuildSettings.objects.all().first().group_can_vote.all():
@@ -68,6 +80,11 @@ def voteDown(request, pk):
 class OpenEnrollementView(FormView):
     template_name = "Portal/Enrollement/open_enrollment.html"
     form_class = OpenEnrollementForm
+    success_url = ""
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(OpenEnrollementView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         print(form)
@@ -77,23 +94,36 @@ class OpenEnrollementView(FormView):
             form.instance.roles.add(CharacterAttribute.objects.filter(attribute_name=x.attribute_name, id=self.request.POST[x.attribute_name.field_value]).first())
         form.instance.open = True
         form.save()
+        return super(OpenEnrollementView, self).form_valid(form)
 
 
 class EnrollementView(FormView):
     template_name = "Portal/Enrollement/enrollment.html"
     form_class = EnrollementForm
+    success_url = ""
 
-    def get_initial(self):
-        """
-        Returns the initial data to use for forms on this view.
-        """
-        initial = super(EnrollementView, self).get_initial()
-        initial['game_choice'] = EnrollmentSettings.objects.filter(id=self.kwargs['id_application']).first().game_choice
-        return initial
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(EnrollementView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(EnrollementView, self).get_context_data(**kwargs)
+        context['enrollment_setting'] = EnrollmentSettings.objects.get(id=self.kwargs['id_application'])
+        return context
+
 
     def form_valid(self, form):
-        form.instance.game_choice = EnrollmentSettings.objects.filter(id=self.kwargs['id_application']).first().game_choice
+        print "hey je passe par la "
+        enrollment_setting = EnrollmentSettings.objects.get(id=self.kwargs['id_application'])
+        form.instance.game_choice = enrollment_setting.game_choice
         form.instance.user = self.request.user
+        form.instance.open = True
+        form.save()
+        for x in enrollment_setting.roles.all():
+            form.instance.roles.add(x)
+        form.save()
+        return super(EnrollementView, self).form_valid(form)
+
 
 
 class EnrollementListView(ListView):

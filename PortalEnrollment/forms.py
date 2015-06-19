@@ -18,7 +18,7 @@ class OpenEnrollementForm(forms.ModelForm):
 class EnrollementForm(forms.ModelForm):
     class Meta:
         model = Enrollement
-        exclude = ('user', 'game_choice')
+        exclude = ('user', 'game_choice', 'enrollement_date', 'roles')
 
 
 class CommentEnrollmentForm(forms.ModelForm):
