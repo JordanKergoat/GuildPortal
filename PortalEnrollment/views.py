@@ -30,7 +30,6 @@ class OpenEnrollementView(FormView):
     form_class = OpenEnrollementForm
 
     def form_valid(self, form):
-        print form
         form.instance.user = self.request.user
         form.save()
         for x in CharacterAttribute.objects.filter(for_game=Game.objects.filter(id=self.request.POST['game_choice'])).distinct('attribute_name'):

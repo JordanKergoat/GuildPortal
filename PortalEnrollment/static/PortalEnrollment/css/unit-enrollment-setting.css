@@ -1,0 +1,20 @@
+.unit-enrollment-setting {
+    background-size: contain;
+}
+
+img.logo-game {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 25px;
+    width: 25px;
+}
+
+img.logo-thumbnail {
+
+}
+
+
+.unit-enrollment-setting.col-xs-12 {
+    padding: 0;
+}

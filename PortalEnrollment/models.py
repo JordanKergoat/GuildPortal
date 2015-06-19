@@ -16,8 +16,8 @@ class EnrollmentSettings(models.Model):
     game_choice = models.ForeignKey(Game)
     open = models.BooleanField(_('Open Enrollment'), default=False)
     limit = models.SmallIntegerField(_('Limit'))
-    background_image = models.ImageField(_('Background image'), upload_to='/enrollment/background/', blank=True)
-    thumbnail = models.ImageField(_('Thumbnail image'), upload_to='/enrollment/thumbnail/', blank=True)
+    background_image = models.ImageField(_('Background image'), upload_to='enrollment/background/', blank=True)
+    thumbnail = models.ImageField(_('Thumbnail image'), upload_to='enrollment/thumbnail/', blank=True)
 
     def __str__(self):
         return u'%s, ' % [" ".join((i.attribute_name.field_value, i.attribute_value.field_value, i.for_game.name)) for i in self.roles.all()]

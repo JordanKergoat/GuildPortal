@@ -7,7 +7,18 @@
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'SuperPortal/css/news_feed.css' %}">
     <link rel="stylesheet" href="{% static 'SuperPortal/css/slider.css' %}">
+    <link rel="stylesheet" href="{% static 'PortalEnrollment/css/unit-enrollment-setting.css' %}">
     <link rel="stylesheet" href="{% static 'SuperPortal/css/external/owl.carousel.css' %}">
+
+    <style type="text/css">
+
+        {% for enrollment in enrollments %}
+            .unit-enrollment-setting.id-{{ enrollment.id }} {
+                background-image: url("{{ enrollment.background_image.url }}");
+            }
+        {% endfor %}
+
+    </style>
 
 {% endblock %}
 
@@ -70,7 +81,7 @@
     </div>
 
     <div id="superportal-news_feed">
-        <div id="inner-news-feed" class="col-xs-12 col-lg-6 col-lg-offset-2 content-wrapper">
+        <div id="inner-news-feed" class="col-xs-12 col-lg-5 col-lg-offset-2 content-wrapper">
 
             <h2>{% trans "News" %} :</h2>
             {% for news in news_list %}
@@ -83,11 +94,20 @@
         </div>
     </div>
     <div id="superportal-modules">
-        <ul id="superportal-module-list" class="col-xs-12 col-lg-2 content-wrapper">
-            <li class="superportal-module">
-                <div id="twitch" class="twitch superportal-modules col-xs-2">
+        <ul id="superportal-module-list" class="col-xs-12 col-lg-3 content-wrapper">
+            <div class="superportal-module">
+                <div id="enrollment" class="superportal-modules col-xs-12">
+                    <h3>{% trans 'Enrollment' %} :</h3>
+
+                    {% for enrollment in enrollments %}
+                        {% include 'PortalEnrollment/unit_enrollment_setting_module.html' %}
+                    {% endfor %}
                 </div>
-            </li>
+            </div>
+            <div class="superportal-module">
+                <div id="twitch" class="twitch superportal-modules col-xs-12">
+                </div>
+            </div>
             {#            <li class="twitch superportal-module">#}
             {##}
             {#            </li>#}
