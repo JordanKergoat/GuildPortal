@@ -21,15 +21,30 @@ from SuperPortal.models import GuildSettings
 from battlenet.oauth2 import BattleNetOAuth2
 from django.http import HttpResponseRedirect
 
+# def tmp(request):
+#     if request.GET.get('code'):
+#         if request.GET.get('state') and request.session.get('state'):
+#             if request.GET['state'] == request.session['state']:
+#                 bnet = BattleNetOAuth2(key="r5k3eqmj988fh6wsdvu8gh57rzbap62r", redirect_uri="https://127.0.0.1:8000/recrutement/tmp/", secret="HgR8zqCCsPUA75xQHVa4WQktqnnmmyCZ")
+#                 data = bnet.retrieve_access_token(request.GET['code'])
+#                 print "data", data
+#
+# def redirect_to_bnet(request):
+#     bnet = BattleNetOAuth2(key="r5k3eqmj988fh6wsdvu8gh57rzbap62r", redirect_uri="https://127.0.0.1:8000/recrutement/tmp/", secret="HgR8zqCCsPUA75xQHVa4WQktqnnmmyCZ")
+#     url, state = bnet.get_authorization_url()
+#     print 'URL' , url
+#     print 'STATE', state
+#     # save state somewhere for checking the redirect response against
+#     request.session['state'] = state
+#     return HttpResponseRedirect(url)
 
 def redirect_to_bnet(request):
+    return
 
-    bnet = BattleNetOAuth2()
-    url, state = bnet.get_authorization_url()
-    # save state somewhere for checking the redirect response against
-    request.session['state'] = state
-    return HttpResponseRedirect(url)
-
+def tmp(request):
+    from battlenet.community.wow.characters import Character
+    char = Character(name="Xunis", realm="Ysondre", apikey="r5k3eqmj988fh6wsdvu8gh57rzbap62r", locale="fr")
+    return HttpResponse(char.get())
 #decorator
 def can_see(user):
     for group in GuildSettings.objects.all().first().group_can_vote.all():
@@ -37,7 +52,7 @@ def can_see(user):
             return True
     return False
 
-@csrf_exempt
+# @csrf_exempt
 def voteUp(request, pk):
     if can_see(request.user):
         enrollment = Enrollement.objects.get(pk=pk)
@@ -56,7 +71,7 @@ def voteUp(request, pk):
     return HttpResponseForbidden()
 
 
-@csrf_exempt
+# @csrf_exempt
 def voteDown(request, pk):
     if can_see(request.user):
         enrollment = Enrollement.objects.get(pk=pk)

@@ -25,7 +25,8 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
-
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
 # Application definition
 
@@ -37,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'sslserver',
     # 'usersettings',
     'debug_toolbar',
     'SuperPortal',
@@ -44,6 +46,7 @@ INSTALLED_APPS = (
     'PortalEnrollment',
     'Forum',
     'PortalMessaging',
+    'PortalRaid'
 )
 
 
