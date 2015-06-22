@@ -12,7 +12,5 @@ class Message(models.Model):
     topic = models.CharField(_('Topic'), max_length=64)
     message = models.TextField(_('Message'))
 
-    def __str__(self):
-        return "Sender [%s] - [%s] - %s" % (self.sender.username, self.receiver.username, self.topic)
 
 

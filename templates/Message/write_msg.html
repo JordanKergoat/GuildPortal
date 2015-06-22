@@ -2,11 +2,43 @@
 {% load staticfiles %}
 {% load i18n %}
 
+<head>
+
+    {% block css %}
+
+        {{ block.super }}
+        <style type="text/css">
+               #center {
+                width: 800px;
+                color: #736258;
+                margin: 0 auto;
+                padding: 10px;
+            }
+        input {
+                font-family: Georgia;
+                font-size: 16px;
+                color: #ffffff;
+                background: #736258;
+                padding: 8px 10px 8px 10px;
+                text-decoration: none;
+                border: 0;
+            }
+
+            input:hover {
+                background: #EEF2EB;
+                color: #736258;
+                border: 0;
+                text-decoration: none;
+            }
+        </style>
+    {% endblock %}
+
+</head>
 
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
     <form  action="" method="post">{% csrf_token %}
-        {{ form.as_p }}
-    <input type="submit" value="Envoyer"/>
+        <div id="center"> {{ form.as_p }} </div>
+    <div id="center"><input type="submit" value="Envoyer"/></div>
     </form>
 {% endblock %}

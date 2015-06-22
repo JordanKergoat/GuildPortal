@@ -12,13 +12,14 @@ def menu(request):
 
 def guild_info(request):
     if request.user.is_authenticated():
-        for group in GuildSettings.objects.all().first().group_can_vote.all():
-            if group in request.user.groups.all():
-                return {
-                    'guild': GuildSettings.objects.all().first(),
-                    'super_portal': SuperPortal.objects.all().first(),
-                    'number_enrollment': len(Enrollement.objects.filter(open=True))
-                }
+        if GuildSettings.objects.all().first():
+            for group in GuildSettings.objects.all().first().group_can_vote.all():
+                if group in request.user.groups.all():
+                    return {
+                        'guild': GuildSettings.objects.all().first(),
+                        'super_portal': SuperPortal.objects.all().first(),
+                        'number_enrollment': len(Enrollement.objects.filter(open=True))
+                    }
     return {
         'guild': GuildSettings.objects.all().first(),
         'super_portal': SuperPortal.objects.all().first()

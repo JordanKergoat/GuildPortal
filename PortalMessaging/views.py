@@ -1,5 +1,6 @@
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse_lazy
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, TemplateView, FormView
 from PortalMessaging.forms import MessageForm, ReplyForm
@@ -50,8 +51,10 @@ class IndexMessage(ListView):
     model = Message
 
     def get_queryset(self):
-        queryset = Message.objects.filter(receiver=self.request.user).order_by('-time_send')
-        return queryset
+        if self.request.user.is_authenticated():
+            queryset = Message.objects.filter(receiver=self.request.user).order_by('-time_send')
+            return queryset
+        raise PermissionDenied()
 
 
 

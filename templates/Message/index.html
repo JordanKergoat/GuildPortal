@@ -2,14 +2,97 @@
 {% load staticfiles %}
 {% load i18n %}
 
+<head>
+
+    {% block css %}
+
+        {{ block.super }}
+        <style type="text/css">
+            #moncadre {
+                width: 800px;
+                margin: 0 auto;
+                padding: 1px;
+                background: #EEF2EB;
+                border: 1px solid #DDD;
+                border-radius: 1px;
+                -webkit-border-radius: 10px;
+                -moz-border-radius: 5px;
+            }
+
+            #center {
+                width: 800px;
+                margin: 0 auto;
+                padding: 10px;
+            }
+
+            #plop {
+                width: 1000px;
+                margin: 0 auto;
+                padding: 10px;
+            }
+
+            p {
+                position: relative;
+                left: 500px;
+                top: -20px;
+            }
+
+            ul {
+                list-style: none;
+                margin-left: 0;
+                padding-left: 0;
+            }
+
+            button {
+                font-family: Georgia;
+                font-size: 16px;
+                color: #ffffff;
+                background: #736258;
+                padding: 8px 10px 8px 10px;
+                text-decoration: none;
+                border: 0;
+            }
+
+            button:hover {
+                background: #EEF2EB;
+                color: #736258;
+                border: 0;
+                text-decoration: none;
+            }
+            #white {
+                color:#ffffff;
+            }
+            #white:hover {
+                color: #736258;
+            }
+            #brown {
+                color: #736258;
+            }
+
+        </style>
+    {% endblock %}
+</head>
+
 
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
-    <a href= "{% url 'write_msg' %}"> Ecrire un nouveau message. </a>
-    <ul>
-    {% for message in message_list %}
-        <li> <a href= "{% url 'message_details' message.id %}"> {{ message }}</a></li>
-    {% endfor %}
-    </ul>
+    <col>
+    <div id="plop">
+        <button type="button" ><a id="white" href="{% url 'write_msg' %}"> Ecrire un nouveau message.</a></button>
+    </div>
+    <col/>
 
+    <div id="center">
+        <ul>
+            <div>
+                <li id="brown">Sender<p id="brown">Topic</p></li>
+            </div>
+            {% for message in message_list %}
+                <div id="moncadre">
+                    <li><a id="brown" href="{% url 'message_details' message.id %}">{{ message.sender }}<p>{{ message.topic }}</p>
+                    </a></li>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

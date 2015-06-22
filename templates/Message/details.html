@@ -24,7 +24,9 @@
                 width:800px;
                 margin:0 auto;
                 padding:10px;
+                color: #736258;
             }
+
         </style>
     {% endblock %}
 
@@ -34,10 +36,11 @@
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
     <ul>
-        <li id="plop">De : <a href="{% url 'profile' profile.id %}">{{ message.sender }}</a></li>
-        <li id="plop">Sujet :<div id="moncadre">{{ message.topic }} </div></li>
-        <li id="plop"> Message :  <div id="moncadre">{{ message.message }}</div></li>
-        <div id="plop"><a href= "{% url 'reply_msg' message.id %}"> Repondre. </a></div>
+    #TODO Ajouter le profil des autres users
+        <li id="plop">From : <a href="{% url 'profile'%}">{{ message.sender }}</a></li>
+        <li id="plop">Topic :<div id="moncadre">{{message.topic }}</div></li>
+        <li id="plop"> Message :  <div id="moncadre">{{ message.message|linebreaks }}</div></li>
+        <div id="plop"><a href= "{% url 'reply_msg' message.id %}">Reply. </a></div>
     </ul>
 
 {% endblock %}
