@@ -56,7 +56,7 @@ class IndexMessage(ListView):
             return queryset
         raise PermissionDenied()
 
-
+import datetime
 
 class MessageDetails(TemplateView):
     template_name = "Message/details.html"
@@ -67,6 +67,9 @@ class MessageDetails(TemplateView):
         if self.request.user == message.receiver or self.request.user == message.sender:
             context = self.get_context_data(**kwargs)
             context['message'] = message
+            if not message.time_read:
+                message.time_read = datetime.datetime.today()
+                message.save()
             return self.render_to_response(context)
         else:
             raise PermissionDenied

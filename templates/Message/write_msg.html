@@ -37,8 +37,10 @@
 
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
+    <div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
     <form  action="" method="post">{% csrf_token %}
         <div id="center"> {{ form.as_p }} </div>
     <div id="center"><input type="submit" value="Envoyer"/></div>
     </form>
+    </div>
 {% endblock %}

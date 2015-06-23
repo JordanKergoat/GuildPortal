@@ -11,4 +11,4 @@ class MessageForm(forms.ModelForm):
 class ReplyForm(forms.ModelForm):
     class Meta:
         model = Message
-        exclude = ('time_send', 'time_read', 'reply', 'sender', 'receiver')
+        exclude = ('time_send', 'time_read' 'reply', 'sender', 'receiver')

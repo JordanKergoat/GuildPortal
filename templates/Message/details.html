@@ -35,12 +35,15 @@
 
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
+<div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
     <ul>
     #TODO Ajouter le profil des autres users
+        <li id="plop">send{{ message.time_send}}</li>
+        <li id="plop">read{{ message.time_read}}</li>
         <li id="plop">From : <a href="{% url 'profile'%}">{{ message.sender }}</a></li>
         <li id="plop">Topic :<div id="moncadre">{{message.topic }}</div></li>
         <li id="plop"> Message :  <div id="moncadre">{{ message.message|linebreaks }}</div></li>
         <div id="plop"><a href= "{% url 'reply_msg' message.id %}">Reply. </a></div>
     </ul>
-
+</div>
 {% endblock %}
