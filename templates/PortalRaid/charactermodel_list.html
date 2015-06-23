@@ -1,6 +1,6 @@
 {% extends 'SuperPortal/base.html' %}
 {% load i18n %}
-{% block meta_description %}{% trans 'Profile' %}: {{ user.username }}{% endblock %}
+{% block meta_description %}{% trans 'Characters list' %}{% endblock %}
 {% block body %}
     {% for characters in charactermodel_list %}
     <p><a href="{% url 'detail_characters' characters.id %}">{{ characters }}</a> </p>

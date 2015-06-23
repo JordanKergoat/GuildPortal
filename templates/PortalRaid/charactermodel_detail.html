@@ -1,5 +1,6 @@
 {% extends 'SuperPortal/base.html' %}
 {% load i18n %}
+{% load static %}
 {% block meta_description %}{% trans 'Profile' %}: {{ user.username }}{% endblock %}
 {% block js %}
     {{ block.super }}
@@ -12,6 +13,7 @@
                         dataType: 'json'
 
                     }).success(function(data) {
+                        console.log(data);
                         $("#thumbnail-character").attr('src', "http://eu.battle.net/static-render/eu/" + data.thumbnail);
                         $("#result").html(data);
                     });
@@ -21,6 +23,6 @@
 {% block body %}
      <div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
 
-    <img id="thumbnail-character" src="">
+    <img id="thumbnail-character" src="{% static 'PortalEnrollment/loader/723.GIF'%}">
      </div>
 {% endblock %}

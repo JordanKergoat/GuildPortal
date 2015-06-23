@@ -46,7 +46,7 @@ class DetailsCharacterFromAPI(View):
             #print self.request.GET['fields']
             from battlenet.community.wow.characters import Character
             tmp = Character(name=char.name, realm=char.server.name, locale='fr',
-                            apikey="r5k3eqmj988fh6wsdvu8gh57rzbap62r").get(fields=['items'])
+                            apikey="r5k3eqmj988fh6wsdvu8gh57rzbap62r").get(fields=['appearance'])
             print tmp
             return JsonResponse(tmp[1], safe=False)
 

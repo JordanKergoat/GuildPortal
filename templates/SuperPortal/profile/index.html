@@ -1,20 +1,41 @@
 {% extends 'SuperPortal/base.html' %}
 {% load i18n %}
+{% load static %}
 {% block meta_description %}{% trans 'Profile' %}: {{ user.username }}{% endblock %}
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+                    target = Array();
+                    $('img#thumbnail-character').each(function (x) {
+                        target[x] = $(this);
+                        $.ajax({
+                            url: '{% url 'detail_characters_from_api' %}' + "?char=" + $(this).attr('data-id'),
+                            type: 'GET',
+                            dataType: 'json'
+                        }).success(function(data){
+                            target[x].attr('src', "http://eu.battle.net/static-render/eu/" + data.thumbnail);
+                        });
+                    });
+                }
+        );
+    </script>
+{% endblock %}
 {% block body %}
 
     <div id="profile">
         <div class="col-xs-10 col-xs-offset-1 content-wrapper">
-            <div id="header-profile" class="col-xs-4">
-            <a href="#">{% trans 'Change profile' %}</a> |
-            <a href="{% url 'new_character' %}">{% trans 'Add new character' %}</a>
+            <div id="header-profile" class="col-xs-3">
+                <a href="#">{% trans 'Change profile' %}</a> |
+                <a href="{% url 'new_character' %}">{% trans 'Add new character' %}</a>
+                <img src="http://soocurious.com/fr/wp-content/uploads/2014/07/anonyme.jpg" height="190" width="190">
                 {% if user.userprofile.image_profile %}
-                    <img src="http://soocurious.com/fr/wp-content/uploads/2014/07/anonyme.jpg" height="190" width="190">
-{#                    <img src="{{ user.userprofile.image_profile.url }}" height="190" width="190">#}
+
+                    {#                    <img src="{{ user.userprofile.image_profile.url }}" height="190" width="190">#}
                 {% endif %}
             </div>
 
-            <div id="general-profile" class="col-xs-6">
+            <div id="general-profile" class="col-xs-5">
                 <h2>{% trans 'Personal information' %}:</h2>
                 <p>User : {{ user.username }}</p>
                 <p>Gender : {{ user.userprofile.gender }}</p>
@@ -31,6 +52,14 @@
                 {% endfor %}
                 <p>About : {{ user.userprofile.about_you }}</p>
 
+            </div>
+            <div id="characters_list" class="col-xs-4">
+                <h2>{% trans 'Characters list' %}:</h2>
+                {% for character in user.charactermodel_set.all %}
+                    <div id="character-thumbnail" class="col-xs-2" style="padding-right:80px;">
+                        <a href="{% url 'detail_characters' character.id %}"><img id="thumbnail-character" src="{% static 'PortalEnrollment/loader/723.GIF'%}" data-id="{{ character.id }}"></a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
