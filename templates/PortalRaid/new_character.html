@@ -1,0 +1,27 @@
+{% extends 'SuperPortal/base.html' %}
+{% load i18n %}
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript">
+        function serverAPI(value, id) {
+            $.ajax({
+                url: '{% url 'serverlist' %}' + '?game=' + value
+
+            }).success(function(json) {
+                $('#id_server').empty();
+                $.each(json, function(i, value) {
+                    $('#id_server').append($('<option>').text(value['name']).attr('value', value['id']));
+                });
+            })
+        }
+    </script>
+{% endblock %}
+{% block meta_description %}{% trans 'Profile' %}: {{ user.username }}{% endblock %}
+{% block body %}
+    <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit">
+    </form>
+
+{% endblock %}

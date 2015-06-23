@@ -1,0 +1,26 @@
+{% extends 'SuperPortal/base.html' %}
+{% load i18n %}
+{% block meta_description %}{% trans 'Profile' %}: {{ user.username }}{% endblock %}
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $(document).ready(
+                function(){
+                    $.ajax({
+                        url: '{% url 'detail_characters_from_api' %}' + "?char=" + {{ character.id }},
+                        type: 'GET',
+                        dataType: 'json'
+
+                    }).success(function(data) {
+                        $("#thumbnail-character").attr('src', "http://eu.battle.net/static-render/eu/" + data.thumbnail);
+                        $("#result").html(data);
+                    });
+                });
+    </script>
+{% endblock %}
+{% block body %}
+     <div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
+
+    <img id="thumbnail-character" src="">
+     </div>
+{% endblock %}
