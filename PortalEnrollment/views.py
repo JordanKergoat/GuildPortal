@@ -52,7 +52,7 @@ def can_see(user):
             return True
     return False
 
-# @csrf_exempt
+@csrf_exempt
 def voteUp(request, pk):
     if can_see(request.user):
         enrollment = Enrollement.objects.get(pk=pk)
@@ -71,7 +71,7 @@ def voteUp(request, pk):
     return HttpResponseForbidden()
 
 
-# @csrf_exempt
+@csrf_exempt
 def voteDown(request, pk):
     if can_see(request.user):
         enrollment = Enrollement.objects.get(pk=pk)
@@ -127,7 +127,6 @@ class EnrollementView(FormView):
 
 
     def form_valid(self, form):
-        print "hey je passe par la "
         enrollment_setting = EnrollmentSettings.objects.get(id=self.kwargs['id_application'])
         form.instance.game_choice = enrollment_setting.game_choice
         form.instance.user = self.request.user

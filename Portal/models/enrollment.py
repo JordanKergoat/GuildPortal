@@ -9,6 +9,7 @@ from django.db import models
 class Game(models.Model):
     name = models.CharField(max_length=128)
     image = models.ImageField(upload_to='game/', blank=True)
+    url_api = models.URLField(blank=True, null=True)
     image_thumbnail = models.ImageField(upload_to='game/thumbnail/', blank=True)
 
     class Meta:
