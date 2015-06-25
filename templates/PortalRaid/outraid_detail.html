@@ -10,6 +10,7 @@
 
 {% block body %}
     <div class="col-xs-10 col-xs-offset-1 content-wrapper">
+    <a href="{% url 'raid_detail_signup' raid.id %}">{% trans 'Sign up' %}</a>
         <div id="header-raid" class="col-xs-3">
             <img class="img-responsive" src="{{ raid.raid.image.url }}">
         </div>

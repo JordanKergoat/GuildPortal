@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <a href="{% url 'raid_detail' raid.id %}">{% trans 'Detail' %}</a> | <a href="#">{% trans 'Sign up' %}</a>
+            <a href="{% url 'raid_detail' raid.id %}">{% trans 'Detail' %}</a> | <a href="{% url 'raid_detail_signup' raid.id %}">{% trans 'Sign up' %}</a>
             {% empty %}
             <h3>{% trans 'No raid schedule at this time' %}</h3>
             <img class="img-responsive" src="http://digital-art-gallery.com/oid/19/611x945_5124_WoW_crying_tree_2d_fan_art_druid_wow_world_of_warcraft_fantasy_picture_image_digital_art.jpg">

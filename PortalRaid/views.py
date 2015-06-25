@@ -8,7 +8,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView, FormView, ListView, DetailView
 from Portal.models import CharacterAttribute, TypeValue
-from PortalRaid.forms import CharacterForm
+from PortalRaid.forms import CharacterForm, CharactersRaidForm
 from PortalRaid.models import Realm, CharacterModel, OutRaid
 
 
@@ -36,6 +36,16 @@ class RaidDetailView(DetailView):
         outraid = get_object_or_404(self.model, pk=self.kwargs.get('pk', None))
         return outraid
 
+class SignUpRaidView(FormView):
+    form_class = CharactersRaidForm
+    template_name = 'PortalRaid/signupforraid.html'
+
+    # def get_form_kwargs(self):
+    #     kwargs = super(SignUpRaidView, self).get_form_kwargs()
+    #     kwargs['user'] = self.request.user
+    #     return kwargs
+
+
 class ServerListView(View):
     """
     :return json for ajax request to have list of server for each game in select option
@@ -46,6 +56,19 @@ class ServerListView(View):
         dict_for_json = dict()
         dict_for_json['realm'] = [{'id': realm.id, 'name': realm.name} for realm in realms]
         dict_for_json['class'] = [{'id': char.id, 'name': char.attribute_value.field_value} for char in characters]
+        return JsonResponse(dict_for_json, safe=False)
+
+class ClassCharacterAPI(View):
+    """
+    :return json for ajax request to have list of server for each game in select option
+    """
+
+    def get(self, request, *args, **kwargs):
+        characters = CharacterModel.objects.get(id=request.GET['character'])
+        print characters
+
+        dict_for_json = dict()
+        dict_for_json['class'] = [{'id': char.id, 'name': char.attribute_value.field_value} for char in characters.classCharacter.all()]
         return JsonResponse(dict_for_json, safe=False)
 
 
