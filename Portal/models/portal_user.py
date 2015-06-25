@@ -60,6 +60,10 @@ class Userprofile(models.Model):
     def __str__(self):
         return "%s" % self.user.username
 
+    def age(self):
+        import datetime
+        return int((datetime.date.today() - self.birthday_date).days / 365.25)
+
 from django.db.models.signals import post_save
 
 def create_profile(sender, **kw):

@@ -1,0 +1,38 @@
+{% extends 'SuperPortal/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block css %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="{% static 'PortalRaid/css/profil.css' %}">
+{% endblock %}
+{% block meta_description %}{% trans 'Profile' %}: {{ user.username }}{% endblock %}
+
+{% block body %}
+    <div class="col-xs-10 col-xs-offset-1 content-wrapper">
+        {% for raid in outraid_list %}
+            <div id="header-raid" class="col-xs-3">
+                <img class="img-responsive" src="{{ raid.raid.image.url }}">
+            </div>
+            <div id="out-raid" class="col-xs-7">
+                <h3>{{ raid.name }}</h3>
+                <h5>{{ raid.raid.name }} {% trans 'for' %} {{ raid.raid.game.name }} {% trans 'in' %} {{ raid.raid.lvl.name }}</h5>
+                <p>{% trans 'Start date' %}: {{ raid.start_date }}</p>
+                <p>{{ raid.characters.all|length }} {% trans 'registered' %} - {% trans 'Level required' %} {{ raid.lvl }}</p>
+                <div id="raid">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ raid.raid.get_progression_boss }}"
+                             aria-valuemin="0" aria-valuemax="100" style="width:{{ raid.raid.get_progression_boss }}%">
+                            {{ raid.raid.boss_successful }} / {{ raid.raid.number_of_boss }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{% url 'raid_detail' raid.id %}">{% trans 'Detail' %}</a> | <a href="#">{% trans 'Sign up' %}</a>
+            {% empty %}
+            <h3>{% trans 'No raid schedule at this time' %}</h3>
+            <img class="img-responsive" src="http://digital-art-gallery.com/oid/19/611x945_5124_WoW_crying_tree_2d_fan_art_druid_wow_world_of_warcraft_fantasy_picture_image_digital_art.jpg">
+
+        {% endfor %}
+    </div>
+{% endblock %}

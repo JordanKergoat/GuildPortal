@@ -108,7 +108,7 @@
                 {% if user.is_authenticated  and user|can_vote %}
                     <li><a href="{% url 'enrollement_list' %}">{% trans 'Ongoing Enrollment' %} <span class="badge">{{ number_enrollment }}</span></a></li>
                 {% endif %}
-                    <li><a href="#">{% trans 'Calendar' %}</a></li>
+                    <li><a href="{% url 'index_raid' %}">{% trans 'Calendar' %}</a></li>
                     {% if user.is_authenticated  %}
                         <li><a href="{% url 'profile' %}">{% trans 'Profile' %}</a></li>
                     {% endif %}

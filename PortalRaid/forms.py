@@ -1,3 +1,4 @@
+from Portal.models import CharacterAttribute, TypeValue
 from PortalRaid.models import CharacterModel
 
 __author__ = 'Alexandre Cloquet'
@@ -10,6 +11,6 @@ class CharacterForm(forms.ModelForm):
         exclude = ('user', 'iLvl', 'url')
         widgets = {
             'game': forms.Select(attrs={
-                'onchange' : "serverAPI(this.value, this.id)"
+                'onchange': "serverAPI(this.value, this.id)"
             })
         }

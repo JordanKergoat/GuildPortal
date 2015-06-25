@@ -14,9 +14,15 @@
 
             }).success(function(json) {
                 $('#id_server').empty();
-                $.each(json, function(i, value) {
+                $('#id_classCharacter').empty();
+                console.log(json.class);
+                $.each(json.realm, function(i, value) {
                     $('#id_server').append($('<option>').text(value['name']).attr('value', value['id']));
                 });
+                 $.each(json.class, function(i, value) {
+                    $('#id_classCharacter').append($('<option>').text(value['name']).attr('value', value['id']));
+                });
+
             })
         }
     </script>
@@ -55,6 +61,17 @@
                 <hr>
                 <div class="field-wrapper-content">
                     {{ form.server }}
+                    <div id="characters-attribute"></div>
+                </div>
+            </div>
+        </div>
+        <div class="field-wrapper col-xs-12">
+            <div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
+                {{ form.classCharacter.errors }}
+                <label for="{{ form.classCharacter.id_for_label }}">{{ form.classCharacter.label }}: </label>
+                <hr>
+                <div class="field-wrapper-content">
+                    {{ form.classCharacter }}
                     <div id="characters-attribute"></div>
                 </div>
             </div>

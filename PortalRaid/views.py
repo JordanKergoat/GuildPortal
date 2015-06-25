@@ -7,9 +7,34 @@ from django.shortcuts import render, get_object_or_404
 # Create your views here.
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView, FormView, ListView, DetailView
+from Portal.models import CharacterAttribute, TypeValue
 from PortalRaid.forms import CharacterForm
-from PortalRaid.models import Realm, CharacterModel
+from PortalRaid.models import Realm, CharacterModel, OutRaid
 
+
+class RaidListView(ListView):
+    model = OutRaid
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(RaidListView, self).dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        import datetime
+        queryset = self.model.objects.filter(start_date__gte=datetime.datetime.today() - datetime.timedelta(minutes=30))
+        return queryset
+
+class RaidDetailView(DetailView):
+    model = OutRaid
+    context_object_name = 'raid'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(RaidDetailView, self).dispatch(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        outraid = get_object_or_404(self.model, pk=self.kwargs.get('pk', None))
+        return outraid
 
 class ServerListView(View):
     """
@@ -17,8 +42,12 @@ class ServerListView(View):
     """
     def get(self, request, *args, **kwargs):
         realms = Realm.objects.filter(game=request.GET['game'])
-        realm = [{'id': realm.id, 'name': realm.name} for realm in realms]
-        return JsonResponse(realm, safe=False)
+        characters = CharacterAttribute.objects.filter(for_game=request.GET['game'], attribute_name=TypeValue.objects.get(field_value='Class'))
+        dict_for_json = dict()
+        dict_for_json['realm'] = [{'id': realm.id, 'name': realm.name} for realm in realms]
+        dict_for_json['class'] = [{'id': char.id, 'name': char.attribute_value.field_value} for char in characters]
+        return JsonResponse(dict_for_json, safe=False)
+
 
 class DetailsCharacter(DetailView):
     model = CharacterModel
@@ -65,14 +94,13 @@ class ListCharactersUser(ListView):
         return queryset
 
 
-
 class NewCharacterFormView(FormView):
     """
     Allow to add new characters on website. User can select game and server on list.
     """
     template_name = 'PortalRaid/new_character.html'
     form_class = CharacterForm
-    success_url = reverse_lazy('list_characters_user')
+    success_url = reverse_lazy('profile')
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -83,3 +111,4 @@ class NewCharacterFormView(FormView):
         form.instance.url = form.instance.game.url_api + 'character/' + form.instance.server.name + '/' + form.instance.name + '/'
         form.save()
         return super(NewCharacterFormView, self).form_valid(form)
+
