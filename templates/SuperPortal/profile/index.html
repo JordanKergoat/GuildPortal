@@ -35,9 +35,9 @@
             <div id="profile" class="col-xs-8">
 
                 <div id="img-profile" class="col-xs-3">
+               
                     {% if user.userprofile.image_profile %}
-                        <img class="img-responsive image-profile" src="http://soocurious.com/fr/wp-content/uploads/2014/07/anonyme.jpg" >
-                        {#                    <img src="{{ user.userprofile.image_profile.url }}" height="190" width="190">#}
+                        <img src="{{ user.userprofile.image_profile.url }}" height="190" width="190">
                     {% endif %}
                     {% for game in user.userprofile.games.all %}
                         <img src="{{ game.image_thumbnail.url }}" class="" height="20px" width="20px"/> {{ game.name }}
