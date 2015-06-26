@@ -10,5 +10,5 @@ from Forum.views import index as forum_index
 
 urlpatterns = patterns('',
     url(r'^$', index, name='portal_index'),
-    url(r'^(?P<category>(?:\w+\s*\w+)+)/(?P<news_name>\w+)/$', news_detail, name='news_detail'),
+    url(r'^(?P<category>(?:\w+\s*\w+)+)/(?P<news_name>(?:\w+[-\t\n\r\f\v:]*\w+)+)/$', news_detail, name='news_detail'),
                        )
