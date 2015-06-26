@@ -5,7 +5,7 @@ import arrow
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 
 from .portal_guild import Portal
 
@@ -60,7 +60,7 @@ class News(models.Model):
         return u"%s [%s] | %s" % (self.title, self.portal.name, self.content[0:50])
 
     def get_absolute_url(self):
-        return reverse('Portal.views.news_detail', kwargs={'portal_name': self.portal.name.replace(' ', '_'),
+        return reverse_lazy('Portal.views.news_detail', kwargs={'portal_name': self.portal.name.replace(' ', '_'),
                                                            'category': self.category.name.replace(' ', '_'),
                                                            'news_name': self.title.replace(' ', '_')})
     def get_date_formated(self):
