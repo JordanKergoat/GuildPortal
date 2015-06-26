@@ -36,14 +36,16 @@
             {% endif %}
         {% endfor %}
         <div id="required" class="col-xs-7">
-            <h4>{% trans 'Requirement' %}</h4>
+
             {% for class_needed in raid.class_needed.all %}
-                <p>{{ class_needed.number }} {{ class_needed.classCharacter.attribute_value }}</p>
+                <h4>{{ class_needed.number }} - {{ class_needed.classCharacter.attribute_value }}</h4>
+                <ul>
                 {% for character in raid.characterforoutraid_set.all %}
                     {% ifequal class_needed.classCharacter.attribute_value character.classCharacter.attribute_value %}
-                    <p><b>{{ character.character.user.username }}</b> {% trans 'sign up with' %} {{ character.character.name }} {% trans 'as' %} {{ character.classCharacter.attribute_value.field_value }}</p>
+                    <li><p><b>{{ character.character.user.username }}</b> {% trans 'sign up with' %} {{ character.character.name }} {% trans 'as' %} {{ character.classCharacter.attribute_value.field_value }}</p></li>
                     {% endifequal %}
                 {% endfor %}
+                </ul>
             {% endfor %}
         </div>
     </div>
