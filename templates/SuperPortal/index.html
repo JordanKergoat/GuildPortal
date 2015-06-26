@@ -36,23 +36,23 @@
     <script type="text/javascript">
 
         $(document).ready(function(){
-            slider = $(".owl-carousel");
-            slider.owlCarousel({
-                margin: 0,
-                autoplay: true,
-                autoplayTimeout: 2000,
-                autoplayHoverPause: true,
-                center: true,
-                loop: true,
-                item: 1,
-            });
-
-            $('div.control.prev').click(function() {
-                slider.trigger('prev.owl.carousel');
-            });
-            $('div.control.next').click(function() {
-                slider.trigger('next.owl.carousel');
-            });
+{#            slider = $(".owl-carousel");#}
+{#            slider.owlCarousel({#}
+{#                margin: 0,#}
+{#                autoplay: true,#}
+{#                autoplayTimeout: 2000,#}
+{#                autoplayHoverPause: true,#}
+{#                center: true,#}
+{#                loop: true,#}
+{#                item: 1,#}
+{#            });#}
+{##}
+{#            $('div.control.prev').click(function() {#}
+{#                slider.trigger('prev.owl.carousel');#}
+{#            });#}
+{#            $('div.control.next').click(function() {#}
+{#                slider.trigger('next.owl.carousel');#}
+{#            });#}
 
             $.getJSON("https://api.twitch.tv/kraken/streams/" + "{{ guild.twitch_channel }}" + "?callback=?", function(data) {
                 if (data['stream']) {

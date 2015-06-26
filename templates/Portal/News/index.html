@@ -20,14 +20,14 @@
             <i id="news-comment" class="fa fa-eye pull-right"> {{ news.view }}</i>
             <i id="news-comment" class="fa fa-comment pull-right"> {{ news.commentnews_set.all|length }}</i>
             <h2>{{ news.title }}</h2>
-            <img src="http://www.blizzspirit.com/wp-content/uploads/2014/11/quete_khadgar_anneaux_zangarra.png" class="news-img-portal"/> {{ news.portal.name }} / {{ news.category|title }}
-{#            <img src="{{ news.portal.image.url }}" class="news-img-portal"/> {{ news.portal.name }} / {{ news.category|title }}#}
+{#            <img src="http://www.blizzspirit.com/wp-content/uploads/2014/11/quete_khadgar_anneaux_zangarra.png" class="news-img-portal"/> {{ news.portal.name }} / {{ news.category|title }}#}
+            <img src="{{ news.portal.image.url }}" class="news-img-portal"/> {{ news.portal.name }} / {{ news.category|title }}
         </div>
         {#        Nombre de commentaire : {{news.commentnews_set.all|length}} Vue par {{ news.view }} </br>#}
         {#        {% trans 'Written by' %} {{ news.creator.username }} {{ news.get_date_formated }}#}
         <div id="news-img" class="col-xs-12">
-            <img src="http://www.blizzspirit.com/wp-content/uploads/2014/11/quete_khadgar_anneaux_zangarra.png">
-{#            <img src="{{ news.news_image.url }}">#}
+{#            <img src="http://www.blizzspirit.com/wp-content/uploads/2014/11/quete_khadgar_anneaux_zangarra.png">#}
+            <img src="{{ news.news_image.url }}">
         </div>
 
         <div id="news-body">
