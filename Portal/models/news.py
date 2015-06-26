@@ -71,7 +71,7 @@ class News(models.Model):
         print 'title = ', self.title.replace(' ', '_')
 
         return reverse('Portal.views.news_detail', args=[self.portal.name.replace(' ', '_'), self.category.name.replace(' ', '_'),
-                                                           self.title.replace(' ', '_')])
+                                                           self.slug])
     def get_date_formated(self):
         date = arrow.get(self.published_date)
         date = date.humanize(locale='fr')
