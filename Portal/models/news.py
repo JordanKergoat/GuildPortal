@@ -52,7 +52,7 @@ class News(models.Model):
     published_date = models.DateTimeField(_('Published date'), auto_now_add=True)
     modification_date = models.DateTimeField(_('Modification date'), blank=True, null=True)
     title = models.CharField(_('Title'), max_length=100, db_index=True)
-    slug = models.CharField(_('Slug'), max_length=100, db_index=True)
+    slug = models.CharField(_('Slug'), max_length=100, db_index=True, default="")
     content = models.TextField(_('Body'))
     view = models.IntegerField(default=0)
     news_image = models.ImageField(_('News image'), upload_to='news/')
