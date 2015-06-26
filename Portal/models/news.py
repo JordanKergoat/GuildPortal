@@ -1,3 +1,8 @@
+import unicodedata
+import re
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+
 __author__ = 'Alexandre Cloquet'
 
 import datetime
@@ -47,6 +52,7 @@ class News(models.Model):
     published_date = models.DateTimeField(_('Published date'), auto_now_add=True)
     modification_date = models.DateTimeField(_('Modification date'), blank=True, null=True)
     title = models.CharField(_('Title'), max_length=100, db_index=True)
+    slug = models.CharField(_('Slug'), max_length=100, db_index=True)
     content = models.TextField(_('Body'))
     view = models.IntegerField(default=0)
     news_image = models.ImageField(_('News image'), upload_to='news/')
@@ -100,3 +106,17 @@ class Comment(models.Model):
 
 class CommentNews(Comment):
     news = models.ForeignKey(News)
+
+from django.template.defaultfilters import slugify
+
+@receiver(pre_save, sender=News)
+def my_callback(sender, instance, *args, **kwargs):
+    print 'je clean title'
+    instance.slug = slugify(instance.title)
+    print instance.slug
+
+# def slugify(str):
+#     slug = unicodedata.normalize("NFKD",unicode(str)).encode("ascii", "ignore")
+#     slug = re.sub(r"[^\w]+", " ", slug)
+#     slug = "-".join(slug.lower().strip().split())
+#     return slug
