@@ -61,6 +61,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
 )
 
 ROOT_URLCONF = 'GuildPortal.urls'
@@ -93,7 +94,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr-FR'
 
 TIME_ZONE = 'Europe/Berlin'
 
@@ -103,6 +104,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+ugettext = lambda s: s
+LANGUAGES = (
+    ('fr', ugettext('French')),
+)
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
@@ -110,6 +116,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.getcwd(), 'media/')

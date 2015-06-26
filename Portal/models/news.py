@@ -1,10 +1,11 @@
 __author__ = 'Alexandre Cloquet'
 
 import datetime
-
+import arrow
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from .portal_guild import Portal
 
@@ -59,12 +60,10 @@ class News(models.Model):
         return u"%s [%s] | %s" % (self.title, self.portal.name, self.content[0:50])
 
     def get_absolute_url(self):
-        from django.core.urlresolvers import reverse
-        return reverse('Portal.views.news_detail', kwargs={'portal_name': str(self.portal.name).replace(' ', '_'),
+        return reverse('Portal.views.news_detail', kwargs={'portal_name': self.portal.name.replace(' ', '_'),
                                                            'category': self.category.name.replace(' ', '_'),
                                                            'news_name': self.title.replace(' ', '_')})
     def get_date_formated(self):
-        import arrow
         date = arrow.get(self.published_date)
         date = date.humanize(locale='fr')
         return date
@@ -88,7 +87,6 @@ class Comment(models.Model):
         return self.content[0:25]
 
     def get_date_formated(self):
-        import arrow
         date = arrow.get(self.published_date)
         date = date.humanize(locale='fr')
         return date
