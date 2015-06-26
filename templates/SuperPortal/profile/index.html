@@ -49,7 +49,7 @@
                 </div>
 
                 <div id="info-profile" class="col-xs-5">
-                    <h4>{{ user.username|title }}, {{ user.userprofile.gender }} - {{ user.userprofile.age }} {% trans 'years' %}</h4>
+                    <h4>{{ user.username|title }}, {{ user.userprofile.gender }} {% if user.userprofile.birthday_date  %} - {{ user.userprofile.age }} {% trans 'years' %}{% endif %}</h4>
                     <p>Job/Study : {{ user.userprofile.job_study }}</p>
                     <p>User : {{ user.userprofile.town }} {% trans 'in' %} {{ user.userprofile.country }}</p>
                     <p>Teamspeak : {{ user.userprofile.teamspeak_nickname }}</p>

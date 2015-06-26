@@ -1,0 +1,37 @@
+{% extends 'SuperPortal/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript">
+        function classforCharacterAPI(value, id) {
+            $.ajax({
+                url: '{% url 'ClassCharacterAPI' %}' + '?character=' + value
+
+            }).success(function(json) {
+                $('#id_classCharacter').empty();
+                console.log(json.class);
+                 $.each(json.class, function(i, value) {
+                    $('#id_classCharacter').append($('<option>').text(value['name']).attr('value', value['id']));
+                });
+
+            })
+        }
+    </script>
+{% endblock %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'PortalRaid/css/profil.css' %}">
+{% endblock %}
+{% block meta_description %}{% trans 'Profile' %}: {{ user.username }}{% endblock %}
+
+{% block body %}
+    <div class="col-xs-10 col-xs-offset-1 content-wrapper">
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+    <input type="submit">
+    </form>
+
+    </div>
+{% endblock %}

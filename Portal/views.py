@@ -13,7 +13,7 @@ def index(request, portal_name):
 
 def news_detail(request, portal_name, category, news_name):
     portal = Portal.objects.get(name=portal_name.replace('_', ' '))
-    news = News.objects.get(category__name=category.replace('_', ' '), title=news_name.replace('_', ' '))
+    news = News.objects.get(category__name=category.replace('_', ' '), slug=news_name)
     news.view += 1
     news.save()
     raw_comments = CommentNews.objects.filter(news=news, response=None).order_by('published_date')

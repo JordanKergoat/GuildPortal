@@ -18,7 +18,7 @@
                 <h3>{{ raid.name }}</h3>
                 <h5>{{ raid.raid.name }} {% trans 'for' %} {{ raid.raid.game.name }} {% trans 'in' %} {{ raid.raid.lvl.name }}</h5>
                 <p>{% trans 'Start date' %}: {{ raid.start_date }}</p>
-                <p>{{ raid.characters.all|length }} {% trans 'registered' %} - {% trans 'Level required' %} {{ raid.lvl }}</p>
+                <p>{{ raid.characterforoutraid_set.all|length }} {% trans 'registered' %} - {% trans 'Level required' %} {{ raid.lvl }}</p>
                 <div id="raid">
                     <div class="progress">
                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ raid.raid.get_progression_boss }}"
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <a href="{% url 'raid_detail' raid.id %}">{% trans 'Detail' %}</a> | <a href="#">{% trans 'Sign up' %}</a>
+            <a href="{% url 'raid_detail' raid.id %}">{% trans 'Detail' %}</a> | <a href="{% url 'raid_detail_signup' raid.id %}">{% trans 'Sign up' %}</a>
             {% empty %}
             <h3>{% trans 'No raid schedule at this time' %}</h3>
             <img class="img-responsive" src="http://digital-art-gallery.com/oid/19/611x945_5124_WoW_crying_tree_2d_fan_art_druid_wow_world_of_warcraft_fantasy_picture_image_digital_art.jpg">

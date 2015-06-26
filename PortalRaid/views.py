@@ -1,14 +1,16 @@
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.forms import forms
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.utils.translation import ugettext as _
 
 # Create your views here.
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView, FormView, ListView, DetailView
 from Portal.models import CharacterAttribute, TypeValue
-from PortalRaid.forms import CharacterForm
+from PortalRaid.forms import CharacterForm, CharactersRaidForm
 from PortalRaid.models import Realm, CharacterModel, OutRaid
 
 
@@ -36,6 +38,48 @@ class RaidDetailView(DetailView):
         outraid = get_object_or_404(self.model, pk=self.kwargs.get('pk', None))
         return outraid
 
+class SignUpRaidView(FormView):
+    form_class = CharactersRaidForm
+    template_name = 'PortalRaid/signupforraid.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(SignUpRaidView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        out_raid = OutRaid.objects.get(id=self.kwargs['pk'])
+        #TODO Verifier que le nombre de chaque class ne soit pas depasse
+        for class_needed in out_raid.class_needed.all():
+            if form.instance.classCharacter == class_needed.classCharacter:
+                form.instance.out_raid = out_raid
+
+                for char in out_raid.characterforoutraid_set.all():
+                    if char.character == form.instance.character:
+                        raise forms.ValidationError(
+                            _('You have already sign up for this raid'),
+                            code='invalid',
+                        )
+                    if char.character.user == self.request.user:
+                        raise forms.ValidationError(
+                            _('You have already register with another character'),
+                            code='invalid',
+                        )
+                form.save()
+                return super(SignUpRaidView, self).form_valid(form)
+        raise forms.ValidationError(
+            _('We don\'t need this class: %(value)s'),
+            code='invalid',
+            params={'value': form.instance.classCharacter.attribute_value},
+        )
+
+        #form.save()
+
+    # def get_form_kwargs(self):
+    #     kwargs = super(SignUpRaidView, self).get_form_kwargs()
+    #     kwargs['user'] = self.request.user
+    #     return kwargs
+
+
 class ServerListView(View):
     """
     :return json for ajax request to have list of server for each game in select option
@@ -46,6 +90,17 @@ class ServerListView(View):
         dict_for_json = dict()
         dict_for_json['realm'] = [{'id': realm.id, 'name': realm.name} for realm in realms]
         dict_for_json['class'] = [{'id': char.id, 'name': char.attribute_value.field_value} for char in characters]
+        return JsonResponse(dict_for_json, safe=False)
+
+class ClassCharacterAPI(View):
+    """
+    :return json for ajax request to have list of server for each game in select option
+    """
+
+    def get(self, request, *args, **kwargs):
+        characters = CharacterModel.objects.get(id=request.GET['character'])
+        dict_for_json = dict()
+        dict_for_json['class'] = [{'id': char.id, 'name': char.attribute_value.field_value} for char in characters.classCharacter.all()]
         return JsonResponse(dict_for_json, safe=False)
 
 

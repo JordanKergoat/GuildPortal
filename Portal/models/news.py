@@ -1,10 +1,16 @@
+import unicodedata
+import re
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+
 __author__ = 'Alexandre Cloquet'
 
 import datetime
-
+import arrow
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from django.db import models
+from django.core.urlresolvers import reverse, reverse_lazy
 
 from .portal_guild import Portal
 
@@ -46,6 +52,7 @@ class News(models.Model):
     published_date = models.DateTimeField(_('Published date'), auto_now_add=True)
     modification_date = models.DateTimeField(_('Modification date'), blank=True, null=True)
     title = models.CharField(_('Title'), max_length=100, db_index=True)
+    slug = models.CharField(_('Slug'), max_length=100, db_index=True, default="", blank=True, help_text=_('You don\'t need to fill it'))
     content = models.TextField(_('Body'))
     view = models.IntegerField(default=0)
     news_image = models.ImageField(_('News image'), upload_to='news/')
@@ -59,12 +66,10 @@ class News(models.Model):
         return u"%s [%s] | %s" % (self.title, self.portal.name, self.content[0:50])
 
     def get_absolute_url(self):
-        from django.core.urlresolvers import reverse
-        return reverse('Portal.views.news_detail', kwargs={'portal_name': str(self.portal.name).replace(' ', '_'),
+        return reverse('Portal.views.news_detail', kwargs={'portal_name': self.portal.name.replace(' ', '_'),
                                                            'category': self.category.name.replace(' ', '_'),
-                                                           'news_name': self.title.replace(' ', '_')})
+                                                           'news_name': self.slug})
     def get_date_formated(self):
-        import arrow
         date = arrow.get(self.published_date)
         date = date.humanize(locale='fr')
         return date
@@ -88,7 +93,6 @@ class Comment(models.Model):
         return self.content[0:25]
 
     def get_date_formated(self):
-        import arrow
         date = arrow.get(self.published_date)
         date = date.humanize(locale='fr')
         return date
@@ -99,3 +103,17 @@ class Comment(models.Model):
 
 class CommentNews(Comment):
     news = models.ForeignKey(News)
+
+from django.template.defaultfilters import slugify
+
+@receiver(pre_save, sender=News)
+def my_callback(sender, instance, *args, **kwargs):
+    print 'je clean title'
+    instance.slug = slugify(instance.title)
+    print instance.slug
+
+# def slugify(str):
+#     slug = unicodedata.normalize("NFKD",unicode(str)).encode("ascii", "ignore")
+#     slug = re.sub(r"[^\w]+", " ", slug)
+#     slug = "-".join(slug.lower().strip().split())
+#     return slug

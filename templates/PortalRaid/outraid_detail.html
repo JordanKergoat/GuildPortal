@@ -10,6 +10,7 @@
 
 {% block body %}
     <div class="col-xs-10 col-xs-offset-1 content-wrapper">
+    <a href="{% url 'raid_detail_signup' raid.id %}">{% trans 'Sign up' %}</a>
         <div id="header-raid" class="col-xs-3">
             <img class="img-responsive" src="{{ raid.raid.image.url }}">
         </div>
@@ -17,7 +18,7 @@
             <h3>{{ raid.name }}</h3>
             <h5>{{ raid.raid.name }} {% trans 'for' %} {{ raid.raid.game.name }} {% trans 'in' %} {{ raid.raid.lvl.name }}</h5>
             <p>{% trans 'Start date' %}: {{ raid.start_date }}</p>
-            <p>{{ raid.characters.all|length }} {% trans 'registered' %} - {% trans 'Level required' %} {{ raid.lvl }}</p>
+            <p>{{ raid.characterforoutraid_set.all|length }} {% trans 'registered' %} - {% trans 'Level required' %} {{ raid.lvl }}</p>
             <div id="raid">
                 <div class="progress">
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ raid.raid.get_progression_boss }}"
@@ -35,14 +36,17 @@
             {% endif %}
         {% endfor %}
         <div id="required" class="col-xs-7">
-            <h4>{% trans 'Requirement' %}</h4>
+
             {% for class_needed in raid.class_needed.all %}
-                <p>{{ class_needed.number }} {{ class_needed.classCharacter.attribute_value }}</p>
-            {% endfor %}
-            {% for character in raid.characters.all %}
-                <p><b>{{ character.character.user.username }}</b> {% trans 'sign up with' %} {{ character.character.name }} {% trans 'as' %} {{ character.classCharacter.attribute_value.field_value }}</p>
+                <h4>{{ class_needed.number }} - {{ class_needed.classCharacter.attribute_value }}</h4>
+                <ul>
+                {% for character in raid.characterforoutraid_set.all %}
+                    {% ifequal class_needed.classCharacter.attribute_value character.classCharacter.attribute_value %}
+                    <li><p><b>{{ character.character.user.username }}</b> {% trans 'sign up with' %} {{ character.character.name }} {% trans 'as' %} {{ character.classCharacter.attribute_value.field_value }}</p></li>
+                    {% endifequal %}
+                {% endfor %}
+                </ul>
             {% endfor %}
         </div>
-
     </div>
 {% endblock %}
