@@ -18,7 +18,7 @@
                 <h3>{{ raid.name }}</h3>
                 <h5>{{ raid.raid.name }} {% trans 'for' %} {{ raid.raid.game.name }} {% trans 'in' %} {{ raid.raid.lvl.name }}</h5>
                 <p>{% trans 'Start date' %}: {{ raid.start_date }}</p>
-                <p>{{ raid.characters.all|length }} {% trans 'registered' %} - {% trans 'Level required' %} {{ raid.lvl }}</p>
+                <p>{{ raid.characterforoutraid_set.all|length }} {% trans 'registered' %} - {% trans 'Level required' %} {{ raid.lvl }}</p>
                 <div id="raid">
                     <div class="progress">
                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ raid.raid.get_progression_boss }}"

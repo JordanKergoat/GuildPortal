@@ -77,9 +77,7 @@ class ClassForOutRaid(models.Model):
     def __str__(self):
         return "%d %s" % (self.number, self.classCharacter.attribute_value)
 
-class CharacterForOutRaid(models.Model):
-    character = models.ForeignKey(CharacterModel)
-    classCharacter = models.ForeignKey(CharacterAttribute)
+
 
 class OutRaid(models.Model):
     name = models.CharField(_('Out name'), max_length=64)
@@ -89,5 +87,9 @@ class OutRaid(models.Model):
     end_date = models.DateTimeField()
     creator = models.ForeignKey(User)
     class_needed = models.ManyToManyField(ClassForOutRaid)
-    characters = models.ManyToManyField(CharacterForOutRaid, blank=True)
     lvl = models.SmallIntegerField(_('Level'))
+
+class CharacterForOutRaid(models.Model):
+    out_raid = models.ForeignKey(OutRaid, blank=True, null=True)
+    character = models.ForeignKey(CharacterModel)
+    classCharacter = models.ForeignKey(CharacterAttribute)

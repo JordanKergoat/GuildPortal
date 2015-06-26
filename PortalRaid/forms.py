@@ -18,7 +18,7 @@ class CharacterForm(forms.ModelForm):
 class CharactersRaidForm(forms.ModelForm):
     class Meta:
         model = CharacterForOutRaid
-        exclude = ()
+        exclude = ('out_raid',)
         widgets = {
             'character': forms.Select(attrs={
                 'onchange': "classforCharacterAPI(this.value, this.id)"

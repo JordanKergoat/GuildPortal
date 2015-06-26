@@ -27,6 +27,11 @@
 
 {% block body %}
     <div class="col-xs-10 col-xs-offset-1 content-wrapper">
-    {{ form }}
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+    <input type="submit">
+    </form>
+
     </div>
 {% endblock %}
