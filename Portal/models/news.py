@@ -66,7 +66,8 @@ class News(models.Model):
         return u"%s [%s] | %s" % (self.title, self.portal.name, self.content[0:50])
 
     def get_absolute_url(self):
-        return reverse('Portal.views.news_detail', kwargs={'portal_name': self.portal.name.replace(' ', '_'),
+        print "Je suis call"
+        return reverse('news_detail', kwargs={'portal_name': self.portal.slug,
                                                            'category': self.category.name.replace(' ', '_'),
                                                            'news_name': self.slug})
     def get_date_formated(self):

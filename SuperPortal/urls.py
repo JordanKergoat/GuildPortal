@@ -12,5 +12,5 @@ urlpatterns = patterns('',
     url(r'^members/$', Members.as_view(), name='members'),
 
     #url(r'^(?P<portal_name>(?:\w+\s*\w+)+)/$', portal_index, name='portal_index'),
-    url(r'^(?P<portal_name>(?:\w+\s*\w+)+)/', include('Portal.urls')),
+    url(r'^(?P<portal_name>(?:\w+[-\s*]\w+)+)/', include('Portal.urls')),
 )

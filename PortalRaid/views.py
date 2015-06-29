@@ -26,6 +26,7 @@ class RaidListView(ListView):
         queryset = self.model.objects.filter(start_date__gte=datetime.datetime.today() - datetime.timedelta(minutes=30))
         return queryset
 
+
 class RaidDetailView(DetailView):
     model = OutRaid
     context_object_name = 'raid'
@@ -38,6 +39,7 @@ class RaidDetailView(DetailView):
         outraid = get_object_or_404(self.model, pk=self.kwargs.get('pk', None))
         return outraid
 
+
 class SignUpRaidView(FormView):
     form_class = CharactersRaidForm
     template_name = 'PortalRaid/signupforraid.html'
@@ -49,28 +51,33 @@ class SignUpRaidView(FormView):
     def form_valid(self, form):
         out_raid = OutRaid.objects.get(id=self.kwargs['pk'])
         #TODO Verifier que le nombre de chaque class ne soit pas depasse
-        for class_needed in out_raid.class_needed.all():
-            if form.instance.classCharacter == class_needed.classCharacter:
-                form.instance.out_raid = out_raid
-
-                for char in out_raid.characterforoutraid_set.all():
-                    if char.character == form.instance.character:
-                        raise forms.ValidationError(
-                            _('You have already sign up for this raid'),
-                            code='invalid',
-                        )
-                    if char.character.user == self.request.user:
-                        raise forms.ValidationError(
-                            _('You have already register with another character'),
-                            code='invalid',
-                        )
-                form.save()
-                return super(SignUpRaidView, self).form_valid(form)
+        if out_raid.can_be_register():
+            for class_needed in out_raid.class_needed.all():
+                if form.instance.classCharacter == class_needed.classCharacter:
+                    form.instance.out_raid = out_raid
+                    for char in out_raid.characterforoutraid_set.all():
+                        if char.character == form.instance.character:
+                            raise forms.ValidationError(
+                                _('You have already sign up for this raid'),
+                                code='invalid',
+                            )
+                        if char.character.user == self.request.user:
+                            raise forms.ValidationError(
+                                _('You have already register with another character'),
+                                code='invalid',
+                            )
+                    form.save()
+                    return super(SignUpRaidView, self).form_valid(form)
+            raise forms.ValidationError(
+                _('We don\'t need this class: %(value)s'),
+                code='invalid',
+                params={'value': form.instance.classCharacter.attribute_value},
+            )
         raise forms.ValidationError(
-            _('We don\'t need this class: %(value)s'),
-            code='invalid',
-            params={'value': form.instance.classCharacter.attribute_value},
+            _('It\'s out of date of registration'),
+            code='invalid'
         )
+
 
         #form.save()
 
@@ -91,6 +98,7 @@ class ServerListView(View):
         dict_for_json['realm'] = [{'id': realm.id, 'name': realm.name} for realm in realms]
         dict_for_json['class'] = [{'id': char.id, 'name': char.attribute_value.field_value} for char in characters]
         return JsonResponse(dict_for_json, safe=False)
+
 
 class ClassCharacterAPI(View):
     """

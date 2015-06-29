@@ -10,7 +10,7 @@
 
 {% block body %}
     <div class="col-xs-10 col-xs-offset-1 content-wrapper">
-    <a href="{% url 'raid_detail_signup' raid.id %}">{% trans 'Sign up' %}</a>
+        <a href="{% url 'raid_detail_signup' raid.id %}">{% trans 'Sign up' %}</a>
         <div id="header-raid" class="col-xs-3">
             <img class="img-responsive" src="{{ raid.raid.image.url }}">
         </div>
@@ -28,6 +28,21 @@
                 </div>
             </div>
         </div>
+        <div id="required" class="col-xs-7">
+            {% for class_needed in raid.class_needed.all %}
+                <h4>{{ class_needed.number }} - {{ class_needed.classCharacter.attribute_value }}</h4>
+                <ul>
+                    {% for character in raid.characterforoutraid_set.all %}
+                        {% ifequal class_needed.classCharacter.attribute_value character.classCharacter.attribute_value %}
+                            <li>
+                                <p>
+                                    <img src="{{ character.character.user.userprofile.image_profile.url}}" height="40" width="40">
+                                    <b>{{ character.character.user.username }}</b> {% trans 'sign up with' %} {{ character.character.name }} {% trans 'as' %} {{ character.classCharacter.attribute_value.field_value }}</p></li>
+                        {% endifequal %}
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </div>
         {% for boss in raid.raid.boss_set.all %}
             {% if boss.position_in_raid == raid.raid.boss_successful %}
                 <div id="header-raid" class="col-xs-3">
@@ -35,18 +50,5 @@
                 </div>
             {% endif %}
         {% endfor %}
-        <div id="required" class="col-xs-7">
-
-            {% for class_needed in raid.class_needed.all %}
-                <h4>{{ class_needed.number }} - {{ class_needed.classCharacter.attribute_value }}</h4>
-                <ul>
-                {% for character in raid.characterforoutraid_set.all %}
-                    {% ifequal class_needed.classCharacter.attribute_value character.classCharacter.attribute_value %}
-                    <li><p><b>{{ character.character.user.username }}</b> {% trans 'sign up with' %} {{ character.character.name }} {% trans 'as' %} {{ character.classCharacter.attribute_value.field_value }}</p></li>
-                    {% endifequal %}
-                {% endfor %}
-                </ul>
-            {% endfor %}
-        </div>
     </div>
 {% endblock %}

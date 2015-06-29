@@ -303,27 +303,27 @@ msgstr ""
 
 #: PortalMessaging/models.py:13
 msgid "Message"
-msgstr ""
+msgstr "Message"
 
 #: PortalRaid/models.py:12 PortalRaid/models.py:69
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: PortalRaid/models.py:14
 msgid "iLvl"
-msgstr ""
+msgstr "iLvl"
 
 #: PortalRaid/models.py:16
 msgid "Class for your character"
-msgstr ""
+msgstr "La classe de votre perso"
 
 #: PortalRaid/models.py:23
 msgid "Character"
-msgstr ""
+msgstr "Personnage"
 
 #: PortalRaid/models.py:24
 msgid "Characters"
-msgstr ""
+msgstr "Personnages"
 
 #: PortalRaid/models.py:30
 msgid "Realm name"
@@ -331,11 +331,11 @@ msgstr ""
 
 #: PortalRaid/models.py:37
 msgid "Realm"
-msgstr ""
+msgstr "Royaume"
 
 #: PortalRaid/models.py:38
 msgid "Realms"
-msgstr ""
+msgstr "Royaumes"
 
 #: PortalRaid/models.py:42
 msgid "Raid name"

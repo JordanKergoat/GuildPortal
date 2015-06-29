@@ -49,6 +49,9 @@ class Raid(models.Model):
     def get_progression_boss(self):
         return self.boss_successful * 100 / self.number_of_boss
 
+    def __str__(self):
+        return "%s, %s - %s" % (self.name, self.game.name, self.lvl.name)
+
 class Boss(models.Model):
     name = models.CharField(_('Boss name'), max_length=64)
     raid = models.ForeignKey(Raid)
@@ -77,7 +80,7 @@ class ClassForOutRaid(models.Model):
     def __str__(self):
         return "%d %s" % (self.number, self.classCharacter.attribute_value)
 
-
+from datetime import datetime
 
 class OutRaid(models.Model):
     name = models.CharField(_('Out name'), max_length=64)
@@ -88,6 +91,14 @@ class OutRaid(models.Model):
     creator = models.ForeignKey(User)
     class_needed = models.ManyToManyField(ClassForOutRaid)
     lvl = models.SmallIntegerField(_('Level'))
+
+    def __str__(self):
+        return "%s - %s => %s for %s" % (self.start_date, self.end_date, self.name, self.raid.name)
+
+    def can_be_register(self):
+        if self.start_date < datetime.now():
+            return False
+        return True
 
 class CharacterForOutRaid(models.Model):
     out_raid = models.ForeignKey(OutRaid, blank=True, null=True)
