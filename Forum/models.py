@@ -1,8 +1,10 @@
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.template.defaultfilters import first
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
-# Create your models here.
+from django.template.defaultfilters import slugify
 
 
 class Category(models.Model):
@@ -12,6 +14,8 @@ class Category(models.Model):
 
     class Meta:
         ordering = ["position"]
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
 
     def __str__(self):
         return "%s" % self.name
@@ -26,9 +30,11 @@ class Forum(models.Model):
 
     class Meta:
         ordering = ["position"]
+        verbose_name = _('Forum')
+        verbose_name_plural = _('Forums')
 
     def __str__(self):
-        return self.title.decode('ascii', 'ignore')
+        return "%s" % self.title
 
     def num_posts(self):
         return sum([t.num_posts() for t in self.threads.all()])
@@ -73,3 +79,21 @@ class Post(models.Model):
 
     class Meta:
         ordering = ["created"]
+
+
+
+@receiver(pre_save, sender=Forum)
+def slugify_forum(sender, instance, *args, **kwargs):
+    instance.slug = slugify(instance.title)
+
+@receiver(pre_save, sender=Thread)
+def slugify_thread(sender, instance, *args, **kwargs):
+    instance.slug = slugify(instance.title)
+
+@receiver(pre_save, sender=Post)
+def slugify_post(sender, instance, *args, **kwargs):
+    instance.slug = slugify(instance.title)
+
+@receiver(pre_save, sender=Category)
+def slugify_category(sender, instance, *args, **kwargs):
+    instance.slug = slugify(instance.name)
