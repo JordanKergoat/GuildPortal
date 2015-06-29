@@ -40,6 +40,11 @@ class NewsDetailView(DetailView):
                                        slug=self.kwargs['news_name'])
         return query
 
+    def get_success_url(self, **kwargs):
+            return reverse('news_detail', kwargs={'portal_name': self.kwargs['portal_name'],
+                                              'category': self.kwargs['category'],
+                                              'news_name': self.kwargs['news_name']})
+
     def get_context_data(self, **kwargs):
         context = super(NewsDetailView, self).get_context_data(**kwargs)
         context['form'] = CommentEnrollmentForm()
@@ -83,8 +88,10 @@ class CommentNewsFormView(SingleObjectMixin, FormView):
         self.object = self.get_object()
         return super(CommentNewsFormView, self).post(request, *args, **kwargs)
 
-    # def get_success_url(self):
-    #     return reverse('news_detail', kwargs={'pk': self.object.pk})
+    def get_success_url(self, **kwargs):
+        return reverse('news_detail', kwargs={'portal_name': self.kwargs['portal_name'],
+                                              'category': self.kwargs['category'],
+                                              'news_name': self.kwargs['news_name']})
 
     def form_valid(self, form):
         form.instance.news = self.object
