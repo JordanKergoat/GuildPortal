@@ -109,7 +109,6 @@ from django.template.defaultfilters import slugify
 
 @receiver(pre_save, sender=News)
 def my_callback(sender, instance, *args, **kwargs):
-    print 'je clean title'
     instance.slug = slugify(instance.title)
     print instance.slug
 
