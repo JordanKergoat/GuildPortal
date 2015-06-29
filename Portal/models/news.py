@@ -66,7 +66,6 @@ class News(models.Model):
         return u"%s [%s] | %s" % (self.title, self.portal.name, self.content[0:50])
 
     def get_absolute_url(self):
-        print "Je suis call"
         return reverse('news_detail', kwargs={'portal_name': self.portal.slug,
                                                            'category': self.category.name.replace(' ', '_'),
                                                            'news_name': self.slug})
