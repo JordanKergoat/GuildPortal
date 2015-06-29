@@ -10,7 +10,7 @@ from .models.enrollment import CharacterAttribute, Game
 
 def index(request, portal_name):
     portal = get_object_or_404(Portal, slug=portal_name)
-    news_list = News.objects.filter(portal=portal).order_by('-published_date')
+    news_list = News.objects.filter(portal=portal, published=True).order_by('-published_date')
     return render(request, "SuperPortal/index.html", context={'portal': portal, 'news_list': news_list})
 
 
@@ -25,7 +25,7 @@ class NewsDetailView(DetailView):
         if queryset is None:
             queryset = self.get_queryset()
         query = queryset.get(portal=Portal.objects.get(slug=self.kwargs['portal_name']), category=Category.objects.get(name=self.kwargs['category']),
-                                       slug=self.kwargs['news_name'])
+                                       slug=self.kwargs['news_name'], published=True)
         return query
 
     def get_success_url(self, **kwargs):
