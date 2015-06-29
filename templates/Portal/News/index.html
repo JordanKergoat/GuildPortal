@@ -60,7 +60,9 @@
         <form method="post">
             {% csrf_token %}
             {{ form }}
-            <input type="submit">
+            <div class="col-xs-12 col-lg-1 col-lg-offset-11 content-wrapper">
+                    <input type="submit">
+                </div>
         </form>
 
     </div>
