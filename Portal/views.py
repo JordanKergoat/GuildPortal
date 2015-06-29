@@ -9,21 +9,9 @@ from .models.enrollment import CharacterAttribute, Game
 # Create your views here.
 
 def index(request, portal_name):
-    portal = get_object_or_404(Portal, name=portal_name.replace('_', ' '))
+    portal = get_object_or_404(Portal, slug=portal_name)
     news_list = News.objects.filter(portal=portal).order_by('-published_date')
     return render(request, "SuperPortal/index.html", context={'portal': portal, 'news_list': news_list})
-
-
-def news_detail(request, portal_name, category, news_name):
-    portal = Portal.objects.get(slug=portal_name)
-    news = News.objects.get(category__name=category.replace('_', ' '), slug=news_name)
-    news.view += 1
-    news.save()
-    raw_comments = CommentNews.objects.filter(news=news, response=None).order_by('published_date')
-    comments = {}
-    for comment in raw_comments:
-        comments[comment] = CommentNews.objects.filter(response=comment).order_by('published_date')
-    return render(request, 'Portal/News/index.html', {'news': news, 'comments': comments})
 
 
 class NewsDetailView(DetailView):
@@ -56,25 +44,7 @@ class NewsDetailView(DetailView):
         context['form'] = CommentEnrollmentForm()
         return context
 
-# class EnrollmentDetailView(DetailView):
-#     template_name = 'Portal/Enrollement/enrollement_detail.html'
-#     model = Enrollement
-#     context_object_name = 'enrollment'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(EnrollmentDetailView, self).get_context_data(**kwargs)
-#         context['form'] = CommentEnrollmentForm()
-#         return context
-#
-#     @method_decorator(login_required)
-#     @method_decorator(user_passes_test(can_see))
-#     def dispatch(self, request, *args, **kwargs):
-#         return super(EnrollmentDetailView, self).dispatch(request, *args, **kwargs)
-#
-#     def get_object(self, queryset=None):
-#         return get_object_or_404(self.model, pk=self.kwargs.get('pk', None))
-#
-#
+
 class CommentNewsFormView(SingleObjectMixin, FormView):
     form_class = CommentNewsForm
     template_name = 'Portal/News/index.html'
