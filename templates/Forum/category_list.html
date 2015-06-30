@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'SuperPortal/css/slider.css' %}">
     <link rel="stylesheet" href="{% static 'PortalEnrollment/css/unit-enrollment-setting.css' %}">
     <link rel="stylesheet" href="{% static 'SuperPortal/css/external/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'SuperPortal/css/forum.css' %}">
 
 
 {% endblock %}
@@ -17,18 +18,40 @@
 {% block body %}
     <div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
         {% for category in category_list %}
-            <a href="{% url 'category_detail_forum' category.slug %}"><h3>{{ category.name }}</h3></a>
+            <div id="category-forum">
+                <a href="{% url 'category_detail_forum' category=category.slug %}"><h3>{{ category.name }}</h3></a>
 
-            {% for forum in category.forums.all %}
-                <div id="forum-head">
-                    <a href="{% url 'forum_detail' category.slug forum.slug %}">{{ forum.title }}</a> <p>{{ forum.num_posts }} sujet ------ {% trans 'by' %} {{ forum.last_post.creator.userprofile }}</p>
-                    {% if forum.description %}
-                        <small>{{ forum.description }}</small>
-                    {% endif %}
-                </div>
-                <hr>
+                {% for forum in category.forums.all %}
 
-            {% endfor %}
+                    <div id="forum-head">
+                        <div class="forum-title col-xs-7">
+                            <a href="{% url 'forum_detail' category=category.slug title=forum.slug %}">{{ forum.title }}</a><br>
+                            {% if forum.description %}
+                                <span class="description-forum">{{ forum.description }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="forum-subject col-xs-2">
+                            {{ forum.num_posts }}
+                        </div>
+                        <div class="forum-subject col-xs-3">
+
+                            {% with forum.last_post as last_post %}
+                                {% if last_post %}
+                                    <a href="{% url 'thread_detail' category=forum.category.slug title=forum.slug thread_name=last_post.thread.slug %}">
+                                        {{ last_post.title|truncatechars:20  }}
+                                    </a>
+                                    {% trans 'by' %} <a href="{% url 'profile_user' pk=last_post.creator.pk %}">
+                                {{ last_post.creator.userprofile }}
+                                </a>
+                                    <p>{{ last_post.created|date:'D d N Y H:i' }}</p>
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+
         {% endfor %}
     </div>
 {% endblock %}

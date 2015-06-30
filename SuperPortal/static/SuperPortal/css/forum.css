@@ -1,0 +1,17 @@
+#category-forum {
+    margin-top: 30px;
+}
+#forum-head {
+    display: inline-block;
+    width: 100%;
+}
+
+.forum-title {
+    /*background-color: #bdc3c7*/
+}
+
+.description-forum {
+    font-size: 80%;
+    font-style: italic;
+    padding-left: 10px;
+}

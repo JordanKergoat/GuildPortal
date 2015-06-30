@@ -19,7 +19,7 @@
         <h3>{{ category }}</h3>
         {% for forum in category.forums.all %}
             <div id="forum-head">
-                <p>{{ forum.title }} {{ forum.num_posts }} sujet ------ {% trans 'by' %} {{ forum.last_post.creator.userprofile }}</p>
+                <a href="{% url 'forum_detail' category.slug forum.slug %}">{{ forum.title }}</a><p> {{ forum.num_posts }} sujet ------ {% trans 'by' %} {{ forum.last_post.creator.userprofile }}</p>
                 {% if forum.description %}
                     <small>{{ forum.description }}</small>
                 {% endif %}
