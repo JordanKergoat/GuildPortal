@@ -16,13 +16,11 @@
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
     <div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
-        <h3>{{ category }}</h3>
-        {% for forum in category.forums.all %}
+        <h3>{{ forum }}</h3>
+        {% for thread in forum.threads.all %}
             <div id="forum-head">
-                <p>{{ forum.title }} {{ forum.num_posts }} sujet ------ {% trans 'by' %} {{ forum.last_post.creator.userprofile }}</p>
-                {% if forum.description %}
-                    <small>{{ forum.description }}</small>
-                {% endif %}
+            <a href="{% url 'thread_detail' forum.category.slug forum.slug thread.slug%}">{{ thread.title }}</a>
+                <p>{{ thread.title }} {{ thread.num_posts }} sujet ------ {% trans 'by' %} {{ forum.last_post.creator.userprofile }}</p>
             </div>
             <hr>
         {% endfor %}
