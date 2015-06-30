@@ -1,10 +1,13 @@
+import datetime
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.template.defaultfilters import first
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from GuildPortal import settings
 
 
 class Category(models.Model):
@@ -27,6 +30,8 @@ class Forum(models.Model):
     position = models.SmallIntegerField(_('Position'))
     category = models.ForeignKey(Category, related_name="forums")
     closed = models.BooleanField(_('Closed'), default=False)
+    view_count = models.IntegerField(default=0, editable=False)
+    post_count = models.IntegerField(default=0, editable=False)
 
     class Meta:
         ordering = ["position"]
@@ -49,15 +54,28 @@ class Forum(models.Model):
                 last = lastp
         return last
 
+    def update_post_count(self):
+        post_count = 0
+        for thread in self.threads.all():
+            thread.update_reply_count()
+            post_count += thread.reply_count + 1  # add one for the thread itself
+        self.post_count = post_count
+        self.save()
+
 class Thread(models.Model):
     title = models.CharField(max_length=60)
     slug = models.CharField(max_length=60, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(User, blank=True, null=True)
     forum = models.ForeignKey(Forum, related_name="threads")
+    view_count = models.IntegerField(default=0, editable=False)
+    reply_count = models.IntegerField(default=0, editable=False)
 
     class Meta:
         ordering = ["-created"]
+
+    def __str__(self):
+        return "%s - %s" % (self.title, self.forum.title)
 
     def num_posts(self):
         return self.posts.count()
@@ -67,6 +85,15 @@ class Thread(models.Model):
 
     def last_post(self):
         return first(self.posts.all())
+
+    def inc_views(self):
+        self.view_count += 1
+        self.save()
+        self.forum.inc_views()
+
+    def update_reply_count(self):
+        self.reply_count = self.posts.all().count()
+        self.save()
 
 
 class Post(models.Model):
@@ -80,6 +107,15 @@ class Post(models.Model):
     class Meta:
         ordering = ["created"]
 
+    def __str__(self):
+        return "%s" % self.title
+
+    def editable(self, user):
+        if user == self.creator:
+            if timezone.now() < self.created + datetime.timedelta(**settings.FORUMS_EDIT_TIMEOUT):
+                return True
+        return False
+
 
 
 @receiver(pre_save, sender=Forum)
@@ -88,7 +124,7 @@ def slugify_forum(sender, instance, *args, **kwargs):
 
 @receiver(pre_save, sender=Thread)
 def slugify_thread(sender, instance, *args, **kwargs):
-    instance.slug = slugify(instance.title)
+    instance.slug = slugify(instance.title + str(instance.id))
 
 @receiver(pre_save, sender=Post)
 def slugify_post(sender, instance, *args, **kwargs):

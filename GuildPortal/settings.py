@@ -108,7 +108,7 @@ ugettext = lambda s: s
 LANGUAGES = (
     ('fr', ugettext('French')),
 )
-
+FORUMS_EDIT_TIMEOUT = 120
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
