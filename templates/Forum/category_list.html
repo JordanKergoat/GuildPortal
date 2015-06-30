@@ -20,9 +20,7 @@
         {% for category in category_list %}
             <div id="category-forum">
                 <a href="{% url 'category_detail_forum' category=category.slug %}"><h3>{{ category.name }}</h3></a>
-
                 {% for forum in category.forums.all %}
-
                     <div id="forum-head">
                         <div class="forum-title col-xs-7">
                             <a href="{% url 'forum_detail' category=category.slug title=forum.slug %}">{{ forum.title }}</a><br>
@@ -51,6 +49,7 @@
 
                 {% endfor %}
             </div>
+
 
         {% endfor %}
     </div>

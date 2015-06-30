@@ -32,6 +32,7 @@ class Forum(models.Model):
     closed = models.BooleanField(_('Closed'), default=False)
     view_count = models.IntegerField(default=0, editable=False)
     post_count = models.IntegerField(default=0, editable=False)
+    image = models.ImageField(upload_to='forum/forum', blank=True)
 
     class Meta:
         ordering = ["position"]
