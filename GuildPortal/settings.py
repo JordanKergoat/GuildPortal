@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # 'sslserver',
     # 'usersettings',
+    'guardian',
     'debug_toolbar',
     'SuperPortal',
     'Portal',
@@ -50,7 +51,12 @@ INSTALLED_APPS = (
 )
 
 
+ANONYMOUS_USER_ID = -1
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', # default
+    'guardian.backends.ObjectPermissionBackend',
+)
 
 MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
