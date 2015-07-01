@@ -56,6 +56,9 @@ class Userprofile(models.Model):
     games = models.ManyToManyField(Game, verbose_name=_('Games you play ?'))
     about_you = models.TextField(_('About you'), default="")
     image_profile = models.ImageField(_('Image profile'), upload_to='profile/', blank=True, null=True)
+    reponse_to_blog = models.IntegerField(default=0, editable=False)
+    post_in_forum = models.IntegerField(default=0, editable=False)
+    participate_to_raid = models.IntegerField(default=0, editable=False)
 
     def __str__(self):
         return "%s" % self.user.username

@@ -61,7 +61,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware'
+    'django.middleware.locale.LocaleMiddleware',
+    'GuildPortal.middlewares.ProfilerMiddleware'
 )
 
 ROOT_URLCONF = 'GuildPortal.urls'
@@ -108,7 +109,7 @@ ugettext = lambda s: s
 LANGUAGES = (
     ('fr', ugettext('French')),
 )
-
+FORUMS_EDIT_TIMEOUT = 120
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/

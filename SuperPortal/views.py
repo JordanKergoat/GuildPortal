@@ -14,7 +14,7 @@ def index(request):
     context = {}
     context['short_description'] = GuildSettings.objects.all().first().short_guild_description
     # context['list_portal'] = Portal.objects.all()
-    context['news_list'] = News.objects.all().order_by('-published_date')
+    context['news_list'] = News.objects.filter(published=True).order_by('-published_date')
     context['enrollments'] = EnrollmentSettings.openned_enrollement.all()
 
     return render(request, "SuperPortal/index.html", context=context)
