@@ -1,6 +1,10 @@
-.unit-enrollment-setting {
+div.unit-enrollment-setting {
     /*width: 100%;*/
     margin-bottom: 5px;
+}
+
+div.unit-enrollment-setting:hover {
+   cursor: hand;
 }
 
 img.background-enrollment {

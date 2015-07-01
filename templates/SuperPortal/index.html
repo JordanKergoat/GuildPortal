@@ -61,6 +61,11 @@
                     $("#twitch.superportal-modules").html('<a rel="external" href="#button" id="stream-off"><i class="fa fa-power-off fa-lg"></i></a> <span></span>')
                 }
             });
+
+            $('div.unit-enrollment-setting').on('click', function () {
+               window.location.href = $(this).attr('data-href-template')
+            });
+
         });
 
     </script>
