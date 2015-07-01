@@ -10,8 +10,70 @@
     /*background-color: #bdc3c7*/
 }
 
+
+input[type=button] {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+
 .description-forum {
     font-size: 80%;
     font-style: italic;
-    padding-left: 10px;
+    padding-left: 20px;
+}
+
+
+.creator-info > ul{
+    padding-top: 10px;
+    list-style: none;
+    text-align:center;!important;
+}
+
+/*Thread*/
+
+.post-creator , .post-date {
+    color: #EEF2EB;
+    height: 30px;
+    line-height: 30px;
+    background-color: #735F58;
+    margin: auto;
+}
+
+.post-body {
+    padding-top: 20px;
+
+}
+
+.post-footer {
+    background-color: #EEF2EB;
+    list-style: none;
+    text-align: left;
+    margin: 0;
+    padding: 5px;
+}
+.post-footer li {
+    display: inline;
+}
+
+
+.li-game {
+    float: left;
+    display: inline;
+    list-style: none; /* pour enlever les puces sur IE7 */
+    margin: 10px;
+}
+
+.post-creator {
+    float: left;
+}
+
+.post-date {
+    float: left;
+
+}
+
+.respond {
+    padding-top: 10px;
 }

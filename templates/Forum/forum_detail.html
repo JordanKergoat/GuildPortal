@@ -17,12 +17,15 @@
 {% block body %}
     <div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
         <div id="category-forum">
-            <h3>{{ forum }}</h3>
+            <div id="title-forum">
+                <h3>{{ forum }}</h3>
+                <input type="button" value="{% trans 'New thread' %}"/>
+            </div>
             {% for thread in forum.threads.all %}
                 <div id="forum-head">
                     <div class="forum-title col-xs-7">
                         <a href="{% url 'thread_detail' category=forum.category.slug title=forum.slug thread_name=thread.slug%}">{{ thread.title }}</a>
-                        <p>{{ thread.title }} {{ thread.num_posts }} sujet ------ {% trans 'by' %} {{ forum.last_post.creator.userprofile }}</p>
+
                     </div>
                     <div class="forum-subject col-xs-2">
                         {{ thread.num_posts }}
