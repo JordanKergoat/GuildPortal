@@ -6,3 +6,4 @@ arrow
 django-battlenet
 requests_oauthlib
 django-guardian
+django-braces
