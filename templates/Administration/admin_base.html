@@ -13,8 +13,8 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+{#    <!-- Optional theme -->#}
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">#}
 
     <!-- MetisMenu CSS -->
     <link href="{% static 'PortalAdmin/css/external/metisMenu.css' %}" rel="stylesheet">
@@ -29,7 +29,7 @@
     <link href="{% static 'PortalAdmin/css/external/morris.css' %}" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -1414,21 +1414,21 @@
 <!-- /#wrapper -->
 
 <!-- jQuery -->
-<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
-<script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+<script src="{% static 'PortalAdmin/js/external/metisMenu.min.js' %}"></script>
 
 <!-- Morris Charts JavaScript -->
-<script src="../bower_components/raphael/raphael-min.js"></script>
-<script src="../bower_components/morrisjs/morris.min.js"></script>
-<script src="../js/morris-data.js"></script>
+<script src="{% static 'PortalAdmin/js/external/raphael-min.js' %}"></script>
+<script src="{% static 'PortalAdmin/js/external/morris.min.js' %}"></script>
+<script src="{% static 'PortalAdmin/js/external/morris-data.js' %}"></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="../dist/js/sb-admin-2.js"></script>
+<script src="{% static 'PortalAdmin/js/external/sb-admin-2.js' %}"></script>
 
 
 </body>
