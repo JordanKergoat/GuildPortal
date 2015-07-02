@@ -9,9 +9,9 @@ from django.utils.translation import ugettext as _
 # Create your views here.
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView, FormView, ListView, DetailView
-from Portal.models import CharacterAttribute, TypeValue
+from Portal.models import CharacterAttribute, TypeValue, Game
 from PortalRaid.forms import CharacterForm, CharactersRaidForm
-from PortalRaid.models import Realm, CharacterModel, OutRaid
+from PortalRaid.models import Realm, CharacterModel, OutRaid, Raid
 
 
 class RaidListView(ListView):
@@ -20,6 +20,16 @@ class RaidListView(ListView):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(RaidListView, self).dispatch(request, *args, **kwargs)
+
+    def get_raids(self):
+        game_choices = {}
+        for game in Game.objects.all():
+            choices = {}
+            for raid in Raid.objects.all().distinct('name'):
+                choices[raid.name] = [i for i in Raid.objects.filter(name=raid.name)]
+            game_choices[game.name] =  choices
+        print game_choices
+        return game_choices
 
     def get_queryset(self):
         import datetime
