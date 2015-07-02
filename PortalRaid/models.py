@@ -46,6 +46,9 @@ class Raid(models.Model):
     boss_successful = models.SmallIntegerField(_('Boss Successful'))
     image = models.ImageField(_('Image'), upload_to='portalraid/image/')
 
+    def class_formatted_level(self):
+        return self.lvl.name.replace(' ', '-')
+
     def get_progression_boss(self):
         return self.boss_successful * 100 / self.number_of_boss
 
@@ -54,7 +57,7 @@ class Raid(models.Model):
 
 class Boss(models.Model):
     name = models.CharField(_('Boss name'), max_length=64)
-    raid = models.ForeignKey(Raid)
+    raid = models.ManyToManyField(Raid)
     position_in_raid = models.SmallIntegerField(_('Position in raid'), default=1)
     story = models.TextField(_('Story about this boss'))
     image = models.ImageField(_('Image'), upload_to='portalraid/boss/')

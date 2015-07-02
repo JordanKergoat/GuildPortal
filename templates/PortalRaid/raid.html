@@ -1,0 +1,33 @@
+{% load i18n %}
+<div class="raid-lvl {{ raid.class_formatted_level }} col-xs-12" style="display: none">
+    <h2>{{ raid.name }} {% trans 'in' %} {{ raid.lvl.name }}</h2>
+    <div id="raid">
+        <h4>{% trans 'Progress' %} {{ raid.boss_successful }} / {{ raid.number_of_boss }}</h4>
+        {#        <div class="col-xs-4">#}
+        {#            <div class="progress ">#}
+        {#                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ raid.raid.get_progression_boss }}"#}
+        {#                     aria-valuemin="0" aria-valuemax="100" style="width:{{ raid.get_progression_boss }}%">#}
+        {#                    {{ raid.boss_successful }} / {{ raid.number_of_boss }}#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
+    </div>
+    <div class="boss-down col-xs-8">
+        <h4>{% trans 'Boss down' %}</h4>
+        {% for boss in raid.boss_set.all %}
+            {% if raid.boss_successful >= boss.position_in_raid %}
+                <div class="boss col-xs-3">
+                    <h5>{{ boss.name }}</h5>
+                    <img src="{{ boss.image.url }}" class="img-responsive watermark">
+                    <p>{{ boss.story|linebreaks|truncatechars:"100" }}</p>
+                </div>
+            {% else %}
+                <div class="boss col-xs-3">
+                    <h5>{{ boss.name }}</h5>
+                    <img src="{{ boss.image.url }}" class="img-responsive">
+                    <p>{{ boss.story|linebreaks|truncatechars:"100"}}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

@@ -11,3 +11,11 @@
 .image-profile {
     padding-bottom: 10px;
 }
+
+.watermark {
+    bottom: 5px;
+    right: 5px;
+    opacity: 0.3;
+    z-index: 99;
+    color: white;
+}

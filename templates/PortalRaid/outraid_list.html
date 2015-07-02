@@ -6,33 +6,112 @@
 
     <link rel="stylesheet" href="{% static 'PortalRaid/css/profil.css' %}">
 {% endblock %}
+
+{% block js %}
+    {{ block.super }}
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('a.raid-lvl').each(function() {
+                console.log('allo');
+                $(this).on('click', function() {
+                    attr = $(this).attr('raid-lvl');
+                    console.log('div.raid-level.' + attr);
+                    $(this).parent().find('div.raid-lvl').each(function(){
+                        $(this).fadeOut()
+                    });
+                    $(this).parent().find('div.raid-lvl.' + attr).fadeIn()
+                })
+            })
+
+        })
+
+
+    </script>
+
+{% endblock %}
+
 {% block meta_description %}{% trans 'Profile' %}: {{ user.username }}{% endblock %}
 
 {% block body %}
-    <div class="col-xs-10 col-xs-offset-1 content-wrapper">
-        {% for raid in outraid_list %}
-            <div id="header-raid" class="col-xs-3">
-                <img class="img-responsive" src="{{ raid.raid.image.url }}">
-            </div>
-            <div id="out-raid" class="col-xs-7">
-                <h3>{{ raid.name }}</h3>
-                <h5>{{ raid.raid.name }} {% trans 'for' %} {{ raid.raid.game.name }} {% trans 'in' %} {{ raid.raid.lvl.name }}</h5>
-                <p>{% trans 'Start date' %}: {{ raid.start_date }}</p>
-                <p>{{ raid.characterforoutraid_set.all|length }} {% trans 'registered' %} - {% trans 'Level required' %} {{ raid.lvl }}</p>
-                <div id="raid">
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ raid.raid.get_progression_boss }}"
-                             aria-valuemin="0" aria-valuemax="100" style="width:{{ raid.raid.get_progression_boss }}%">
-                            {{ raid.raid.boss_successful }} / {{ raid.raid.number_of_boss }}
+    <div class="col-xs-12 col-lg-10 col-lg-offset-1 content-wrapper">
+        {% if outraid_list %}
+            {% for raid in outraid_list %}
+                <div id="header-raid" class="col-xs-3">
+                    <img class="img-responsive" src="{{ raid.raid.image.url }}">
+                </div>
+                <div id="out-raid" class="col-xs-7">
+                    <h3>{{ raid.name }}</h3>
+                    <h5>{{ raid.raid.name }} {% trans 'for' %} {{ raid.raid.game.name }} {% trans 'in' %} {{ raid.raid.lvl.name }}</h5>
+                    <p>{% trans 'Start date' %}: {{ raid.start_date }}</p>
+                    <p>{{ raid.characterforoutraid_set.all|length }} {% trans 'registered' %} - {% trans 'Level required' %} {{ raid.lvl }}</p>
+                    <div id="raid">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ raid.raid.get_progression_boss }}"
+                                 aria-valuemin="0" aria-valuemax="100" style="width:{{ raid.raid.get_progression_boss }}%">
+                                {{ raid.raid.boss_successful }} / {{ raid.raid.number_of_boss }}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <a href="{% url 'raid_detail' raid.id %}">{% trans 'Detail' %}</a> | <a href="{% url 'raid_detail_signup' raid.id %}">{% trans 'Sign up' %}</a>
+                <a href="{% url 'raid_detail' raid.id %}">{% trans 'Detail' %}</a> | <a href="{% url 'raid_detail_signup' raid.id %}">{% trans 'Sign up' %}</a>
             {% empty %}
-            <h3>{% trans 'No raid schedule at this time' %}</h3>
-            <img class="img-responsive" src="http://digital-art-gallery.com/oid/19/611x945_5124_WoW_crying_tree_2d_fan_art_druid_wow_world_of_warcraft_fantasy_picture_image_digital_art.jpg">
+                <h3>{% trans 'No raid schedule at this time' %}</h3>
+                <img class="img-responsive" src="http://digital-art-gallery.com/oid/19/611x945_5124_WoW_crying_tree_2d_fan_art_druid_wow_world_of_warcraft_fantasy_picture_image_digital_art.jpg">
+            {% endfor %}
+        {% endif %}
 
+        {% for game, raids in view.get_raids.items %}
+            <div class="game-raid">
+                <h2> {{ game }}</h2>
+                {% for raidname, raids in raids.items %}
+                    <div>
+                        <h4>{{ raidname }}</h4>
+                        {% for raid in raids %}
+                            <a href="javascript:void(0)" class="raid-lvl" raid-lvl="{{ raid.class_formatted_level }}">{{ raid.lvl }}</a>
+                        {% endfor %}
+                        {% for raid in raids %}
+                            {% include 'PortalRaid/raid.html' %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
         {% endfor %}
+
+
+
+
+
+
+
+
+        {#        {% for raid in view.get_raids %}#}
+        {#            <h2>{{ raid.name }} {% trans 'in' %} {{ raid.lvl.name }}</h2>#}
+        {#            <div id="raid">#}
+        {#                <h4>{% trans 'Progress' %}</h4>#}
+        {#                <div class="progress">#}
+        {#                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ raid.raid.get_progression_boss }}"#}
+        {#                         aria-valuemin="0" aria-valuemax="100" style="width:{{ raid.get_progression_boss }}%">#}
+        {#                        {{ raid.boss_successful }} / {{ raid.number_of_boss }}#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#            <div class="boss-down col-xs-12">#}
+        {#                <h4>{% trans 'Boss down' %}</h4>#}
+        {#                {% for boss in raid.boss_set.all %}#}
+        {#                    {% if raid.boss_successful >= boss.position_in_raid %}#}
+        {#                        <div class="boss col-xs-2">#}
+        {#                            <h5>{{ boss.name }}</h5>#}
+        {#                            <img src="{{ boss.image.url }}" class="img-responsive">#}
+        {#                            <p>{{ boss.story|linebreaks }}</p>#}
+        {#                        </div>#}
+        {#                    {% endif %}#}
+        {#                {% endfor %}#}
+        {#            </div>#}
+        {##}
+        {#        {% endfor %}#}
     </div>
+
+
 {% endblock %}
