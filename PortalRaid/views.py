@@ -28,8 +28,10 @@ class RaidListView(ListView):
         for game in Game.objects.all():
             choices = {}
             for raid in Raid.objects.all():
-                if raid.name not in choices:
-                    choices[raid.name] = [i for i in Raid.objects.filter(name=raid.name, game=game)]
+                if raid.game == game:
+                    if raid.name not in choices:
+                        choices[raid.name] = []
+                    choices[raid.name].append(raid)
             game_choices[game.name] =  choices
         return game_choices
 

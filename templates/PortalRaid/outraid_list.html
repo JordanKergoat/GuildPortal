@@ -37,6 +37,7 @@
 {% block body %}
     <div class="col-xs-12 col-lg-10 col-lg-offset-1 content-wrapper">
         {% if outraid_list %}
+            <h2>{% trans 'Schedule Raid' %}</h2>
             {% for raid in outraid_list %}
                 <div id="header-raid" class="col-xs-3">
                     <img class="img-responsive" src="{{ raid.raid.image.url }}">
@@ -61,23 +62,28 @@
                 <img class="img-responsive" src="http://digital-art-gallery.com/oid/19/611x945_5124_WoW_crying_tree_2d_fan_art_druid_wow_world_of_warcraft_fantasy_picture_image_digital_art.jpg">
             {% endfor %}
         {% endif %}
-
-        {% for game, raids in view.get_raids.items %}
-            <div class="game-raid">
-                <h2> {{ game }}</h2>
-                {% for raidname, raids in raids.items %}
-                    <div>
-                        <h4>{{ raidname }}</h4>
-                        {% for raid in raids %}
-                            <a href="javascript:void(0)" class="raid-lvl" raid-lvl="{{ raid.class_formatted_level }}">{{ raid.lvl }}</a>
-                        {% endfor %}
-                        {% for raid in raids %}
-                            {% include 'PortalRaid/raid.html' %}
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endfor %}
+    <hr>
+        <div class="list-raid col-xs-12">
+            <h2>{% trans 'Progress Raid' %}</h2>
+            {% for game, raids in view.get_raids.items %}
+                <div class="game-raid col-xs-12">
+                    <h2> {{ game }}</h2>
+                    {% for raidname, raids in raids.items %}
+                        <div>
+                            <h4>{{ raidname }}</h4>
+                            {% for raid in raids %}
+                                <a href="javascript:void(0)" class="raid-lvl" raid-lvl="{{ raid.class_formatted_level }}">{{ raid.lvl }}</a>
+                            {% endfor %}
+                            {% for raid in raids %}
+                                {% include 'PortalRaid/raid.html' %}
+                            {% endfor %}
+                        </div>
+                    {% empty %}
+                        <p>{% trans 'No raid at this time' %}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
 
 
 
