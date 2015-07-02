@@ -27,7 +27,7 @@ class RaidListView(ListView):
             choices = {}
             for raid in Raid.objects.all():
                 if raid.name not in choices:
-                    choices[raid.name] = [i for i in Raid.objects.filter(name=raid.name)]
+                    choices[raid.name] = [i for i in Raid.objects.filter(name=raid.name, game=game)]
             game_choices[game.name] =  choices
         print game_choices
         return game_choices
