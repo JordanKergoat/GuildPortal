@@ -42,7 +42,7 @@ class Community(object):
         }
 
     def add_params(self, params):
-        for key, value in params.iteritems():
+        for key, value in params.items():
             self.params[key] = value
 
     def make_request(self, endpoint):

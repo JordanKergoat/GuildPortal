@@ -10,6 +10,7 @@ from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView, FormView, ListView, DetailView
 from Portal.models import CharacterAttribute, TypeValue
+from Portal.models.enrollment import Game
 from PortalRaid.forms import CharacterForm, CharactersRaidForm
 from PortalRaid.models import Realm, CharacterModel, OutRaid
 
@@ -93,10 +94,10 @@ class ServerListView(View):
     """
     def get(self, request, *args, **kwargs):
         realms = Realm.objects.filter(game=request.GET['game'])
-        characters = CharacterAttribute.objects.filter(for_game=request.GET['game'], attribute_name=TypeValue.objects.get(field_value='Class'))
+        # characters = CharacterAttribute.objects.filter(for_game=request.GET['game'], attribute_name=TypeValue.objects.get(field_value='Classe'))
         dict_for_json = dict()
         dict_for_json['realm'] = [{'id': realm.id, 'name': realm.name} for realm in realms]
-        dict_for_json['class'] = [{'id': char.id, 'name': char.attribute_value.field_value} for char in characters]
+        # dict_for_json['class'] = [{'id': char.id, 'name': char.attribute_value.field_value} for char in characters]
         return JsonResponse(dict_for_json, safe=False)
 
 
@@ -137,8 +138,10 @@ class DetailsCharacterFromAPI(View):
         if char.user == self.request.user:
             #print self.request.GET['fields']
             from battlenet.community.wow.characters import Character
+            print('Youhou')
+            print(Character(name=char.name, realm=char.server.name, locale='fr', apikey="r5k3eqmj988fh6wsdvu8gh57rzbap62r"))
             tmp = Character(name=char.name, realm=char.server.name, locale='fr',
-                            apikey="r5k3eqmj988fh6wsdvu8gh57rzbap62r").get(fields=['appearance'])
+                            apikey="r5k3eqmj988fh6wsdvu8gh57rzbap62r").get(fields=['appearance', ])
             return JsonResponse(tmp[1], safe=False)
 
 
@@ -170,8 +173,14 @@ class NewCharacterFormView(FormView):
         return super(NewCharacterFormView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
+
         form.instance.user = self.request.user
-        form.instance.url = form.instance.game.url_api + 'character/' + form.instance.server.name + '/' + form.instance.name + '/'
+        form.instance.url = form.instance.game.url_api or '' + 'character/' + form.instance.server.name + '/' + form.instance.name + '/'
+        form.save()
+        print("AYA")
+        print(self.request.POST)
+        for x in CharacterAttribute.objects.filter(for_game=Game.objects.filter(id=self.request.POST['game'])).distinct('attribute_name'):
+            form.instance.classCharacter.add(CharacterAttribute.objects.filter(attribute_name=x.attribute_name, id=self.request.POST[x.attribute_name.field_value]).first())
         form.save()
         return super(NewCharacterFormView, self).form_valid(form)
 

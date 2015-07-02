@@ -8,7 +8,7 @@ from django import forms
 class CharacterForm(forms.ModelForm):
     class Meta:
         model = CharacterModel
-        exclude = ('user', 'iLvl', 'url')
+        exclude = ('user', 'iLvl', 'url', 'classCharacter')
         widgets = {
             'game': forms.Select(attrs={
                 'onchange': "serverAPI(this.value, this.id)"
