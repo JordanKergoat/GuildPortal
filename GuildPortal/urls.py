@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^message/', include('PortalMessaging.urls')),
     url(r'^raid/', include('PortalRaid.urls')),
     url(r'^recrutement/', include('PortalEnrollment.urls')),
+    url(r'^administration/', include('PortalAdmin.urls')),
     url(r'', include('SuperPortal.urls')),
 )
 

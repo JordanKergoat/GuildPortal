@@ -36,7 +36,11 @@
                         {% ifequal class_needed.classCharacter.attribute_value character.classCharacter.attribute_value %}
                             <li>
                                 <p>
-                                    <img src="{{ character.character.user.userprofile.image_profile.url}}" height="40" width="40">
+                                    {% if character.character.user.userprofile.image_profile %}
+                                        <img src="{{ character.character.user.userprofile.image_profile.url}}" height="40" width="40">
+                                    {% else %}
+                                        <img src="" height="40" width="40">
+                                    {% endif %}
                                     <b>{{ character.character.user.username }}</b> {% trans 'sign up with' %} {{ character.character.name }} {% trans 'as' %} {{ character.classCharacter.attribute_value.field_value }}</p></li>
                         {% endifequal %}
                     {% endfor %}

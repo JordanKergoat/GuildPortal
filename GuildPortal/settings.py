@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     # 'usersettings',
     'guardian',
     'debug_toolbar',
+    'PortalAdmin',
     'SuperPortal',
     'Portal',
     'PortalEnrollment',
