@@ -18,18 +18,33 @@
     <!-- MetisMenu CSS -->
     <link href="{% static 'PortalAdmin/css/external/metisMenu.min.css' %}" rel="stylesheet">
 
+    <!-- Situationnal css -->
+
+    {% block css %}
+
+    <!-- Morris Charts CSS -->
+{#    <link href="{% static 'PortalAdmin/css/external/morris.css' %}" rel="stylesheet">#}
 
     <!-- Timeline CSS -->
-    <link href="{% static 'PortalAdmin/css/external/timeline.css' %}" rel="stylesheet">
+{#    <link href="{% static 'PortalAdmin/css/external/timeline.css' %}" rel="stylesheet">#}
+
+    <!-- DataTables CSS -->
+{#    <link href="{% static 'PortalAdmin/css/external/dataTables.bootstrap.css' %}" rel="stylesheet">#}
+
+    <!-- DataTables Responsive CSS -->
+{#    <link href="{% static 'PortalAdmin/css/external/dataTables.responsive.css' %}" rel="stylesheet">#}
+
+    {% endblock %}
 
     <!-- Custom CSS -->
     <link href="{% static 'PortalAdmin/css/external/sb-admin-2.css' %}" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="{% static 'PortalAdmin/css/external/morris.css' %}" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -353,13 +368,25 @@
 <!-- Metis Menu Plugin JavaScript -->
 <script src="{% static 'PortalAdmin/js/external/metisMenu.min.js' %}"></script>
 
+{% block js %}
+
+<!-- Situationnal Js -->
+
+<!-- DataTables JavaScript -->
+{#<script src="{% static 'PortalAdmin/js/external/jquery.dataTables.js' %}"></script>#}
+{#<script src="{% static 'PortalAdmin/js/external/dataTables.bootstrap.min.js' %}"></script>#}
+
 <!-- Morris Charts JavaScript -->
 {#    <script src="{% static 'PortalAdmin/js/external/raphael-min.js' %}"></script>#}
 {#    <script src="{% static 'PortalAdmin/js/external/morris.min.js' %}"></script>#}
 {#    <script src="{% static 'PortalAdmin/js/external/morris-data.js' %}"></script>#}
 
+{% endblock %}
+
 <!-- Custom Theme JavaScript -->
 <script src="{% static 'PortalAdmin/js/external/sb-admin-2.js' %}"></script>
+
+
 
 </body>
 
