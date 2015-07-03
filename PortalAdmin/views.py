@@ -25,7 +25,7 @@ class AdminMembersView(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
 class AdminUserDetailView(LoginRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin, DetailView):
     template_name = 'Administration/users/user_detail.html'
     model = User
-    select_related = ['Userprofile']
+    select_related = ['userprofile']
     pk_url_kwarg = 'pk'
 
 
