@@ -8,6 +8,6 @@ urlpatterns = patterns('',
 
                        url(r'^members/$', AdminMembersView.as_view(), name='admin_members'),
                        url(r'^members/(?P<pk>\d+)/details/$', AdminUserDetailView.as_view(), name='admin_user_detail'),
-                       url(r'^members/(?P<pk>\d+)/update/$', AdminUserUpdateView.as_view(), name='admin_user_detail'),
+                       url(r'^members/(?P<pk>\d+)/update/$', AdminUserUpdateView.as_view(), name='admin_user_update'),
 
                        )

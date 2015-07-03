@@ -1,1 +1,25 @@
 {% extends 'Administration/admin_base.html' %}
+{% load i18n %}
+{% block body_title %}
+    {% trans 'User detail' %} : {{ user.username }}
+{% endblock %}
+
+{% block body %}
+    <div class="user-profile">
+        <div class="user col-xs-6">
+            <p>{% trans 'Username' %}: {{ user.username }}</p>
+            <p>{% trans 'First name' %}:{{ user.first_name }}</p>
+            <p>{% trans 'Last name' %}:{{ user.last_name }}</p>
+            <p>{% trans 'Last login' %}: {{ user.last_login }}</p>
+            <p>{{ user.email }}</p>
+        </div>
+        <div class="col-xs-6">
+            {% with user.userprofile as userp %}
+                {% for game in userp.games.all %}
+                    {% include 'Administration/games/game_unit_for_li.html' %}
+                {% endfor %}
+            {% endwith %}
+        </div>
+
+    </div>
+{% endblock %}
