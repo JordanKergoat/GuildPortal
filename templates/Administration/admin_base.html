@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -22,17 +23,17 @@
 
     {% block css %}
 
-    <!-- Morris Charts CSS -->
-{#    <link href="{% static 'PortalAdmin/css/external/morris.css' %}" rel="stylesheet">#}
+        <!-- Morris Charts CSS -->
+        {#    <link href="{% static 'PortalAdmin/css/external/morris.css' %}" rel="stylesheet">#}
 
-    <!-- Timeline CSS -->
-{#    <link href="{% static 'PortalAdmin/css/external/timeline.css' %}" rel="stylesheet">#}
+        <!-- Timeline CSS -->
+        {#    <link href="{% static 'PortalAdmin/css/external/timeline.css' %}" rel="stylesheet">#}
 
-    <!-- DataTables CSS -->
-{#    <link href="{% static 'PortalAdmin/css/external/dataTables.bootstrap.css' %}" rel="stylesheet">#}
+        <!-- DataTables CSS -->
+        {#    <link href="{% static 'PortalAdmin/css/external/dataTables.bootstrap.css' %}" rel="stylesheet">#}
 
-    <!-- DataTables Responsive CSS -->
-{#    <link href="{% static 'PortalAdmin/css/external/dataTables.responsive.css' %}" rel="stylesheet">#}
+        <!-- DataTables Responsive CSS -->
+        {#    <link href="{% static 'PortalAdmin/css/external/dataTables.responsive.css' %}" rel="stylesheet">#}
 
     {% endblock %}
 
@@ -287,7 +288,24 @@
                 <ul class="nav" id="side-menu">
                     {% block side_menu %}
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> {% trans 'Accueil' %}</a>
+                        </li>
+                        <li>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> {% trans 'Guild' %}</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin_members' %}"><i class="fa fa-dashboard fa-fw"></i> {% trans 'Members' %}</a>
+                        </li>
+                        {% for game in games %}
+                            <li>
+                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> {{ game }}</a>
+                            </li>
+                        {% endfor %}
+                        <li>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> {% trans 'Guild Setting' %}</a>
+                        </li>
+                        <li>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> {% trans 'Guild Setting' %}</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Simple-Level Dropdown<span class="fa arrow"></span></a>
@@ -370,16 +388,25 @@
 
 {% block js %}
 
-<!-- Situationnal Js -->
+    <!-- Situationnal Js -->
 
-<!-- DataTables JavaScript -->
-{#<script src="{% static 'PortalAdmin/js/external/jquery.dataTables.js' %}"></script>#}
-{#<script src="{% static 'PortalAdmin/js/external/dataTables.bootstrap.min.js' %}"></script>#}
+    <!-- DataTables JavaScript -->
+    {#<script src="{% static 'PortalAdmin/js/external/jquery.dataTables.js' %}"></script>#}
+    {#<script src="{% static 'PortalAdmin/js/external/dataTables.bootstrap.min.js' %}"></script>#}
 
-<!-- Morris Charts JavaScript -->
-{#    <script src="{% static 'PortalAdmin/js/external/raphael-min.js' %}"></script>#}
-{#    <script src="{% static 'PortalAdmin/js/external/morris.min.js' %}"></script>#}
-{#    <script src="{% static 'PortalAdmin/js/external/morris-data.js' %}"></script>#}
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+{#    <script>#}
+{#        $(document).ready(function() {#}
+{#            $('#dataTables-example').DataTable({#}
+{#                responsive: true#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+
+    <!-- Morris Charts JavaScript -->
+    {#    <script src="{% static 'PortalAdmin/js/external/raphael-min.js' %}"></script>#}
+    {#    <script src="{% static 'PortalAdmin/js/external/morris.min.js' %}"></script>#}
+    {#    <script src="{% static 'PortalAdmin/js/external/morris-data.js' %}"></script>#}
 
 {% endblock %}
 
