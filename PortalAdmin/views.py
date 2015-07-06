@@ -70,7 +70,7 @@ class AdminUserUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, 
     pk_url_kwarg = 'pk'
 
     def get_success_url(self):
-        return reverse_lazy('admin_user_detail', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('admin_user_detail', kwargs={'pk': self.object.user.pk})
 
 
 class LastPostLastComments(View):
