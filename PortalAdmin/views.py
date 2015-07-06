@@ -117,8 +117,9 @@ class AdminGameCreate(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, Crea
 class AdminGameUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, UpdateView):
     template_name = 'Administration/games/game_edit_detail.html'
     model = Game
-    fields = []
     pk_url_kwarg = 'pk'
+    fields = ['name', 'image', 'url_api']
+    template_name_suffix = '_update_form'
 
 # DEBUT GAME CHARACTERS
 
