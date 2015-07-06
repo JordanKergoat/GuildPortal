@@ -190,8 +190,6 @@ class NewCharacterFormView(FormView):
         form.instance.user = self.request.user
         form.instance.url = form.instance.game.url_api or '' + 'character/' + form.instance.server.name + '/' + form.instance.name + '/'
         form.save()
-        print("AYA")
-        print(self.request.POST)
         for x in CharacterAttribute.objects.filter(for_game=Game.objects.filter(id=self.request.POST['game'])).distinct('attribute_name'):
             form.instance.classCharacter.add(CharacterAttribute.objects.filter(attribute_name=x.attribute_name, id=self.request.POST[x.attribute_name.field_value]).first())
         form.save()

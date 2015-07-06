@@ -7,7 +7,9 @@
 {% block body %}
     {#    <div class="user-profile row">#}
     <div class="col-lg-4 col-xs-12 col-md-5">
+    {% if user.userprofile.image_profile %}
         <img class="img-responsive" src="{{ user.userprofile.image_profile.url }}">
+    {% endif %}
     </div>
     <div class="user col-lg-4 col-md-7 col-xs-12">
         <p>{% trans 'Username' %}: {{ user.username }}</p>

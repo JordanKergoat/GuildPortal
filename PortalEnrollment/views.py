@@ -125,7 +125,6 @@ class EnrollementView(FormView):
         context['enrollment_setting'] = EnrollmentSettings.objects.get(id=self.kwargs['id_application'])
         return context
 
-
     def form_valid(self, form):
         enrollment_setting = EnrollmentSettings.objects.get(id=self.kwargs['id_application'])
         form.instance.game_choice = enrollment_setting.game_choice
@@ -136,7 +135,6 @@ class EnrollementView(FormView):
             form.instance.roles.add(x)
         form.save()
         return super(EnrollementView, self).form_valid(form)
-
 
 
 class EnrollementListView(ListView):
