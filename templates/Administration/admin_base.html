@@ -288,24 +288,35 @@
                 <ul class="nav" id="side-menu">
                     {% block side_menu %}
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> {% trans 'Accueil' %}</a>
+                            <a href="{% url 'admin_index' %}"><i class="fa fa-home fa-fw"></i> {% trans 'Accueil' %}</a>
                         </li>
+                        {% if guild %}
+                            <li>
+                                <a href="#"><i class="fa fa-dashboard fa-fw"></i> {% trans 'Guild' %}</a>
+                            </li>
+                        {% endif %}
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> {% trans 'Guild' %}</a>
-                        </li>
-                        <li>
-                            <a href="{% url 'admin_members' %}"><i class="fa fa-dashboard fa-fw"></i> {% trans 'Members' %}</a>
+                            <a href="{% url 'admin_members' %}"><i class="fa fa-users fa-fw"></i> {% trans 'Members' %}</a>
                         </li>
                         {% for game in games %}
                             <li>
-                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> {{ game }}</a>
+                                <a href="#"><i class="fa fa-gamepad fa-fw"></i> {{ game }}<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{% url 'admin_game_update' pk=game.pk%}">{% trans 'update' %}</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">{% trans 'News' %}</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">{% trans 'Enrollment' %}</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
                             </li>
                         {% endfor %}
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> {% trans 'Guild Setting' %}</a>
-                        </li>
-                        <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> {% trans 'Guild Setting' %}</a>
+                            <a href="{% url 'admin_games_add' %}"><i class="fa fa-plus fa-fw"></i> {% trans 'Add Game' %}</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Simple-Level Dropdown<span class="fa arrow"></span></a>
@@ -395,13 +406,13 @@
     {#<script src="{% static 'PortalAdmin/js/external/dataTables.bootstrap.min.js' %}"></script>#}
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-{#    <script>#}
-{#        $(document).ready(function() {#}
-{#            $('#dataTables-example').DataTable({#}
-{#                responsive: true#}
-{#            });#}
-{#        });#}
-{#    </script>#}
+    {#    <script>#}
+    {#        $(document).ready(function() {#}
+    {#            $('#dataTables-example').DataTable({#}
+    {#                responsive: true#}
+    {#            });#}
+    {#        });#}
+    {#    </script>#}
 
     <!-- Morris Charts JavaScript -->
     {#    <script src="{% static 'PortalAdmin/js/external/raphael-min.js' %}"></script>#}

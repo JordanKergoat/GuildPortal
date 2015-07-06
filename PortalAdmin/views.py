@@ -47,7 +47,7 @@ class AdminIndexView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, Templ
 
 # DEBUT MEMBRES
 
-class AdminMembersView(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
+class AdminMembersView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, ListView):
     model = User
     template_name = 'Administration/users/user_list.html'
 
@@ -55,14 +55,14 @@ class AdminMembersView(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
         return super(AdminMembersView, self).dispatch(request, *args, **kwargs)
 
 
-class AdminUserDetailView(LoginRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin, DetailView):
+class AdminUserDetailView(LoginRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin, MenuView, DetailView):
     template_name = 'Administration/users/user_detail.html'
     model = User
     select_related = ['userprofile']
     pk_url_kwarg = 'pk'
 
 
-class AdminUserUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
+class AdminUserUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, UpdateView):
     template_name = 'Administration/users/user_edit_detail.html'
     model = Userprofile
     fields = ['birthday_date', 'gender', 'job_study', 'status', 'country', 'town', 'image_profile']
@@ -85,12 +85,12 @@ class LastPostLastComments(View):
 # DEBUT GAME
 
 
-class AdminGamesView(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
+class AdminGamesView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, ListView):
     model = Game
     template_name = 'Administration/games/game_list.html'
 
 
-class AdminGameDetailView(LoginRequiredMixin, StaffuserRequiredMixin, DetailView):
+class AdminGameDetailView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, DetailView):
     model = Game
     template_name = 'Administration/games/game_detail.html'
 
@@ -100,7 +100,7 @@ class AdminGameDetailView(LoginRequiredMixin, StaffuserRequiredMixin, DetailView
     #     return context
 
 
-class AdminGameCreate(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
+class AdminGameCreate(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, CreateView):
     model = Game
     template_name = 'Administration/games/game_add.html'
     fields = ['name', 'image', 'url_api']
@@ -114,7 +114,7 @@ class AdminGameCreate(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
         return super(AdminGameCreate, self).form_valid(form)
 
 
-class AdminGameUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
+class AdminGameUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, UpdateView):
     template_name = 'Administration/games/game_edit_detail.html'
     model = Game
     fields = []
@@ -122,7 +122,7 @@ class AdminGameUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView
 
 # DEBUT GAME CHARACTERS
 
-class AdminGameCharactersCreate(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
+class AdminGameCharactersCreate(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, CreateView):
     model = CharacterAttribute
     template_name = 'Administration/games/add_character_attibutes.html'
     fields = ['attribute_name', 'attribute_value']
