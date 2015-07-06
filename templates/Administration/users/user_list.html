@@ -36,7 +36,7 @@
                                     {% for user in user_list %}
                                         <tr class="gradeA {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}" role="row">
                                             {% if user.pk != -1 %}
-                                                <td class="sorting_1"><a href="{% url 'admin_user_detail' user.pk %}">{{ user.username }}</a></td>
+                                                <td class="sorting_1"><a href="{% url 'admin_user_detail' user.userprofile.pk %}">{{ user.username }}</a></td>
                                             {% else %}
                                                 <td>{{ user.username }}</td>
                                             {% endif %}
