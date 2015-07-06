@@ -2,6 +2,11 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
+from django.views.generic import ListView, DetailView, FormView, UpdateView
+from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin
+from django.views.generic.base import View, ContextMixin, TemplateView
+from Portal.models import Game, Userprofile
 from django.views.generic import ListView, DetailView, FormView, UpdateView, View, CreateView
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin
 from django.views.generic.base import TemplateView
@@ -10,13 +15,39 @@ from Portal.models import Game, Userprofile, CommentNews, CharacterAttribute
 from PortalAdmin.forms import UserForm
 
 
-class AdminIndexView(LoginRequiredMixin, StaffuserRequiredMixin, TemplateView):
+class MenuView(object):
+
+    def get_context_data(self, **kwargs):
+        context = super(MenuView, self).get_context_data(**kwargs)
+        context['games'] = Game.objects.all()
+        return context
+
+# def test_context(template_name):
+#     def decorator(function):
+#         def additionnal_context(function):
+#
+#             def wrapper(**kwargs):
+#                 TemplateView.template_name = template_name
+#                 context = {}
+#                 context['games'] = ['toto', 'titi']
+#                 return context
+#
+#             return wrapper
+#
+#         View.get_context_data = method_decorator(additionnal_context)(View.get_context_data)
+#         return View
+#
+#     return decorator
+
+
+# @test_context('Administration/index.html')
+class AdminIndexView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, TemplateView):
     template_name = 'Administration/index.html'
 
 
 # DEBUT MEMBRES
 
-class AdminMembersView(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
+class AdminMembersView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, ListView):
     model = User
     template_name = 'Administration/users/user_list.html'
 
@@ -24,14 +55,14 @@ class AdminMembersView(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
         return super(AdminMembersView, self).dispatch(request, *args, **kwargs)
 
 
-class AdminUserDetailView(LoginRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin, DetailView):
+class AdminUserDetailView(LoginRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin, MenuView, DetailView):
     template_name = 'Administration/users/user_detail.html'
     model = User
     select_related = ['userprofile']
     pk_url_kwarg = 'pk'
 
 
-class AdminUserUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
+class AdminUserUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, UpdateView):
     template_name = 'Administration/users/user_edit_detail.html'
     model = Userprofile
     fields = ['birthday_date', 'gender', 'job_study', 'status', 'country', 'town', 'image_profile']
@@ -39,7 +70,7 @@ class AdminUserUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView
     pk_url_kwarg = 'pk'
 
     def get_success_url(self):
-        return reverse_lazy('admin_user_detail', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('admin_user_detail', kwargs={'pk': self.object.user.pk})
 
 
 class LastPostLastComments(View):
@@ -54,12 +85,12 @@ class LastPostLastComments(View):
 # DEBUT GAME
 
 
-class AdminGamesView(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
+class AdminGamesView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, ListView):
     model = Game
     template_name = 'Administration/games/game_list.html'
 
 
-class AdminGameDetailView(LoginRequiredMixin, StaffuserRequiredMixin, DetailView):
+class AdminGameDetailView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, DetailView):
     model = Game
     template_name = 'Administration/games/game_detail.html'
 
@@ -69,7 +100,7 @@ class AdminGameDetailView(LoginRequiredMixin, StaffuserRequiredMixin, DetailView
     #     return context
 
 
-class AdminGameCreate(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
+class AdminGameCreate(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, CreateView):
     model = Game
     template_name = 'Administration/games/game_add.html'
     fields = ['name', 'image', 'url_api']
@@ -83,15 +114,16 @@ class AdminGameCreate(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
         return super(AdminGameCreate, self).form_valid(form)
 
 
-class AdminGameUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
+class AdminGameUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, UpdateView):
     template_name = 'Administration/games/game_edit_detail.html'
     model = Game
-    fields = []
     pk_url_kwarg = 'pk'
+    fields = ['name', 'image', 'url_api']
+    template_name_suffix = '_update_form'
 
 # DEBUT GAME CHARACTERS
 
-class AdminGameCharactersCreate(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
+class AdminGameCharactersCreate(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, CreateView):
     model = CharacterAttribute
     template_name = 'Administration/games/add_character_attibutes.html'
     fields = ['attribute_name', 'attribute_value']
