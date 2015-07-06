@@ -7,9 +7,11 @@
     {% block css %}
 
         {{ block.super }}
+        <link rel="stylesheet" href="{% static 'PortalEnrollment/css/enrollment.css' %}">
         <style type="text/css">
             #moncadre {
                 width: 800px;
+                height: 30px;
                 margin: 0 auto;
                 padding: 1px;
                 background: #EEF2EB;
@@ -59,14 +61,34 @@
                 border: 0;
                 text-decoration: none;
             }
+
             #white {
-                color:#ffffff;
+                color: #ffffff;
             }
+
             #white:hover {
                 color: #736258;
             }
+
             #brown {
                 color: #736258;
+            }
+
+            #plop {
+                font-family: Georgia;
+                font-size: 16px;
+                color: #ffffff;
+                background: #736258;
+                padding: 8px 10px 8px 10px;
+                text-decoration: none;
+                border: 0;
+            }
+
+            #plop:hover {
+                background: #EEF2EB;
+                color: #736258;
+                border: 0;
+                text-decoration: none;
             }
 
         </style>
@@ -76,22 +98,27 @@
 
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
-    <col>
-    <div id="plop">
-        <button type="button" ><a id="white" href="{% url 'write_msg' %}"> Ecrire un nouveau message.</a></button>
-    </div>
-    <col/>
 
     <div id="center">
+        <input id="plop" type="button" value="Ecrire un nouveau message " onclick="self.location.href='write_message/'"
+               style="width:215;height:50;">
+    </div>
+    <div id="center">
         <ul>
-            <div>
-                <li id="brown">Sender<p id="brown">Topic</p></li>
+            <div id="moncadre">
+                    <div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
+                        <div class="field-wrapper-content">
+                            <label><li id="brown">Sender<p id="brown">Topic</p></li></label>
+
+                        </div>
+                </div>
             </div>
             {% for message in message_list %}
-                <div id="moncadre">
-                    <li><a id="brown" href="{% url 'message_details' message.id %}">{{ message.sender }}<p>{{ message.topic }}</p>
-                    </a></li>
-                </div>
+                 <div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
+                     <div class="field-wrapper-content">
+                         <label><li><a id="brown" href="{% url 'message_details' message.id %}">{{ message.sender }}<p>{{ message.topic }}</p></a></li></label>
+                     </div>
+                 </div>
             {% endfor %}
         </ul>
     </div>

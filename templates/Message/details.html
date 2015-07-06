@@ -2,28 +2,54 @@
 {% load staticfiles %}
 {% load i18n %}
 
-<head>
+<head xmlns="http://www.w3.org/1999/html">
 
     {% block css %}
 
         {{ block.super }}
+
+        <link rel="stylesheet" href="{% static 'PortalEnrollment/css/enrollment.css' %}">
         <style type="text/css">
             #moncadre {
-                width:800px;
-                margin:0 auto;
-                padding:10px;
-                background:#ffffff;
-                border:1px solid #DDD;
-                border-radius:5px;
-                -webkit-border-radius:5px;
-                -moz-border-radius:5px;
+                width: 800px;
+                margin: 0 auto;
+                padding: 10px;
+                background: #ffffff;
+                border: 1px solid #DDD;
+                border-radius: 5px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+            }
+        #center {
+                width: 800px;
+                margin: 0 auto;
+                padding: 10px;
             }
         </style>
-         <style type="text/css">
+        <style type="text/css">
             #plop {
-                width:800px;
-                margin:0 auto;
-                padding:10px;
+                font-size: 16px;
+                color: #ffffff;
+                background: #736258;
+                padding: 8px 10px 8px 10px;
+                text-decoration: none;
+                border: 0;
+            }
+
+            #plop:hover {
+                background: #EEF2EB;
+                color: #736258;
+                border: 0;
+                text-decoration: none;
+            }
+
+            ul {
+                list-style: none;
+                margin-left: 0;
+                padding-left: 0;
+            }
+
+            #brown {
                 color: #736258;
             }
 
@@ -35,15 +61,15 @@
 
 {% block meta_description %}{{ short_description }}{% endblock %}
 {% block body %}
-<div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
+     #TODO Ajouter le profil des autres users
     <ul>
-    #TODO Ajouter le profil des autres users
-        <li id="plop">send{{ message.time_send}}</li>
-        <li id="plop">read{{ message.time_read}}</li>
-        <li id="plop">From : <a href="{% url 'profile'%}">{{ message.sender }}</a></li>
-        <li id="plop">Topic :<div id="moncadre">{{message.topic }}</div></li>
-        <li id="plop"> Message :  <div id="moncadre">{{ message.message|linebreaks }}</div></li>
-        <div id="plop"><a href= "{% url 'reply_msg' message.id %}">Reply. </a></div>
+<div id="center">
+        <li id="brown">Send :{{ message.time_send }}</li>
+        <li id="brown">From : <a href="{% url 'profile' %}">{{ message.sender }}</a></li>
+        <li id="brown">Topic :<div id="moncadre">{{ message.topic }}</div></li>
+        <li id="brown"> Message :<div id="moncadre">{{ message.message|linebreaks }}</div></li>
+        <input id="plop" type="button" value="Reply" onclick="self.location.href='reply_message/'" style="width:100;height:40;">
+    </div>
     </ul>
-</div>
+
 {% endblock %}
