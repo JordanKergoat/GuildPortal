@@ -1,8 +1,13 @@
 {% extends 'Administration/admin_base.html' %}
 {% load i18n %}
 {% block body_title %}
-    {% trans 'Game list' %}
+    {% trans 'Game list' %} -- <a href="{% url 'admin_games_add' %}"><i class="fa fa-plus"></i></a>
 {% endblock %}
 {% block body %}
-    {{ game_list }}
+
+    {% for game in game_list %}
+        <div class="game">
+            <h3><img src="{{ game.image.url }}" height="100"> {{ game.name }} <a href="{% url 'admin_game_detail' pk=game.pk %}"><i class="fa fa-cogs"></i></a></h3>
+        </div>
+    {% endfor %}
 {% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'Administration/admin_base.html' %}
+{% load i18n %}
+{% block body_title %}
+    {% trans 'Game detail' %} : {{ game.name }} - <a href="{% url 'admin_game_update' pk=game.pk %}"><i class="fa fa-cogs"></i></a>
+{% endblock %}
+
+{% block body %}
+    {#    <div class="user-profile row">#}
+    <div class="col-lg-4 col-xs-12 col-md-5">
+        <img class="img-responsive" src="{{ game.image.url }}">
+    </div>
+    <div class="user col-lg-4 col-md-7 col-xs-12">
+        <p>{% trans 'Name' %}: {{ game.name }}</p>
+        <p>{% trans 'Url API' %}: {{ game.url_api }}</p>
+        <p>{% trans 'Number players' %}: {{ game.userprofile_set.all|length }}</p>
+        <p>{% trans 'Percent players' %}: {{ game.percent_of_player }} %</p>
+
+
+
+    </div>
+
+    <div class="clearfix visible-lg-block"></div>
+
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajax({
+                url: "{% url 'last_post_last_comments' user.pk %}"
+            }).success(function (data) {
+                $.each(data['posts'], function() {
+                    $("#last-posts").find(".post").append("<p>" + this.body.substring(0, 150) + "</p>")
+                });
+                $.each(data['comments'], function() {
+                    $("#last-comments").find(".comment").append("<p>" + this.content.substring(0, 150) + " <b>dans</b> " + this.news__title.substring(0, 50) + "</p>")
+                });
+            })
+
+        })
+    </script>
+{% endblock %}

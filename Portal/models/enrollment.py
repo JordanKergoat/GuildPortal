@@ -19,6 +19,13 @@ class Game(models.Model):
     def __str__(self):
         return self.name
 
+    def percent_of_player(self):
+        all_user_for_game = len(self.userprofile_set.all())
+        all_user = len(User.objects.all()) - 1
+        print all_user_for_game
+        print all_user
+        return float((all_user_for_game * 100) / all_user)
+
 class Class(models.Model):
     name = models.CharField(max_length=64)
     game = models.ForeignKey(Game)
