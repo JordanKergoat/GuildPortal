@@ -13,12 +13,11 @@
 {% endblock %}
 {% block body %}
     <form method="POST">
-    {% csrf_token %}
+        {% csrf_token %}
         <div id="characters-attribute">
-
-    </div>
-    {{ form.as_p }}
-    <input type="submit">
+        </div>
+        {{ form.as_p }}
+        <input type="submit">
     </form>
 
 

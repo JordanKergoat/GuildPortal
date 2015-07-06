@@ -1,8 +1,84 @@
 {% extends 'Administration/admin_base.html' %}
 {% load i18n %}
 {% block body_title %}
-    {% trans 'Edit user' %}
+    {% trans 'Edit user' %} : {{ user.username }}
 {% endblock %}
 {% block body %}
-{{ form }}
+    <form role="form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="field-wrapper col-xs-12">
+            <div class="form-group">
+                {{ form.birthday_date.errors }}
+                <label for="{{ form.birthday_date.id_for_label }}">{{ form.birthday_date.label }}: </label>
+
+                <div class="field-wrapper-content">
+                    {{ form.birthday_date }}
+                </div>
+            </div>
+        </div>
+        <div class="field-wrapper col-xs-12">
+            <div class="form-group">
+                {{ form.gender.errors }}
+                <label for="{{ form.gender.id_for_label }}">{{ form.gender.label }}: </label>
+
+                <div class="field-wrapper-content">
+                    {{ form.gender }}
+                </div>
+            </div>
+        </div>
+        <div class="field-wrapper col-xs-12">
+            <div class="form-group">
+                {{ form.job_study.errors }}
+                <label for="{{ form.job_study.id_for_label }}">{{ form.job_study.label }}: </label>
+
+                <div class="field-wrapper-content">
+                    {{ form.job_study }}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="field-wrapper col-xs-12">
+            <div class="form-group">
+                {{ form.status.errors }}
+                <label for="{{ form.status.id_for_label }}">{{ form.status.label }}: </label>
+
+                <div class="field-wrapper-content">
+                    {{ form.status }}
+                </div>
+            </div>
+        </div>
+        <div class="field-wrapper col-xs-12">
+            <div class="form-group">
+                {{ form.country.errors }}
+                <label for="{{ form.country.id_for_label }}">{{ form.country.label }}: </label>
+
+                <div class="field-wrapper-content">
+                    {{ form.country }}
+                </div>
+            </div>
+        </div>
+        <div class="field-wrapper col-xs-12">
+            <div class="form-group">
+                {{ form.town.errors }}
+                <label for="{{ form.town.id_for_label }}">{{ form.town.label }}: </label>
+
+                <div class="field-wrapper-content">
+                    {{ form.town }}
+                </div>
+            </div>
+        </div>
+        <div class="field-wrapper col-xs-12">
+            <div class="form-group">
+                {{ form.image_profile.errors }}
+                <label for="{{ form.image_profile.id_for_label }}">{{ form.image_profile.label }}: </label>
+
+                <div class="field-wrapper-content">
+                    {{ form.image_profile }}
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default">{% trans 'Submit' %}</button>
+    </form>
+
 {% endblock %}

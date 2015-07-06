@@ -1,7 +1,7 @@
 {% extends 'Administration/admin_base.html' %}
 {% load i18n %}
 {% block body_title %}
-    {% trans 'User detail' %} : {{ user.username }} - <a href="{% url 'admin_user_update' pk=user.pk %}"><i class="fa fa-cogs"></i></a>
+    {% trans 'Game edit' %} : {{ user.username }} - <a href="{% url 'admin_user_update' pk=user.pk %}"><i class="fa fa-cogs"></i></a>
 {% endblock %}
 
 {% block body %}
