@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
@@ -45,7 +45,15 @@ class MenuView(object):
 class AdminIndexView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, TemplateView):
     template_name = 'Administration/index.html'
 
+    def get(self, request, *args, **kwargs):
+        try:
+            GuildSettings.objects.first()
+        except:
+            return HttpResponseRedirect(reverse('admin_guild_setting'))
 
+
+class AdminGuildSetting(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, CreateView):
+    template_name = 'Administration/guild_settings.html'
 # DEBUT MEMBRES
 
 class AdminMembersView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, ListView):
