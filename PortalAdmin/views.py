@@ -55,6 +55,7 @@ class AdminIndexView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, Templ
 class AdminGuildSetting(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, CreateView):
     template_name = 'Administration/guild_settings.html'
     model = GuildSettings
+    feilds = []
 # DEBUT MEMBRES
 
 class AdminMembersView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, ListView):
