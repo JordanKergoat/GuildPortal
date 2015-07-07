@@ -2,7 +2,8 @@ __author__ = 'Jordan'
 
 from django.conf.urls import patterns, include, url
 from .views import AdminIndexView, AdminMembersView, AdminUserDetailView, AdminUserUpdateView, LastPostLastComments, \
-    AdminGamesView, AdminGameUpdateView, AdminGameDetailView, AdminGameCreate, AdminGameCharactersCreate
+    AdminGamesView, AdminGameUpdateView, AdminGameDetailView, AdminGameCreate, AdminGameCharactersCreate, \
+    AdminPortalCreateView, AdminPortalUpdate
 
 urlpatterns = patterns('',
                        url(r'^$', AdminIndexView.as_view(), name='admin_index'),
@@ -18,4 +19,8 @@ urlpatterns = patterns('',
                        url(r'^games/(?P<pk>\d+)/update/$', AdminGameUpdateView.as_view(), name='admin_game_update'),
                        url(r'^games/(?P<pk>\d+)/character-details/$', AdminGameUpdateView.as_view(), name='admin_game_characters_details'),
                        url(r'^games/(?P<pk>\d+)/character-details/add/$', AdminGameCharactersCreate.as_view(), name='admin_game_characters_details_add'),
+
+                       url(r'^portal/(?P<pk_game>\d+)/$', AdminPortalUpdate.as_view(), name='admin_portal'),
+                       url(r'^portal/(?P<pk_game>\d+)/add/$', AdminPortalCreateView.as_view(), name='admin_portal_add'),
+
                        )

@@ -6,13 +6,14 @@ from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, FormView, UpdateView
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin
 from django.views.generic.base import View, ContextMixin, TemplateView
-from Portal.models import Game, Userprofile
+from Portal.models import Game, Userprofile, Portal
 from django.views.generic import ListView, DetailView, FormView, UpdateView, View, CreateView
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin
 from django.views.generic.base import TemplateView
 from Forum.models import Post
 from Portal.models import Game, Userprofile, CommentNews, CharacterAttribute
 from PortalAdmin.forms import UserForm
+from SuperPortal.models import GuildSettings
 
 
 class MenuView(object):
@@ -82,6 +83,30 @@ class LastPostLastComments(View):
             return JsonResponse(choices, safe=False)
 # FIN MEMBRES
 
+# DEBUT PORTAL
+class AdminPortalCreateView(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, CreateView):
+    model = Portal
+    template_name = 'Administration/games/game_add.html'
+    fields = ['portal', 'guild_name', 'active', 'name', 'image']
+
+    def form_valid(self, form):
+        form.instance.game = Game.objects.get(pk=self.kwargs['pk_game'])
+        form.instance.guild_name = GuildSettings.objects.all().first().guild_name
+        form.save()
+
+
+class AdminPortalUpdate(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, UpdateView):
+    model = Portal
+    pk_url_kwarg = "pk_game"
+    fields = ['portal', 'game', 'active', 'name', 'guild_name', 'image']
+    template_name = 'Administration/portals/portal_form.html'
+
+    def get_queryset(self):
+        # get_object_or_404(self.model, game_id=self.kwargs['pk_game'])
+        query = self.model.objects.filter(game__id=self.kwargs['pk_game'])
+        return query
+# FIN PORTAL
+
 # DEBUT GAME
 
 
@@ -94,11 +119,6 @@ class AdminGameDetailView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, 
     model = Game
     template_name = 'Administration/games/game_detail.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(AdminGameDetailView, self).get_context_data(**kwargs)
-    #     context['user_list'] = User.objects.all()
-    #     return context
-
 
 class AdminGameCreate(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, CreateView):
     model = Game
@@ -106,7 +126,7 @@ class AdminGameCreate(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, Crea
     fields = ['name', 'image', 'url_api']
 
     def get_success_url(self):
-        return reverse_lazy('admin_game_characters_details_add', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('admin_portal_add', kwargs={'pk_game': self.kwargs['pk']})
 
     def form_valid(self, form):
         game = form.save()
