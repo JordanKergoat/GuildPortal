@@ -11,10 +11,12 @@ urlpatterns = patterns('',
                        url(r'^guild_settings/create/$', AdminGuildSettingCreate.as_view(), name='admin_guild_setting_create'),
                        url(r'^guild_settings/(?P<pk>\d+)/update/$', AdminGuildSettingEdit.as_view(), name='admin_guild_setting_update'),
 
+
                        url(r'^members/$', AdminMembersView.as_view(), name='admin_members'),
                        url(r'^members/(?P<pk>\d+)/details/$', AdminUserDetailView.as_view(), name='admin_user_detail'),
                        url(r'^members/(?P<pk>\d+)/update/$', AdminUserUpdateView.as_view(), name='admin_user_update'),
                        url(r'^members/(?P<pk>\d+)/last_post_last_comments/$', LastPostLastComments.as_view(), name='last_post_last_comments'),
+
 
                        url(r'^games/$', AdminGamesView.as_view(), name='admin_games'),
                        url(r'^games/add/$', AdminGameCreate.as_view(), name='admin_games_add'),
@@ -23,7 +25,17 @@ urlpatterns = patterns('',
                        url(r'^games/(?P<pk>\d+)/character-details/$', AdminGameUpdateView.as_view(), name='admin_game_characters_details'),
                        url(r'^games/(?P<pk>\d+)/character-details/add/$', AdminGameCharactersCreate.as_view(), name='admin_game_characters_details_add'),
 
+
                        url(r'^portal/(?P<pk_game>\d+)/$', AdminPortalUpdate.as_view(), name='admin_portal'),
                        url(r'^portal/(?P<pk_game>\d+)/add/$', AdminPortalCreateView.as_view(), name='admin_portal_add'),
+
+
+                       url(r'^raids/$', AdminPortalCreateView.as_view(), name='admin_raids'),
+                       url(r'^raids/(?P<pk_raid>\d+)/$', AdminPortalCreateView.as_view(), name='admin_raid_add'),
+                       url(r'^raids/(?P<pk_raid>\d+)/update/$', AdminPortalCreateView.as_view(), name='admin_raid_update'),
+
+                       url(r'^raids_out/$', AdminPortalCreateView.as_view(), name='admin_raids_out'),
+                       url(r'^raids_out/(?P<pk_raid>\d+)/$', AdminPortalCreateView.as_view(), name='admin_raid_out_add'),
+                       url(r'^raids_out/(?P<pk_raid>\d+)/update/$', AdminPortalCreateView.as_view(), name='admin_raid_out_update'),
 
                        )

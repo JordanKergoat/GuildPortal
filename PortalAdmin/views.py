@@ -13,6 +13,7 @@ from django.views.generic.base import TemplateView
 from Forum.models import Post
 from Portal.models import Game, Userprofile, CommentNews, CharacterAttribute
 from PortalAdmin.forms import UserForm, GuildSettingsForm
+from PortalRaid.models import Raid, OutRaid
 from SuperPortal.models import GuildSettings
 
 
@@ -149,6 +150,9 @@ class AdminGameDetailView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, 
     model = Game
     template_name = 'Administration/games/game_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(AdminGameDetailView, self).get_context_data(**kwargs)
+        return context
 
 class AdminGameCreate(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, CreateView):
     model = Game

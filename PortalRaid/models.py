@@ -52,6 +52,9 @@ class Raid(models.Model):
     def get_progression_boss(self):
         return self.boss_successful * 100 / self.number_of_boss
 
+    def get_out_raid(self):
+        return self.outraid_set.all()
+
     def __str__(self):
         return "%s, %s - %s" % (self.name, self.game.name, self.lvl.name)
 
