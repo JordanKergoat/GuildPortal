@@ -19,6 +19,14 @@ class Game(models.Model):
     def __str__(self):
         return self.name
 
+    def get_out_raid(self):
+        list_out_raid = []
+        for raid in self.raid_set.all():
+            for out_raid in raid.get_out_raid():
+                list_out_raid.append(out_raid)
+        return list_out_raid
+
+
     def percent_of_player(self):
         all_user_for_game = len(self.userprofile_set.all())
         all_user = len(User.objects.all()) - 1

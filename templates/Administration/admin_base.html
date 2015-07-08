@@ -303,7 +303,10 @@
                                 <a href="#"><i class="fa fa-gamepad fa-fw"></i> {{ game }}<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                        <a href="{% url 'admin_game_update' pk=game.pk%}">{% trans 'update' %}</a>
+                                        <a href="{% url 'admin_game_detail' pk=game.pk%}">{% trans 'Details' %}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'admin_game_update' pk=game.pk%}">{% trans 'Update' %}</a>
                                     </li>
                                     <li>
                                         <a href="#">{% trans 'News' %}</a>

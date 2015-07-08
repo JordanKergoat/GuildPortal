@@ -14,13 +14,20 @@
         <p>{% trans 'Url API' %}: {{ game.url_api }}</p>
         <p>{% trans 'Number players' %}: {{ game.userprofile_set.all|length }}</p>
         <p>{% trans 'Percent players' %}: {{ game.percent_of_player }} %</p>
-
-
-
+        <p>{% trans 'Raid' %}: {{ game.get_out_raid|length }}</p>
     </div>
 
     <div class="clearfix visible-lg-block"></div>
-
+    <div id="last-raids" class="col-lg-6">
+        <h3>{% trans 'Last raids' %}</h3>
+        {% for out_raid in game.get_out_raid %}
+            {% if forloop.counter <= 10 %}
+                <div class="raid">
+                    {{ out_raid }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 {% endblock %}
 {% block js %}
     <script type="text/javascript">
