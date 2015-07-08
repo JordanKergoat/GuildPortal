@@ -12,7 +12,7 @@ from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRe
 from django.views.generic.base import TemplateView
 from Forum.models import Post
 from Portal.models import Game, Userprofile, CommentNews, CharacterAttribute
-from PortalAdmin.forms import UserForm
+from PortalAdmin.forms import UserForm, GuildSettingsForm
 from SuperPortal.models import GuildSettings
 
 
@@ -46,16 +46,36 @@ class AdminIndexView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, Templ
     template_name = 'Administration/index.html'
 
     def get(self, request, *args, **kwargs):
-        try:
-            GuildSettings.objects.first()
-        except:
-            return HttpResponseRedirect(reverse('admin_guild_setting'))
 
+        if GuildSettings.objects.all().count():
 
-class AdminGuildSetting(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, CreateView):
-    template_name = 'Administration/guild_settings.html'
+            return super(AdminIndexView, self).get(request, *args, **kwargs)
+
+        else:
+
+            return HttpResponseRedirect(reverse('admin_guild_setting_create'))
+
+# DEBUT GUILD SETTINGS
+
+class AdminGuildSetting(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, DetailView):
+    template_name = 'Administration/guild_settings_detail.html'
     model = GuildSettings
-    feilds = []
+    pk_url_kwarg = 'pk'
+
+class AdminGuildSettingCreate(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, CreateView):
+    template_name = 'Administration/guild_settings_form.html'
+    model = GuildSettings
+    form_class = GuildSettingsForm
+    success_url = reverse_lazy('admin_index')
+
+class AdminGuildSettingEdit(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, UpdateView):
+    template_name = 'Administration/guild_settings_form.html'
+    model = GuildSettings
+    form_class = GuildSettingsForm
+    success_url = reverse_lazy('admin_index')
+
+# FIN GUILD SETTINGS
+
 # DEBUT MEMBRES
 
 class AdminMembersView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, ListView):
