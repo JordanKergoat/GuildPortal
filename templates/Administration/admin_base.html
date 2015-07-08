@@ -292,7 +292,7 @@
                         </li>
                         {% if guild %}
                             <li>
-                                <a href="#"><i class="fa fa-dashboard fa-fw"></i> {% trans 'Guild' %}</a>
+                                <a href="{% url 'admin_guild_setting' pk=guild.pk %}"><i class="fa fa-dashboard fa-fw"></i> {% trans 'Guild' %}</a>
                             </li>
                         {% endif %}
                         <li>
