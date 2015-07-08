@@ -24,4 +24,13 @@ urlpatterns = patterns('',
                        url(r'^portal/(?P<pk_game>\d+)/$', AdminPortalUpdate.as_view(), name='admin_portal'),
                        url(r'^portal/(?P<pk_game>\d+)/add/$', AdminPortalCreateView.as_view(), name='admin_portal_add'),
 
+
+                       url(r'^raids/$', AdminPortalCreateView.as_view(), name='admin_raids'),
+                       url(r'^raids/(?P<pk_raid>\d+)/$', AdminPortalCreateView.as_view(), name='admin_raid_add'),
+                       url(r'^raids/(?P<pk_raid>\d+)/update/$', AdminPortalCreateView.as_view(), name='admin_raid_update'),
+
+                       url(r'^raids_out/$', AdminPortalCreateView.as_view(), name='admin_raids_out'),
+                       url(r'^raids_out/(?P<pk_raid>\d+)/$', AdminPortalCreateView.as_view(), name='admin_raid_out_add'),
+                       url(r'^raids_out/(?P<pk_raid>\d+)/update/$', AdminPortalCreateView.as_view(), name='admin_raid_out_update'),
+
                        )
