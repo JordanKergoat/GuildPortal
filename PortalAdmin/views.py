@@ -93,6 +93,20 @@ class AdminUserDetailView(LoginRequiredMixin, StaffuserRequiredMixin, SelectRela
     select_related = ['userprofile']
     pk_url_kwarg = 'pk'
 
+    def get_context_data(self, **kwargs):
+        context = super(AdminUserDetailView, self).get_context_data(**kwargs)
+        context['participation'] = self.get_participation()
+        return context
+
+    def get_participation(self):
+        list_out_raid = OutRaid.objects.all()
+        participation = 0
+        for character in self.object.charactermodel_set.all():
+            for out_raid in list_out_raid:
+                if out_raid.check_character_in(character):
+                    participation += 1
+        tmp = (participation * 100) / len(list_out_raid)
+        return tmp
 
 class AdminUserUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, UpdateView):
     template_name = 'Administration/users/user_edit_detail.html'
@@ -108,9 +122,12 @@ class AdminUserUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, 
 class LastPostLastComments(View):
     def get(self, request, *args, **kwargs):
         if request.is_ajax():
-            choices = {}
-            choices['posts'] = list(Post.objects.filter(creator__pk=kwargs['pk']).order_by('created').values("body", "pk")[:10])
-            choices['comments'] =list( CommentNews.objects.filter(user__pk=kwargs['pk']).order_by('published_date').values('content', 'news__title', 'news_id')[:10])
+            choices = {
+                'posts': list(Post.objects.filter(creator__pk=kwargs['pk']).order_by('created').values("body", "pk")[:10]),
+                'comments': list(
+                    CommentNews.objects.filter(user__pk=kwargs['pk']).order_by('published_date').values('content',
+                                                                                                        'news__title',
+                                                                                                        'news_id')[:10])}
             return JsonResponse(choices, safe=False)
 # FIN MEMBRES
 
@@ -188,6 +205,6 @@ class AdminGameCharactersCreate(LoginRequiredMixin, SuperuserRequiredMixin, Menu
         form.save()
         return super(AdminGameCharactersCreate, self).form_valid(form)
 
-# FIN GAME CHARACTERS
+        # FIN GAME CHARACTERS
 
-# FIN GAMES
+        # FIN GAMES
