@@ -18,11 +18,11 @@
     </div>
 
     <div class="clearfix visible-lg-block"></div>
-    <div id="last-raids" class="col-lg-6">
-        <h3>{% trans 'Last raids' %}</h3>
+    <div id="last-out-raids" class="col-lg-6">
+        <h3>{% trans 'Last out raids' %}</h3>
         {% for out_raid in game.get_out_raid %}
             {% if forloop.counter <= 10 %}
-                <div class="raid">
+                <div class="out-raid">
                     {{ out_raid }}
                 </div>
             {% endif %}
