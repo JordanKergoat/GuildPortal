@@ -110,3 +110,4 @@ class CharacterForOutRaid(models.Model):
     out_raid = models.ForeignKey(OutRaid, blank=True, null=True)
     character = models.ForeignKey(CharacterModel)
     classCharacter = models.ForeignKey(CharacterAttribute)
+    present = models.BooleanField(default=False)
