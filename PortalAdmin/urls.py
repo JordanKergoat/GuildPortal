@@ -31,11 +31,18 @@ urlpatterns = patterns('',
 
 
                        url(r'^raids/$', AdminPortalCreateView.as_view(), name='admin_raids'),
-                       url(r'^raids/(?P<pk_raid>\d+)/$', AdminPortalCreateView.as_view(), name='admin_raid_add'),
+                       url(r'^raids/add/$', AdminPortalCreateView.as_view(), name='admin_raid_add'),
                        url(r'^raids/(?P<pk_raid>\d+)/update/$', AdminPortalCreateView.as_view(), name='admin_raid_update'),
+                       url(r'^raids/(?P<pk_raid>\d+)/details/$', AdminPortalCreateView.as_view(), name='admin_raid_details'),
 
                        url(r'^raids_out/$', AdminPortalCreateView.as_view(), name='admin_raids_out'),
-                       url(r'^raids_out/(?P<pk_raid>\d+)/$', AdminPortalCreateView.as_view(), name='admin_raid_out_add'),
+                       url(r'^raids_out/add/$', AdminPortalCreateView.as_view(), name='admin_raid_out_add'),
                        url(r'^raids_out/(?P<pk_raid>\d+)/update/$', AdminPortalCreateView.as_view(), name='admin_raid_out_update'),
+                       url(r'^raids_out/(?P<pk_raid>\d+)/details/$', AdminPortalCreateView.as_view(), name='admin_raid_out_details'),
+
+                       url(r'^news/$', AdminPortalCreateView.as_view(), name='admin_news'),
+                       url(r'^news/add/$', AdminPortalCreateView.as_view(), name='admin_news_add'),
+                       url(r'^news/(?P<pk_raid>\d+)/update/$', AdminPortalCreateView.as_view(), name='admin_news_update'),
+                       url(r'^news/(?P<pk_raid>\d+)/details/$', AdminPortalCreateView.as_view(), name='admin_news_details'),
 
                        )

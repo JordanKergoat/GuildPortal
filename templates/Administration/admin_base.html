@@ -312,10 +312,10 @@
                                         <a href="#">{% trans 'News' %}<span class="fa arrow"></span></a>
                                         <ul class="nav nav-third-level">
                                             <li>
-                                                <a href="#">{% trans 'News list' %}</a>
+                                                <a href="{% url 'admin_news' %}">{% trans 'News list' %}</a>
                                             </li>
                                             <li>
-                                                <a href="#">{% trans 'Write news' %}</a>
+                                                <a href="{% url 'admin_news_add' %}">{% trans 'Write news' %}</a>
                                             </li>
                                         </ul>
                                         <!-- /.nav-third-level -->

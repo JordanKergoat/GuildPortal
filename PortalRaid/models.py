@@ -101,6 +101,15 @@ class OutRaid(models.Model):
     def __str__(self):
         return "%s - %s => %s for %s" % (self.start_date, self.end_date, self.name, self.raid.name)
 
+    def check_character_in(self, character):
+        for character_out in self.characterforoutraid_set.all():
+            if character == character_out.character:
+                return True
+        return False
+
+    def get_characters(self):
+        return self.characterforoutraid_set.all()
+
     def can_be_register(self):
         if self.start_date < datetime.now():
             return False
@@ -110,3 +119,4 @@ class CharacterForOutRaid(models.Model):
     out_raid = models.ForeignKey(OutRaid, blank=True, null=True)
     character = models.ForeignKey(CharacterModel)
     classCharacter = models.ForeignKey(CharacterAttribute)
+    present = models.BooleanField(default=False)

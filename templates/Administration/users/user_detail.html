@@ -7,11 +7,12 @@
 {% block body %}
     {#    <div class="user-profile row">#}
     <div class="col-lg-4 col-xs-12 col-md-5">
-    {% if user.userprofile.image_profile %}
-        <img class="img-responsive" src="{{ user.userprofile.image_profile.url }}">
-    {% endif %}
+        {% if user.userprofile.image_profile %}
+            <img class="img-responsive" src="{{ user.userprofile.image_profile.url }}">
+        {% endif %}
     </div>
     <div class="user col-lg-4 col-md-7 col-xs-12">
+        <h3>{% trans 'Informations' %}</h3>
         <p>{% trans 'Username' %}: {{ user.username }}</p>
         <p>{% trans 'First name' %}:{{ user.first_name }}</p>
         <p>{% trans 'Last name' %}:{{ user.last_name }}</p>
@@ -19,8 +20,10 @@
         <p>{% trans 'Email' %}: {{ user.email }}</p>
         <p>{% trans 'Post number' %}: {{ user.userprofile.post_in_forum }}</p>
         <p>{% trans 'Comment number' %}: {{ user.userprofile.reponse_to_blog }}</p>
+        <p>{% trans 'Participation in Raid outputs' %}: {{ participation }} %</p>
     </div>
     <div class="col-lg-4 col-md-12 col-xs-12">
+        <h3>{% trans 'Game played' %}</h3>
         {% with user.userprofile as userp %}
             {% for game in userp.games.all %}
                 {% include 'Administration/games/game_unit_for_li.html' %}
@@ -50,8 +53,7 @@
                 $.each(data['comments'], function() {
                     $("#last-comments").find(".comment").append("<p>" + this.content.substring(0, 150) + " <b>dans</b> " + this.news__title.substring(0, 50) + "</p>")
                 });
-            })
-
-        })
+            });
+        });
     </script>
 {% endblock %}
