@@ -1,7 +1,7 @@
 {% extends 'Administration/admin_base.html' %}
 {% load i18n %}
 {% block body_title %}
-    {% trans 'Game detail' %} : {{ game.name }} - <a href="{% url 'admin_game_update' pk=game.pk %}"><i class="fa fa-cogs"></i></a>
+    {% trans 'Detail for' %} {{ game.name }} - <a href="{% url 'admin_game_update' pk=game.pk %}"><i class="fa fa-cogs"></i></a>
 {% endblock %}
 
 {% block body %}
@@ -23,9 +23,22 @@
         {% for out_raid in game.get_out_raid %}
             {% if forloop.counter <= 10 %}
                 <div class="out-raid">
-                    {{ out_raid }}
+                    <div class="date-raid">
+                        {{ out_raid.start_date|date:'D d F o' }} {% trans 'at' %} {{ out_raid.start_date|date:'H:i' }} //
+                        {{ out_raid.end_date|date:'D d F o' }} {% trans 'at' %} {{ out_raid.end_date|date:'H:i' }}
+                    </div>
+                    {{ out_raid.name }}
+
                 </div>
             {% endif %}
+        {% endfor %}
+    </div>
+    <div id="raids-list" class="col-lg-6">
+        <h3>{% trans 'Raids list' %}</h3>
+        {% for raid in game.raid_set.all %}
+            <div class="raid">
+                {{ raid }}
+            </div>
         {% endfor %}
     </div>
 {% endblock %}
