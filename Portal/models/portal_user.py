@@ -1,3 +1,5 @@
+from PortalRaid.models import OutRaid
+
 __author__ = 'Alexandre Cloquet'
 
 from django.utils.translation import ugettext as _
@@ -62,6 +64,13 @@ class Userprofile(models.Model):
 
     def __str__(self):
         return "%s" % self.user.username
+
+    def get_participation_for_raids(self):
+        for raid in OutRaid.objects.all():
+            for character in raid.characterforoutraid_set.all():
+                if character.character in self.user.charactermodel_set.all():
+                    print character.character, raid.raid.name
+
 
     def age(self):
         import datetime

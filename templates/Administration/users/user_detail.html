@@ -40,8 +40,23 @@
         <h3>{% trans 'Last comments' %}</h3>
         <div class="comment"></div>
     </div>
+    <div class="clearfix visible-lg-block"></div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Donut Chart Example
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div id="morris-donut-chart" style="height: 250px;"></div>
+        </div>
+        <!-- /.panel-body -->
+    </div>
 {% endblock %}
 {% block js %}
+    {% load static %}
+    <script src="{% static 'PortalAdmin/js/external/raphael-min.js' %}"></script>
+    <script src="{% static 'PortalAdmin/js/external/morris.min.js' %}"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             $.ajax({
@@ -53,6 +68,17 @@
                 $.each(data['comments'], function() {
                     $("#last-comments").find(".comment").append("<p>" + this.content.substring(0, 150) + " <b>dans</b> " + this.news__title.substring(0, 50) + "</p>")
                 });
+                console.log(data['participation']);
+                if ($("#morris-donut-chart").length) {
+                    Morris.Donut({
+                        element: 'morris-donut-chart',
+                        data: [
+                            {label: "Cognefort", value: 12},
+                            {label: "In-Store Sales", value: 30},
+                            {label: "Mail-Order Sales", value: 20}
+                        ]
+                    });
+                }
             });
         });
     </script>

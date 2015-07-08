@@ -124,10 +124,11 @@ class LastPostLastComments(View):
         if request.is_ajax():
             choices = {
                 'posts': list(Post.objects.filter(creator__pk=kwargs['pk']).order_by('created').values("body", "pk")[:10]),
-                'comments': list(
-                    CommentNews.objects.filter(user__pk=kwargs['pk']).order_by('published_date').values('content',
+                'comments': list(CommentNews.objects.filter(user__pk=kwargs['pk']).order_by('published_date').values('content',
                                                                                                         'news__title',
-                                                                                                        'news_id')[:10])}
+                                                                                                        'news_id')[:10]),
+                'participation' : request.user.userprofile.get_participation_for_raids()
+            }
             return JsonResponse(choices, safe=False)
 # FIN MEMBRES
 
