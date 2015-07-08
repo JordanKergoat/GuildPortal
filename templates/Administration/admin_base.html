@@ -309,14 +309,13 @@
                                         <a href="{% url 'admin_game_update' pk=game.pk%}">{% trans 'Update' %}</a>
                                     </li>
                                     <li>
-
                                         <a href="#">{% trans 'News' %}<span class="fa arrow"></span></a>
                                         <ul class="nav nav-third-level">
                                             <li>
-                                                <a href="{% url 'admin_game_detail' pk=game.pk%}">{% trans 'News list' %}</a>
+                                                <a href="{% url 'admin_news' %}">{% trans 'News list' %}</a>
                                             </li>
                                             <li>
-                                                <a href="{% url 'admin_game_detail' pk=game.pk%}">{% trans 'Write news' %}</a>
+                                                <a href="{% url 'admin_news_add' %}">{% trans 'Write news' %}</a>
                                             </li>
                                         </ul>
                                     </li>

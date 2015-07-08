@@ -61,7 +61,7 @@
                                     <tbody>
                                     {% for out_raid in game.get_out_raid %}
                                         <tr class="gradeA {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}" role="row">
-                                            <td><a href="{% url 'admin_raid_out_add' pk_raid=out_raid.pk %}">{{ out_raid.name }}</a></td>
+                                            <td><a href="{% url 'admin_raid_out_details' pk_raid=out_raid.pk %}">{{ out_raid.name }}</a></td>
                                             <td>{{ out_raid.start_date|date:'D d F o' }} {{ out_raid.start_date|date:'H:i' }}</td>
                                             <td>{{ out_raid.end_date|date:'D d F o' }} {{ out_raid.end_date|date:'H:i' }}</td>
                                             <td>{{ out_raid.raid.name }}</td>
