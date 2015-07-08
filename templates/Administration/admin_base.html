@@ -309,19 +309,28 @@
                                         <a href="{% url 'admin_game_update' pk=game.pk%}">{% trans 'Update' %}</a>
                                     </li>
                                     <li>
-
                                         <a href="#">{% trans 'News' %}<span class="fa arrow"></span></a>
                                         <ul class="nav nav-third-level">
                                             <li>
-                                                <a href="{% url 'admin_game_detail' pk=game.pk%}">{% trans 'News list' %}</a>
+                                                <a href="#">{% trans 'News list' %}</a>
                                             </li>
                                             <li>
-                                                <a href="{% url 'admin_game_detail' pk=game.pk%}">{% trans 'Write news' %}</a>
+                                                <a href="#">{% trans 'Write news' %}</a>
                                             </li>
                                         </ul>
+                                        <!-- /.nav-third-level -->
                                     </li>
                                     <li>
-                                        <a href="#">{% trans 'Enrollment' %}</a>
+                                        <a href="#">{% trans 'Enrollment' %}<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="#">{% trans 'Needs' %}</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">{% trans 'Ongoing' %}</a>
+                                            </li>
+                                        </ul>
+                                        <!-- /.nav-third-level -->
                                     </li>
                                 </ul>
                                 <!-- /.nav-second-level -->
