@@ -4,7 +4,8 @@ from django.conf.urls import patterns, include, url
 from .views import AdminIndexView, AdminMembersView, AdminUserDetailView, AdminUserUpdateView, LastPostLastComments, \
     AdminGamesView, AdminGameUpdateView, AdminGameDetailView, AdminGameCreate, AdminGameCharactersCreate, \
     AdminPortalCreateView, AdminPortalUpdate, AdminGuildSetting, AdminGuildSettingCreate, AdminGuildSettingEdit, \
-    AdminEnrollmentNeeds, AdminDatabaseAddTable, AdminDatabaseAddEntry
+    AdminEnrollmentNeeds, AdminDatabaseAddTable, AdminDatabaseAddEntry, AdminRaidsView, AdminRaidsAdd, \
+    AdminRaidsUpdate, AdminRaidOutView
 
 urlpatterns = patterns('',
                        url(r'^$', AdminIndexView.as_view(), name='admin_index'),
@@ -36,19 +37,19 @@ urlpatterns = patterns('',
                        url(r'^portal/(?P<pk_game>\d+)/add/$', AdminPortalCreateView.as_view(), name='admin_portal_add'),
 
 
-                       url(r'^raids/$', AdminPortalCreateView.as_view(), name='admin_raids'),
-                       url(r'^raids/add/$', AdminPortalCreateView.as_view(), name='admin_raid_add'),
-                       url(r'^raids/(?P<pk_raid>\d+)/update/$', AdminPortalCreateView.as_view(), name='admin_raid_update'),
-                       url(r'^raids/(?P<pk_raid>\d+)/details/$', AdminPortalCreateView.as_view(), name='admin_raid_details'),
+                       url(r'^games/(?P<pk_game>\d+)/raids/$', AdminRaidsView.as_view(), name='admin_raids'),
+                       url(r'^games/(?P<pk_game>\d+)/raids/add/$', AdminRaidsAdd.as_view(), name='admin_raid_add'),
+                       url(r'^games/(?P<pk_game>\d+)/raids/(?P<pk_raid>\d+)/update/$', AdminRaidsUpdate.as_view(), name='admin_raid_update'),
+                       url(r'^games/(?P<pk_game>\d+)/raids/(?P<pk_raid>\d+)/details/$', AdminPortalCreateView.as_view(), name='admin_raid_details'),
 
-                       url(r'^raids_out/$', AdminPortalCreateView.as_view(), name='admin_raids_out'),
-                       url(r'^raids_out/add/$', AdminPortalCreateView.as_view(), name='admin_raid_out_add'),
-                       url(r'^raids_out/(?P<pk_raid>\d+)/update/$', AdminPortalCreateView.as_view(), name='admin_raid_out_update'),
-                       url(r'^raids_out/(?P<pk_raid>\d+)/details/$', AdminPortalCreateView.as_view(), name='admin_raid_out_details'),
+                       url(r'^games/(?P<pk_game>\d+)/raids_out/$', AdminRaidOutView.as_view(), name='admin_raids_out'),
+                       url(r'^games/(?P<pk_game>\d+)/raids_out/add/$', AdminPortalCreateView.as_view(), name='admin_raid_out_add'),
+                       url(r'^games/(?P<pk_game>\d+)/raids_out/(?P<pk_raid>\d+)/update/$', AdminPortalCreateView.as_view(), name='admin_raid_out_update'),
+                       url(r'^games/(?P<pk_game>\d+)/raids_out/(?P<pk_raid>\d+)/details/$', AdminPortalCreateView.as_view(), name='admin_raid_out_details'),
 
-                       url(r'^news/$', AdminPortalCreateView.as_view(), name='admin_news'),
-                       url(r'^news/add/$', AdminPortalCreateView.as_view(), name='admin_news_add'),
-                       url(r'^news/(?P<pk_raid>\d+)/update/$', AdminPortalCreateView.as_view(), name='admin_news_update'),
-                       url(r'^news/(?P<pk_raid>\d+)/details/$', AdminPortalCreateView.as_view(), name='admin_news_details'),
+                       url(r'^games/(?P<pk_game>\d+)/news/$', AdminPortalCreateView.as_view(), name='admin_news'),
+                       url(r'^games/(?P<pk_game>\d+)/news/add/$', AdminPortalCreateView.as_view(), name='admin_news_add'),
+                       url(r'^games/(?P<pk_game>\d+)/news/(?P<pk_raid>\d+)/update/$', AdminPortalCreateView.as_view(), name='admin_news_update'),
+                       url(r'^games/(?P<pk_game>\d+)/news/(?P<pk_raid>\d+)/details/$', AdminPortalCreateView.as_view(), name='admin_news_details'),
 
                        )

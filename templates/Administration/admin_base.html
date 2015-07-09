@@ -326,13 +326,25 @@
                                         <a href="#">{% trans 'News' %}<span class="fa arrow"></span></a>
                                         <ul class="nav nav-third-level">
                                             <li>
-                                                <a href="{% url 'admin_news' %}">{% trans 'News list' %}</a>
+                                                <a href="{% url 'admin_news' pk_game=game.pk %}">{% trans 'News list' %}</a>
                                             </li>
                                             <li>
-                                                <a href="{% url 'admin_news_add' %}">{% trans 'Write news' %}</a>
+                                                <a href="{% url 'admin_news_add' pk_game=game.pk %}">{% trans 'Write news' %}</a>
                                             </li>
                                         </ul>
                                         <!-- /.nav-third-level -->
+                                    </li>
+                                    <li>
+                                        <a href="#">{% trans 'Raids' %}<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="{% url 'admin_raids' pk_game=game.pk%}">{% trans 'Raids list' %}</a>
+
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'admin_raids_out' pk_game=game.pk%}">{% trans 'Raids out list' %}</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li>
                                         <a href="#">{% trans 'Enrollment' %}<span class="fa arrow"></span></a>
