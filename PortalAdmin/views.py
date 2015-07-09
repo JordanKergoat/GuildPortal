@@ -277,3 +277,16 @@ class AdminRaidsUpdate(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, Upd
         form.save()
         return super(AdminRaidsUpdate, self).form_valid(form)
 # FIN RAID
+
+
+# DEBUT RAID OUT
+class AdminRaidOutView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, ListView):
+    model = OutRaid
+    template_name = 'Administration/raids/raidout_list.html'
+
+    def get_queryset(self):
+        query = self.model.objects.filter(raid__game_id=self.kwargs['pk_game'])
+        return query
+
+
+# FIN RAID OUT

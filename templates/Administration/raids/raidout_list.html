@@ -1,0 +1,17 @@
+{% extends 'Administration/admin_base.html' %}
+{% load i18n %}
+{% block body_title %}
+    {% trans 'Raid out list' %} <a href="{% url 'admin_raid_add' pk_game=pk_game %}"><i class="fa fa-plus"></i></a>
+{% endblock %}
+{% block body %}
+
+
+    {% for raid in outraid_list %}
+        <h3>{{ raid}}</h3>
+        {% for raid in raid.list %}
+            <div class="game">
+                <h3><img src="{{ raid.image.url }}" height="100"> {{ raid.lvl }} {{ raid.name }} <a href="{% url 'admin_raid_update' pk_game=pk_game pk_raid=raid.pk %}"><i class="fa fa-cogs"></i></a></h3>
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

@@ -4,7 +4,7 @@ from django.conf.urls import patterns, include, url
 from .views import AdminIndexView, AdminMembersView, AdminUserDetailView, AdminUserUpdateView, LastPostLastComments, \
     AdminGamesView, AdminGameUpdateView, AdminGameDetailView, AdminGameCreate, AdminGameCharactersCreate, \
     AdminPortalCreateView, AdminPortalUpdate, AdminGuildSetting, AdminGuildSettingCreate, AdminGuildSettingEdit, \
-    AdminEnrollmentNeeds, AdminRaidsView, AdminRaidsAdd, AdminRaidsUpdate
+    AdminEnrollmentNeeds, AdminRaidsView, AdminRaidsAdd, AdminRaidsUpdate, AdminRaidOutView
 
 urlpatterns = patterns('',
                        url(r'^$', AdminIndexView.as_view(), name='admin_index'),
@@ -38,7 +38,7 @@ urlpatterns = patterns('',
                        url(r'^games/(?P<pk_game>\d+)/raids/(?P<pk_raid>\d+)/update/$', AdminRaidsUpdate.as_view(), name='admin_raid_update'),
                        url(r'^games/(?P<pk_game>\d+)/raids/(?P<pk_raid>\d+)/details/$', AdminPortalCreateView.as_view(), name='admin_raid_details'),
 
-                       url(r'^games/(?P<pk_game>\d+)/raids_out/$', AdminPortalCreateView.as_view(), name='admin_raids_out'),
+                       url(r'^games/(?P<pk_game>\d+)/raids_out/$', AdminRaidOutView.as_view(), name='admin_raids_out'),
                        url(r'^games/(?P<pk_game>\d+)/raids_out/add/$', AdminPortalCreateView.as_view(), name='admin_raid_out_add'),
                        url(r'^games/(?P<pk_game>\d+)/raids_out/(?P<pk_raid>\d+)/update/$', AdminPortalCreateView.as_view(), name='admin_raid_out_update'),
                        url(r'^games/(?P<pk_game>\d+)/raids_out/(?P<pk_raid>\d+)/details/$', AdminPortalCreateView.as_view(), name='admin_raid_out_details'),
