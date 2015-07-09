@@ -128,8 +128,8 @@ class LastPostLastComments(View):
             choices = {
                 'posts': list(Post.objects.filter(creator__pk=kwargs['pk']).order_by('created').values("body", "pk")[:10]),
                 'comments': list(CommentNews.objects.filter(user__pk=kwargs['pk']).order_by('published_date').values('content',
-                                                                                                        'news__title',
-                                                                                                        'news_id')[:10]),
+                                                                                                                     'news__title',
+                                                                                                                     'news_id')[:10]),
                 'participation' : request.user.userprofile.get_participation_for_raids()
             }
             return JsonResponse(choices, safe=False)
@@ -263,5 +263,17 @@ class AdminRaidsAdd(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, Create
         return super(AdminRaidsAdd, self).form_valid(form)
 
 
+class AdminRaidsUpdate(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, UpdateView):
+    model = Raid
+    pk_url_kwarg = 'pk_raid'
+    template_name = 'Administration/raids/raid_update.html'
+    fields = ['name', 'lvl', 'number_of_boss', 'boss_successful', 'image']
 
+    def get_success_url(self):
+        return reverse('admin_raids', kwargs={'pk_game': self.kwargs['pk_game']})
+
+    def form_valid(self, form):
+        form.instance.game = Game.objects.get(id=self.kwargs['pk_game'])
+        form.save()
+        return super(AdminRaidsUpdate, self).form_valid(form)
 # FIN RAID
