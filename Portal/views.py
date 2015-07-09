@@ -37,8 +37,10 @@ class NewsDetailView(DetailView):
         context = super(NewsDetailView, self).get_context_data(**kwargs)
         context['form'] = CommentEnrollmentForm()
         comments = {}
-        raw_comments = CommentNews.objects.filter(news=self.get_queryset(), response=None).order_by('published_date')
+        raw_comments = CommentNews.objects.filter(news=self.get_object(), response=None).order_by('published_date')
+
         for comment in raw_comments:
+
             comments[comment] = CommentNews.objects.filter(response=comment).order_by('published_date')
         context['comments'] = comments
         context['form'] = CommentEnrollmentForm()
