@@ -1,3 +1,4 @@
+from itertools import groupby
 from PortalRaid.models import OutRaid
 
 __author__ = 'Alexandre Cloquet'
@@ -66,11 +67,16 @@ class Userprofile(models.Model):
         return "%s" % self.user.username
 
     def get_participation_for_raids(self):
-        for raid in OutRaid.objects.all():
-            for character in raid.characterforoutraid_set.all():
+        list_participation = []
+        list_participation_to_send = []
+        for raid_out in OutRaid.objects.all():
+            for character in raid_out.characterforoutraid_set.all():
                 if character.character in self.user.charactermodel_set.all():
-                    print(character.character, raid.raid.name)
-
+                    list_participation.append((character.character, raid_out.raid.name))
+        for key, group in groupby(list_participation, lambda x: x[1]):
+            tmp = {'label': key, 'value': len(list(group))}
+            list_participation_to_send.append(tmp)
+        return list_participation_to_send
 
     def age(self):
         import datetime

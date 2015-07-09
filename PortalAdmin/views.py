@@ -122,7 +122,7 @@ class AdminUserUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, 
 
 class LastPostLastComments(View):
     def get(self, request, *args, **kwargs):
-        if request.is_ajax():
+        if request.is_ajax() and request.user in User.objects.all():
             choices = {
                 'posts': list(Post.objects.filter(creator__pk=kwargs['pk']).order_by('created').values("body", "pk")[:10]),
                 'comments': list(CommentNews.objects.filter(user__pk=kwargs['pk']).order_by('published_date').values('content',
