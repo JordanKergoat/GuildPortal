@@ -70,7 +70,7 @@ class CharacterAttribute(models.Model):
 
     attribute_name = models.ForeignKey(TypeValue)
     attribute_value = models.ForeignKey(FieldValue)
-
+    for_game = models.ForeignKey(Game)
 
     def __str__(self):
         return '[' + self.for_game.name + '] ' + self.attribute_name.field_value + ' - ' +  self.attribute_value.field_value

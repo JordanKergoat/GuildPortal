@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
+from django.template.base import token_kwargs
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, FormView, UpdateView
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin
@@ -12,7 +13,7 @@ from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRe
 from django.views.generic.base import TemplateView
 from Forum.models import Post
 from Portal.models import Game, Userprofile, CommentNews, CharacterAttribute
-from PortalAdmin.forms import UserForm, GuildSettingsForm, EnrollmentSettingsForm, TableNameForm
+from PortalAdmin.forms import UserForm, GuildSettingsForm, EnrollmentSettingsForm, TableNameForm, DbEntryForm
 from PortalEnrollment.models import EnrollmentSettings
 from PortalRaid.models import Raid, OutRaid
 from SuperPortal.models import GuildSettings
@@ -25,24 +26,12 @@ class MenuView(object):
         if 'pk_game' in self.kwargs:
             context['pk_game'] = self.kwargs['pk_game']
         context['games'] = Game.objects.all()
+        dbs = {}
+        for game in context['games']:
+            dbs[game.pk] = TypeValue.objects.filter(game=game)
+        context['db_tables'] = dbs
         return context
 
-# def test_context(template_name):
-#     def decorator(function):
-#         def additionnal_context(function):
-#
-#             def wrapper(**kwargs):
-#                 TemplateView.template_name = template_name
-#                 context = {}
-#                 context['games'] = ['toto', 'titi']
-#                 return context
-#
-#             return wrapper
-#
-#         View.get_context_data = method_decorator(additionnal_context)(View.get_context_data)
-#         return View
-#
-#     return decorator
 
 
 # @test_context('Administration/index.html')
@@ -247,19 +236,23 @@ class AdminDatabaseAddTable(LoginRequiredMixin, SuperuserRequiredMixin, MenuView
         return super(AdminDatabaseAddTable, self).form_valid(form)
 
 class AdminDatabaseAddEntry(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, CreateView):
-        form_class = TableNameForm
+        form_class = DbEntryForm
         template_name = 'Administration/games/database/add_entry.html'
-        success_url = reverse_lazy()
 
         def get_context_data(self, **kwargs):
             context = super(AdminDatabaseAddEntry, self).get_context_data(**kwargs)
             context['table'] = TypeValue.objects.get(pk=self.kwargs['pk_table'])
+            context['entries'] = CharacterAttribute.objects.filter(for_game_id=self.kwargs['pk_game'], attribute_name=context['table'])
             return context
 
         def form_valid(self, form):
-            # form.instance.game = Game.objects.get(id=self.kwargs['pk_game'])
-            # form.save()
+            form.instance.game = Game.objects.get(id=self.kwargs['pk_game'])
+            form.save()
+            CharacterAttribute(for_game_id=self.kwargs['pk_game'], attribute_name_id=self.kwargs['pk_table'], attribute_value_id=form.instance.pk).save()
             return super(AdminDatabaseAddEntry, self).form_valid(form)
+
+        def get_success_url(self):
+            return reverse_lazy('admin_games_add_entry', kwargs={'pk_game': self.kwargs['pk_game'], 'pk_table': self.kwargs['pk_table']})
 
 # FIN DATABASE
 

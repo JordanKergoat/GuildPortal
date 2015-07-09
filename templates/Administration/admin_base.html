@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load i18n %}
+{% load get_item %}
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -309,11 +310,11 @@
                                         <a href="{% url 'admin_game_update' pk=game.pk%}">{% trans 'Update' %}</a>
                                     </li>
                                     <li>
-                                        <a href="#">{% trans 'Database' %}<span class="fa arrow"></span></a>
+                                        <a href="#">{% trans 'Database' %} <span class="badge">{{ db_tables|get_item:game.pk|length }}</span><span class="fa arrow"></span></a>
                                         <ul class="nav nav-third-level">
-                                            {% for game_db in games_db %}
+                                            {% for table in db_tables|get_item:game.pk %}
                                                 <li>
-                                                    <a href="{% url 'admin_news' %}">{% trans 'News list' %}</a>
+                                                    <a href="{% url 'admin_games_add_entry' pk_game=game.pk pk_table=table.pk %}">{{ table.field_value }}</a>
                                                 </li>
                                             {% endfor %}
                                             <li>
