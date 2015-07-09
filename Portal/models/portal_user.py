@@ -69,7 +69,7 @@ class Userprofile(models.Model):
         for raid in OutRaid.objects.all():
             for character in raid.characterforoutraid_set.all():
                 if character.character in self.user.charactermodel_set.all():
-                    print character.character, raid.raid.name
+                    print(character.character, raid.raid.name)
 
 
     def age(self):

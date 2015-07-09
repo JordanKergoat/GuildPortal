@@ -324,10 +324,10 @@
                                         <a href="#">{% trans 'Enrollment' %}<span class="fa arrow"></span></a>
                                         <ul class="nav nav-third-level">
                                             <li>
-                                                <a href="#">{% trans 'Needs' %}</a>
+                                                <a href="{% url 'admin_game_enrollment_needs' pk=game.pk %}">{% trans 'Needs' %}</a>
                                             </li>
                                             <li>
-                                                <a href="#">{% trans 'Ongoing' %}</a>
+                                                <a href="{% url 'admin_game_enrollment_ongoing' pk=game.pk %}">{% trans 'Ongoing' %}</a>
                                             </li>
                                         </ul>
                                         <!-- /.nav-third-level -->

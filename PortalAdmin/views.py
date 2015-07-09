@@ -12,7 +12,8 @@ from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRe
 from django.views.generic.base import TemplateView
 from Forum.models import Post
 from Portal.models import Game, Userprofile, CommentNews, CharacterAttribute
-from PortalAdmin.forms import UserForm, GuildSettingsForm
+from PortalAdmin.forms import UserForm, GuildSettingsForm, EnrollmentSettingsForm
+from PortalEnrollment.models import EnrollmentSettings
 from PortalRaid.models import Raid, OutRaid
 from SuperPortal.models import GuildSettings
 
@@ -206,6 +207,26 @@ class AdminGameCharactersCreate(LoginRequiredMixin, SuperuserRequiredMixin, Menu
         form.save()
         return super(AdminGameCharactersCreate, self).form_valid(form)
 
-        # FIN GAME CHARACTERS
+# FIN GAME CHARACTERS
 
-        # FIN GAMES
+# FIN GAMES
+
+# DEBUT ENROLLMENT
+
+class AdminEnrollmentNeeds(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, CreateView):
+
+    form_class = EnrollmentSettingsForm
+    template_name = 'Administration/games/enrollment/needs.html'
+
+    def get_context_data(self, **kwargs):
+
+        context = super(AdminEnrollmentNeeds, self).get_context_data(**kwargs)
+        context['needs'] = EnrollmentSettings.objects.filter(game_choice_id=self.kwargs['pk'])
+        return context
+
+    def form_valid(self, form):
+        form.instance.game = Game.objects.get(id=self.kwargs['pk'])
+        form.save()
+        return super(AdminEnrollmentNeeds, self).form_valid(form)
+
+# FIN ENROLLMENT
