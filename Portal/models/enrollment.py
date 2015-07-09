@@ -46,22 +46,35 @@ class Class(models.Model):
 
 class FieldValue(models.Model):
 
-    field_value = models.CharField(max_length=64)
+    field_value = models.CharField(_('value'), max_length=64)
 
     def __str__(self):
         return self.field_value
+
+    class Meta:
+        verbose_name = _('Table entry')
+        verbose_name_plural = _('Tables entries')
 
 class TypeValue(models.Model):
-    field_value = models.CharField(max_length=64)
+    field_value = models.CharField(_('value'), max_length=64)
+    game = models.ForeignKey(Game)
 
     def __str__(self):
         return self.field_value
+
+    class Meta:
+        verbose_name = _('Table name')
+        verbose_name_plural = _('Tables names')
 
 class CharacterAttribute(models.Model):
 
     attribute_name = models.ForeignKey(TypeValue)
     attribute_value = models.ForeignKey(FieldValue)
-    for_game = models.ForeignKey(Game)
+
 
     def __str__(self):
         return '[' + self.for_game.name + '] ' + self.attribute_name.field_value + ' - ' +  self.attribute_value.field_value
+
+    class Meta:
+        verbose_name = _('Table relation')
+        verbose_name_plural = _('Tables relations')

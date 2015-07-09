@@ -6,13 +6,13 @@ from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, FormView, UpdateView
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin
 from django.views.generic.base import View, ContextMixin, TemplateView
-from Portal.models import Game, Userprofile, Portal
+from Portal.models import Game, Userprofile, Portal, TypeValue
 from django.views.generic import ListView, DetailView, FormView, UpdateView, View, CreateView
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin
 from django.views.generic.base import TemplateView
 from Forum.models import Post
 from Portal.models import Game, Userprofile, CommentNews, CharacterAttribute
-from PortalAdmin.forms import UserForm, GuildSettingsForm, EnrollmentSettingsForm
+from PortalAdmin.forms import UserForm, GuildSettingsForm, EnrollmentSettingsForm, TableNameForm
 from PortalEnrollment.models import EnrollmentSettings
 from PortalRaid.models import Raid, OutRaid
 from SuperPortal.models import GuildSettings
@@ -230,3 +230,34 @@ class AdminEnrollmentNeeds(LoginRequiredMixin, SuperuserRequiredMixin, MenuView,
         return super(AdminEnrollmentNeeds, self).form_valid(form)
 
 # FIN ENROLLMENT
+
+
+# DEBUT DATABASE
+
+class AdminDatabaseAddTable(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, CreateView):
+
+    form_class = TableNameForm
+    template_name = 'Administration/games/database/add_table.html'
+
+    def form_valid(self, form):
+        form.instance.game = Game.objects.get(id=self.kwargs['pk_game'])
+        form.save()
+        self.success_url = reverse_lazy('admin_games_add_entry', kwargs={'pk_game': self.kwargs['pk_game'], 'pk_table': form.instance.id})
+        return super(AdminDatabaseAddTable, self).form_valid(form)
+
+class AdminDatabaseAddEntry(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, CreateView):
+        form_class = TableNameForm
+        template_name = 'Administration/games/database/add_entry.html'
+        success_url = reverse_lazy()
+
+        def get_context_data(self, **kwargs):
+            context = super(AdminDatabaseAddEntry, self).get_context_data(**kwargs)
+            context['table'] = TypeValue.objects.get(pk=self.kwargs['pk_table'])
+            return context
+
+        def form_valid(self, form):
+            # form.instance.game = Game.objects.get(id=self.kwargs['pk_game'])
+            # form.save()
+            return super(AdminDatabaseAddEntry, self).form_valid(form)
+
+# FIN DATABASE

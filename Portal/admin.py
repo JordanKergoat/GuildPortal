@@ -6,9 +6,9 @@ from .models.enrollment import *
 from .models.portal_user import *
 from .models.news import *
 
+admin.site.register(TypeValue)
 admin.site.register(FieldValue)
 admin.site.register(CharacterAttribute)
-admin.site.register(TypeValue)
 admin.site.register(Game)
 admin.site.register(Portal)
 admin.site.register(News)

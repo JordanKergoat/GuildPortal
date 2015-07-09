@@ -3,6 +3,7 @@ __author__ = 'Alexandre Cloquet'
 from django.contrib.auth.models import User
 from SuperPortal.models import GuildSettings
 from PortalEnrollment.models import EnrollmentSettings
+from Portal.models.enrollment import TypeValue
 
 from django import forms
 
@@ -22,3 +23,9 @@ class EnrollmentSettingsForm(forms.ModelForm):
     class Meta:
         model = EnrollmentSettings
         exclude = ('game_choice', )
+
+class TableNameForm(forms.ModelForm):
+
+    class Meta:
+        model = TypeValue
+        exclude = ('game', )

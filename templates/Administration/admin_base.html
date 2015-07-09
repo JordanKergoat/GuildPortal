@@ -309,6 +309,20 @@
                                         <a href="{% url 'admin_game_update' pk=game.pk%}">{% trans 'Update' %}</a>
                                     </li>
                                     <li>
+                                        <a href="#">{% trans 'Database' %}<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            {% for game_db in games_db %}
+                                                <li>
+                                                    <a href="{% url 'admin_news' %}">{% trans 'News list' %}</a>
+                                                </li>
+                                            {% endfor %}
+                                            <li>
+                                                <a href="{% url 'admin_games_add_table' pk_game=game.pk %}"><i class="fa fa-plus fa-fw"></i> {% trans 'Add Table' %}</a>
+                                            </li>
+                                        </ul>
+                                        <!-- /.nav-third-level -->
+                                    </li>
+                                    <li>
                                         <a href="#">{% trans 'News' %}<span class="fa arrow"></span></a>
                                         <ul class="nav nav-third-level">
                                             <li>
