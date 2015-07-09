@@ -22,6 +22,8 @@ class MenuView(object):
 
     def get_context_data(self, **kwargs):
         context = super(MenuView, self).get_context_data(**kwargs)
+        if 'pk_game' in self.kwargs:
+            context['pk_game'] = self.kwargs['pk_game']
         context['games'] = Game.objects.all()
         return context
 
@@ -230,3 +232,36 @@ class AdminEnrollmentNeeds(LoginRequiredMixin, SuperuserRequiredMixin, MenuView,
         return super(AdminEnrollmentNeeds, self).form_valid(form)
 
 # FIN ENROLLMENT
+
+
+# DEBUT RAIDS
+
+class AdminRaidsView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, ListView):
+    model = Raid
+    template_name = 'Administration/raids/raid_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AdminRaidsView, self).get_context_data(**kwargs)
+        return context
+
+    def get_queryset(self):
+        query = self.model.objects.filter(game__id=self.kwargs['pk_game'])
+        return query
+
+
+class AdminRaidsAdd(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, CreateView):
+    model = Raid
+    template_name = 'Administration/raids/raid_add.html'
+    fields = ['name', 'lvl', 'number_of_boss', 'boss_successful', 'image']
+
+    def get_success_url(self):
+        return reverse('admin_raids', kwargs={'pk_game': self.kwargs['pk_game']})
+
+    def form_valid(self, form):
+        form.instance.game = Game.objects.get(id=self.kwargs['pk_game'])
+        form.save()
+        return super(AdminRaidsAdd, self).form_valid(form)
+
+
+
+# FIN RAID
