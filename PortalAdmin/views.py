@@ -233,8 +233,6 @@ class AdminEnrollmentNeeds(LoginRequiredMixin, SuperuserRequiredMixin, MenuView,
 
 # FIN ENROLLMENT
 
-
-<<<<<<< HEAD
 # DEBUT DATABASE
 
 class AdminDatabaseAddTable(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, CreateView):
