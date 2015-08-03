@@ -17,7 +17,7 @@
     <div id="news-body" class="col-xs-12">
         <div id="news-description" class="pull-left visible-lg">
             <div id="news-description-content">
-                {{ news.content }}
+                {{ news.content|safe }}
             </div>
             <div id="news-description-footer">
                 <i id="news-author" class="fa fa-pencil"> {{ news.creator }}</i>
@@ -32,7 +32,7 @@
         </div>
         <div id="news-description" class="col-xs-12 hidden-lg">
             <div id="news-description-content">
-                {{ news.content }}
+                {{ news.content|safe }}
             </div>
             <div id="news-description-footer">
                 <i id="news-author" class="fa fa-pencil"> {{ news.creator }}</i>

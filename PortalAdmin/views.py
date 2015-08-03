@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from django.template.base import token_kwargs
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, DetailView, FormView, UpdateView
+from django.views.generic import ListView, DetailView, FormView, UpdateView, DeleteView
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin
 from django.views.generic.base import View, ContextMixin, TemplateView
 from Portal.models import Game, Userprofile, Portal, TypeValue
@@ -299,6 +299,14 @@ class AdminRaidsUpdate(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, Upd
         form.save()
         return super(AdminRaidsUpdate, self).form_valid(form)
 
+class AdminRaidsDelete(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, DeleteView):
+    model = Raid
+    template_name = 'Administration/raids/raid_delete_confirmation.html'
+    pk_url_kwarg = 'pk_raid'
+
+
+    def get_success_url(self):
+        return reverse('admin_raids', kwargs={'pk_game': self.kwargs['pk_game']})
  # FIN RAID
 
 # DEBUT RAID OUT

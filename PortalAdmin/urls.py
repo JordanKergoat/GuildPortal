@@ -5,7 +5,7 @@ from .views import AdminIndexView, AdminMembersView, AdminUserDetailView, AdminU
     AdminGamesView, AdminGameUpdateView, AdminGameDetailView, AdminGameCreate, AdminGameCharactersCreate, \
     AdminPortalCreateView, AdminPortalUpdate, AdminGuildSetting, AdminGuildSettingCreate, AdminGuildSettingEdit, \
     AdminEnrollmentNeeds, AdminDatabaseAddTable, AdminDatabaseAddEntry, AdminRaidsView, AdminRaidsAdd, \
-    AdminRaidsUpdate, AdminRaidOutView
+    AdminRaidsUpdate, AdminRaidOutView, AdminRaidsDelete
 
 urlpatterns = patterns('',
                        url(r'^$', AdminIndexView.as_view(), name='admin_index'),
@@ -39,6 +39,7 @@ urlpatterns = patterns('',
 
                        url(r'^games/(?P<pk_game>\d+)/raids/$', AdminRaidsView.as_view(), name='admin_raids'),
                        url(r'^games/(?P<pk_game>\d+)/raids/add/$', AdminRaidsAdd.as_view(), name='admin_raid_add'),
+                       url(r'^games/(?P<pk_game>\d+)/raids/(?P<pk_raid>\d+)/delete/$', AdminRaidsDelete.as_view(), name='admin_raid_delete'),
                        url(r'^games/(?P<pk_game>\d+)/raids/(?P<pk_raid>\d+)/update/$', AdminRaidsUpdate.as_view(), name='admin_raid_update'),
                        url(r'^games/(?P<pk_game>\d+)/raids/(?P<pk_raid>\d+)/details/$', AdminPortalCreateView.as_view(), name='admin_raid_details'),
 
