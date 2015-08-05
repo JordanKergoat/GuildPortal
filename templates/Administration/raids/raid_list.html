@@ -11,7 +11,7 @@
         <h3>{{ raid.grouper }}</h3>
         {% for raid in raid.list %}
             <div class="game">
-                <h3><img src="{{ raid.image.url }}" height="100"> {{ raid.lvl }} {{ raid.name }} <a href="{% url 'admin_raid_update' pk_game=pk_game pk_raid=raid.pk %}"><i class="fa fa-cogs"></i></a></h3>
+                <h3><img src="{{ raid.image.url }}" height="100"> {{ raid.lvl }} {{ raid.name }} <a href="{% url 'admin_raid_update' pk_game=pk_game pk_raid=raid.pk %}"><i class="fa fa-cogs"></i></a> <a href="{% url 'admin_raid_delete' pk_game=pk_game pk_raid=raid.pk %}"><i class="fa fa-trash-o"></i></a></h3>
             </div>
         {% endfor %}
     {% endfor %}
