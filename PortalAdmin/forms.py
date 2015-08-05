@@ -1,7 +1,7 @@
 __author__ = 'Alexandre Cloquet'
 
 from django.contrib.auth.models import User
-from SuperPortal.models import GuildSettings
+from SuperPortal.models import GuildSettings, SuperPortal
 from PortalEnrollment.models import EnrollmentSettings
 from Portal.models.enrollment import TypeValue, FieldValue
 
@@ -16,6 +16,11 @@ class GuildSettingsForm(forms.ModelForm):
 
     class Meta:
         model = GuildSettings
+        exclude = ()
+
+class SuperPortalForm(forms.ModelForm):
+    class Meta:
+        model = SuperPortal
         exclude = ()
 
 class EnrollmentSettingsForm(forms.ModelForm):

@@ -5,12 +5,13 @@ from .views import AdminIndexView, AdminMembersView, AdminUserDetailView, AdminU
     AdminGamesView, AdminGameUpdateView, AdminGameDetailView, AdminGameCreate, AdminGameCharactersCreate, \
     AdminPortalCreateView, AdminPortalUpdate, AdminGuildSetting, AdminGuildSettingCreate, AdminGuildSettingEdit, \
     AdminEnrollmentNeeds, AdminDatabaseAddTable, AdminDatabaseAddEntry, AdminRaidsView, AdminRaidsAdd, \
-    AdminRaidsUpdate, AdminRaidOutView
+    AdminRaidsUpdate, AdminRaidOutView, AdminSuperPortalCreate
 
 urlpatterns = patterns('',
                        url(r'^$', AdminIndexView.as_view(), name='admin_index'),
                        url(r'^guild_settings/(?P<pk>\d+)/$', AdminGuildSetting.as_view(), name='admin_guild_setting'),
                        url(r'^guild_settings/create/$', AdminGuildSettingCreate.as_view(), name='admin_guild_setting_create'),
+                       url(r'^superportal/create/$', AdminSuperPortalCreate.as_view(), name='admin_superportal_create'),
                        url(r'^guild_settings/(?P<pk>\d+)/update/$', AdminGuildSettingEdit.as_view(), name='admin_guild_setting_update'),
 
 

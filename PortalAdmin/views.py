@@ -13,10 +13,11 @@ from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRe
 from django.views.generic.base import TemplateView
 from Forum.models import Post
 from Portal.models import Game, Userprofile, CommentNews, CharacterAttribute
-from PortalAdmin.forms import UserForm, GuildSettingsForm, EnrollmentSettingsForm, TableNameForm, DbEntryForm
+from PortalAdmin.forms import UserForm, GuildSettingsForm, EnrollmentSettingsForm, TableNameForm, DbEntryForm, \
+    SuperPortalForm
 from PortalEnrollment.models import EnrollmentSettings
 from PortalRaid.models import Raid, OutRaid
-from SuperPortal.models import GuildSettings
+from SuperPortal.models import GuildSettings, SuperPortal
 
 
 class MenuView(object):
@@ -40,9 +41,13 @@ class AdminIndexView(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, Templ
 
     def get(self, request, *args, **kwargs):
 
-        if GuildSettings.objects.all().count():
+        if GuildSettings.objects.all().count() and SuperPortal.objects.all().count():
 
             return super(AdminIndexView, self).get(request, *args, **kwargs)
+
+        elif GuildSettings.objects.all().count() and SuperPortal.objects.all().count() == 0:
+
+            return HttpResponseRedirect(reverse('admin_superportal_create'))
 
         else:
 
@@ -59,7 +64,13 @@ class AdminGuildSettingCreate(LoginRequiredMixin, StaffuserRequiredMixin, MenuVi
     template_name = 'Administration/guild_settings_form.html'
     model = GuildSettings
     form_class = GuildSettingsForm
-    success_url = reverse_lazy('admin_index')
+    success_url = reverse_lazy('admin_superportal_create')
+
+class AdminSuperPortalCreate(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, CreateView):
+        template_name = 'Administration/superportal_form.html'
+        model = SuperPortal
+        form_class = SuperPortalForm
+        success_url = reverse_lazy('admin_index')
 
 class AdminGuildSettingEdit(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, UpdateView):
     template_name = 'Administration/guild_settings_form.html'
@@ -175,6 +186,7 @@ class AdminGameCreate(LoginRequiredMixin, SuperuserRequiredMixin, MenuView, Crea
     def form_valid(self, form):
         game = form.save()
         self.kwargs['pk'] = game.id
+        Portal(portal=SuperPortal.objects.first(), game=game, name=game, guild_name=GuildSettings.objects.first(), image=game.image).save()
         return super(AdminGameCreate, self).form_valid(form)
 
 

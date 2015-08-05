@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from Portal.views import index
+from django.contrib.auth import views as auth_view
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^raid/', include('PortalRaid.urls')),
     url(r'^recrutement/', include('PortalEnrollment.urls')),
     url(r'^administration/', include('PortalAdmin.urls')),
+    url(r'^accounts/login/', auth_view.login),
     url(r'', include('SuperPortal.urls')),
 )
 
