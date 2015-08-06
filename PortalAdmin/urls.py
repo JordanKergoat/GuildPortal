@@ -1,16 +1,13 @@
 __author__ = 'Jordan'
 
 from django.conf.urls import patterns, include, url
-from .views import AdminIndexView, AdminMembersView, AdminUserDetailView, AdminUserUpdateView, LastPostLastComments, \
-    AdminGamesView, AdminGameUpdateView, AdminGameDetailView, AdminGameCreate, AdminGameCharactersCreate, \
-    AdminPortalCreateView, AdminPortalUpdate, AdminGuildSetting, AdminGuildSettingCreate, AdminGuildSettingEdit, \
-    AdminEnrollmentNeeds, AdminDatabaseAddTable, AdminDatabaseAddEntry, AdminRaidsView, AdminRaidsAdd, \
-    AdminRaidsUpdate, AdminRaidOutView, AdminRaidsDelete
+from .views import *
 
 urlpatterns = patterns('',
                        url(r'^$', AdminIndexView.as_view(), name='admin_index'),
                        url(r'^guild_settings/(?P<pk>\d+)/$', AdminGuildSetting.as_view(), name='admin_guild_setting'),
                        url(r'^guild_settings/create/$', AdminGuildSettingCreate.as_view(), name='admin_guild_setting_create'),
+                       url(r'^superportal/create/$', AdminSuperPortalCreate.as_view(), name='admin_superportal_create'),
                        url(r'^guild_settings/(?P<pk>\d+)/update/$', AdminGuildSettingEdit.as_view(), name='admin_guild_setting_update'),
 
 
