@@ -1,3 +1,5 @@
+from PortalAdmin.views_forum import ListCategoryView, ListForumView
+
 __author__ = 'Jordan'
 
 from django.conf.urls import patterns, include, url
@@ -49,5 +51,9 @@ urlpatterns = patterns('',
                        url(r'^games/(?P<pk_game>\d+)/news/add/$', AdminPortalCreateView.as_view(), name='admin_news_add'),
                        url(r'^games/(?P<pk_game>\d+)/news/(?P<pk_raid>\d+)/update/$', AdminPortalCreateView.as_view(), name='admin_news_update'),
                        url(r'^games/(?P<pk_game>\d+)/news/(?P<pk_raid>\d+)/details/$', AdminPortalCreateView.as_view(), name='admin_news_details'),
+
+                       url(r'^forum/$', ListForumView.as_view(), name='forum'),
+                       url(r'^forum/categories/$', ListCategoryView.as_view(), name='forum_categories'),
+
 
                        )

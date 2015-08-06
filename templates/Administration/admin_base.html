@@ -367,13 +367,13 @@
                             <a href="{% url 'admin_games_add' %}"><i class="fa fa-plus fa-fw"></i> {% trans 'Add Game' %}</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Simple-Level Dropdown<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Forums <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">First Item</a>
+                                    <a href="{% url 'forum' %}">{% trans 'List forums' %}</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Second Item</a>
+                                    <a href="{% url 'forum_categories' %}">{% trans 'Categories' %}</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
