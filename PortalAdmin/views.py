@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, FormView, UpdateView, DeleteView
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin
 from django.views.generic.base import View, ContextMixin, TemplateView
-from Portal.models import Game, Userprofile, Portal, TypeValue
+from Portal.models import Game, Userprofile, Portal, TypeValue, FieldValue
 from django.views.generic import ListView, DetailView, FormView, UpdateView, View, CreateView
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin, StaffuserRequiredMixin, SelectRelatedMixin
 from django.views.generic.base import TemplateView
@@ -265,6 +265,16 @@ class AdminDatabaseAddEntry(LoginRequiredMixin, SuperuserRequiredMixin, MenuView
 
         def get_success_url(self):
             return reverse_lazy('admin_games_add_entry', kwargs={'pk_game': self.kwargs['pk_game'], 'pk_table': self.kwargs['pk_table']})
+
+
+class AdminEditEntry(LoginRequiredMixin, StaffuserRequiredMixin, MenuView, UpdateView):
+    template_name = 'Administration/games/database/edit_entry.html'
+    model = FieldValue
+    form_class = DbEntryForm
+    pk_url_kwarg = 'pk_entry'
+
+    def get_success_url(self):
+        return reverse_lazy('admin_games_add_entry', kwargs={'pk_game': self.kwargs['pk_game'], 'pk_table': self.kwargs['pk_table']})
 
 # FIN DATABASE
 

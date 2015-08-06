@@ -25,6 +25,7 @@ urlpatterns = patterns('',
                        url(r'^games/(?P<pk>\d+)/character-details/add/$', AdminGameCharactersCreate.as_view(), name='admin_game_characters_details_add'),
 
                        url(r'^games/(?P<pk_game>\d+)/database/tables/add$', AdminDatabaseAddTable.as_view(), name='admin_games_add_table'),
+                       url(r'^games/(?P<pk_game>\d+)/database/tables/(?P<pk_table>\d+)/entry/(?P<pk_entry>\d+)', AdminEditEntry.as_view(), name='admin_games_edit_entry'),
                        url(r'^games/(?P<pk_game>\d+)/database/tables/(?P<pk_table>\d+)/', AdminDatabaseAddEntry.as_view(), name='admin_games_add_entry'),
 
                        url(r'^games/(?P<pk>\d+)/enrollment/needs/$', AdminEnrollmentNeeds.as_view(), name='admin_game_enrollment_needs'),

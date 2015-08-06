@@ -1,0 +1,18 @@
+{% extends 'Administration/admin_base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block body_title %}Table : {{ table.field_value }}{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block body %}
+
+    <form role="form" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-default">{% trans 'Submit' %}</button>
+    </form>
+
+{% endblock %}
