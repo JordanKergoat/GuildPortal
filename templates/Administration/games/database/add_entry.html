@@ -44,12 +44,14 @@
                                     <tr role="row">
                                         <th class="sorting_asc col-xs-1" tabindex="0" aria-controls="dataTables-example">#</th>
                                         <th class="sorting col-xs-11" tabindex="0" aria-controls="dataTables-example">{% trans 'Entry value' %}</th>
+                                        <th></th>
                                     </thead>
                                     <tbody>
                                     {% for entry in entries %}
                                         <tr class="gradeA {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}" role="row">
                                             <td>{{ entry.pk }}</td>
                                             <td>{{ entry.attribute_value }}</td>
+                                            <td><i class="fa fa-pencil entry" edit-url="{% url 'admin_games_edit_entry' pk_game=pk_game pk_entry=entry.pk pk_table=table.pk %}"></i></td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -74,9 +76,19 @@
 {% block js %}
     <script>
         $(document).ready(function() {
+
+            $('.fa.entry').each(function () {
+                $(this).on('click', function () {
+                    window.location = $(this).attr('edit-url')
+                })
+            });
+
             $('#dataTables-example').DataTable({
                 responsive: true
             });
+
+
+
         });
     </script>
 
