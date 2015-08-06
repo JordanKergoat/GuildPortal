@@ -22,7 +22,7 @@
             <div id="post-wrap">
                 <div class="post-creator col-xs-2">{{ post.creator }}</div>
                 <div class="post-date col-xs-9">{% trans 'Posted' %} {{ post.created|date:'' }}</div>
-                <div class="post-date col-xs-1">{% trans 'Post' %}  #{{ forloop.counter }}</div>
+                <div class="post-date col-xs-1">{% trans 'Post' %} #{{ forloop.counter }}</div>
                 <div class="creator-info col-xs-2">
                     <ul class="basic-info">
                         {% with post.creator as creator %}
@@ -36,7 +36,11 @@
                                     {% endfor %}
                                 </ul>
                             </li>
-                            <li><img class="img-circle img-rounded" src="{{ creator.userprofile.image_profile.url }}" height="90" width="90"></li>
+                            {% if creator.userprofile.image_profile %}
+                                <li><img class="img-circle img-rounded" src="{{ creator.userprofile.image_profile.url }}" height="90" width="90"></li>
+                            {% else %}
+                                <li><img class="img-circle img-rounded" src="http://static.commentcamarche.net/www.commentcamarche.net/faq/images/3ZScavRb-car-ok-s-.png" height="90" width="90"></li>
+                            {% endif %}
 
                             <li>{{ creator.userprofile.post_in_forum }} {% trans 'messages' %}</li>
                             <li>{{ creator.userprofile.reponse_to_blog }} {% trans 'messages on blog' %}</li>
@@ -52,11 +56,21 @@
                     <li><a href="#">{% trans 'Report' %}</a> </li>
                 </ul>
             </div>
-        {% endfor %}
-        <div class="respond pull-right">
-            <button type="button" value="{% trans 'Respond' %}">{% trans 'Respond' %}</button>
 
-        </div>
+        {% endfor %}
+        {% if thread.posts.all %}
+            <div class="respond pull-right">
+                <a href="{% url 'create_post' category=thread.forum.category.slug title=thread.forum.slug thread_name=thread.slug %}">
+                    <button type="button" value="{% trans 'Respond' %}">{% trans 'Respond' %}</button>
+                </a>
+            </div>
+        {% else %}
+            <div class="respond pull-right">
+                <a href="{% url 'create_post' category=thread.forum.category.slug title=thread.forum.slug thread_name=thread.slug %}">
+                    <button type="button" value="{% trans 'New post' %}">{% trans 'New post' %}</button>
+                </a>
+            </div>
+        {% endif %}
     </div>
 
 {% endblock %}

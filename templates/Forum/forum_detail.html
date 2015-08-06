@@ -19,7 +19,7 @@
         <div id="category-forum">
             <div id="title-forum">
                 <h3>{{ forum }}</h3>
-                <input type="button" value="{% trans 'New thread' %}"/>
+                <a href="{% url 'create_thread' category=forum.category.slug title=forum.slug %}"><input type="button" value="{% trans 'New thread' %}" /></a>
             </div>
             {% for thread in forum.threads.all %}
                 <div id="forum-head">
