@@ -1,3 +1,4 @@
+from braces.views import LoginRequiredMixin
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
@@ -8,23 +9,23 @@ from django.views.generic import ListView, DetailView, CreateView
 from Forum.models import Forum, Category, Thread, Post
 
 
-class IndexListCategoryView(ListView):
+class IndexListCategoryView(LoginRequiredMixin, ListView):
     model = Category
 
 
-class IndexCategoryView(DetailView):
+class IndexCategoryView(LoginRequiredMixin, DetailView):
     model = Category
     slug_field = 'slug'
     slug_url_kwarg = 'category'
 
 
-class DetailForumView(DetailView):
+class DetailForumView(LoginRequiredMixin, DetailView):
     model = Forum
     slug_field = 'slug'
     slug_url_kwarg = 'title'
 
 
-class CreateThreadView(CreateView):
+class CreateThreadView(LoginRequiredMixin, CreateView):
     model = Thread
     fields = ('title',)
     template_name = 'Forum/create_thread.html'
@@ -46,7 +47,7 @@ class CreateThreadView(CreateView):
         return super(CreateThreadView, self).form_valid(form)
 
 
-class CreatePostView(CreateView):
+class CreatePostView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ('body',)
     template_name = 'Forum/create_thread.html'
@@ -69,7 +70,7 @@ class CreatePostView(CreateView):
     # thread = models.ForeignKey(Thread, related_name="posts")
     # body = models.TextField(max_length=10000)
 
-class DetailThreadView(DetailView):
+class DetailThreadView(LoginRequiredMixin, DetailView):
     model = Thread
     slug_field = 'slug'
     slug_url_kwarg = 'thread_name'
