@@ -1,65 +1,69 @@
 {% load i18n %}
 {% load static %}
 {% load staticfiles %}
-<div class="news col-xs-12">
-    <div id="news-title" class="col-xs-12">
-        <h3>{{ news.title }}</h3>
-    </div>
-    <hr class="col-xs-12">
-    <div id="news-meta" class="col-xs-12">
-        <div class="pull-left">
-            <img src="{{ news.portal.image.url }}" class="news-img-portal"/> {{ news.portal.name }} / {{ news.category|title }}
+<article class="item-list">
+
+
+    <div class="news col-xs-12">
+        <div id="news-title" class="col-xs-12">
+            <h3>{{ news.title }}</h3>
         </div>
-        <div class="pull-right">
-            <i class="fa fa-calendar"> {{ news.published_date|date:"d M Y" }} </i>
-        </div>
-    </div>
-    <div id="news-body" class="col-xs-12">
-        <div id="news-description" class="pull-left visible-lg">
-            <div id="news-description-content">
-                {{ news.content|safe }}
+        <hr class="col-xs-12">
+        <div id="news-meta" class="col-xs-12">
+            <div class="pull-left">
+                <img src="{{ news.portal.image.url }}" class="news-img-portal"/> {{ news.portal.name }} / {{ news.category|title }}
             </div>
-            <div id="news-description-footer">
-                <i id="news-author" class="fa fa-pencil"> {{ news.creator }}</i>
-                <a id="news-read-more" href="{{ news.get_absolute_url }}" class="pull-right btn btn-default">{% trans 'Read more' %}</a>
+            <div class="pull-right">
+                <i class="fa fa-calendar"> {{ news.published_date|date:"d M Y" }} </i>
             </div>
         </div>
-        <div id="news-img" class="pull-right visible-lg">
-            <img class="news-img" src="{{ news.news_image.url }}">
-        </div>
-        <div id="news-img" class="col-xs-12 hidden-lg">
-            <img class="news-img" src="{{ news.news_image.url }}">
-        </div>
-        <div id="news-description" class="col-xs-12 hidden-lg">
-            <div id="news-description-content">
-                {{ news.content|safe }}
+        <div id="news-body" class="col-xs-12">
+            <div id="news-description" class="pull-left visible-lg">
+                <div id="news-description-content">
+                    {{ news.content|safe }}
+                </div>
+                <div id="news-description-footer">
+                    <i id="news-author" class="fa fa-pencil"> {{ news.creator }}</i>
+                    <a id="news-read-more" href="{{ news.get_absolute_url }}" class="pull-right btn btn-default">{% trans 'Read more' %}</a>
+                </div>
             </div>
-            <div id="news-description-footer">
-                <i id="news-author" class="fa fa-pencil"> {{ news.creator }}</i>
-                <a id="news-read-more" href="{{ news.get_absolute_url }}" class="pull-right btn btn-default">{% trans 'Read more' %}</a>
+            <div id="news-img" class="pull-right visible-lg">
+                <img class="news-img" src="{{ news.news_image.url }}">
             </div>
+            <div id="news-img" class="col-xs-12 hidden-lg">
+                <img class="news-img" src="{{ news.news_image.url }}">
+            </div>
+            <div id="news-description" class="col-xs-12 hidden-lg">
+                <div id="news-description-content">
+                    {{ news.content|safe }}
+                </div>
+                <div id="news-description-footer">
+                    <i id="news-author" class="fa fa-pencil"> {{ news.creator }}</i>
+                    <a id="news-read-more" href="{{ news.get_absolute_url }}" class="pull-right btn btn-default">{% trans 'Read more' %}</a>
+                </div>
+            </div>
+
+        </div>
+        <div id="news-tag" class="col-xs-12">
+            <i class="fa fa-tag">
+                {% for tag in news.tags.all %}
+                    {% if forloop.counter0 > 0 %}
+                        {{ ", " }}{{ tag }}
+                    {% else %}
+                        {{ tag }}
+                    {% endif %}
+                {% endfor %}
+            </i>
+            <i id="news-comment" class="fa fa-eye pull-right"> {{ news.view }}</i>
+            <i id="news-comment" class="fa fa-comment pull-right"> {{ news.commentnews_set.all|length }}</i>
         </div>
 
-    </div>
-    <div id="news-tag" class="col-xs-12">
-        <i class="fa fa-tag">
-            {% for tag in news.tags.all %}
-                {% if forloop.counter0 > 0 %}
-                    {{ ", " }}{{ tag }}
-                {% else %}
-                    {{ tag }}
-                {% endif %}
-            {% endfor %}
-        </i>
-        <i id="news-comment" class="fa fa-eye pull-right"> {{ news.view }}</i>
-        <i id="news-comment" class="fa fa-comment pull-right"> {{ news.commentnews_set.all|length }}</i>
-    </div>
+        {#    <h3></h3>#}
+        {#    <p>{{ news.content|slice:":200"|add:'...' }}</p>#}
+        {#    <a href="{{ news.get_absolute_url }}">{% trans "Read more" %}</a>#}
 
-{#    <h3></h3>#}
-{#    <p>{{ news.content|slice:":200"|add:'...' }}</p>#}
-{#    <a href="{{ news.get_absolute_url }}">{% trans "Read more" %}</a>#}
-
-</div>
+    </div>
+</article>
 {#    <div class="info-news pull-right">#}
 {#        <i class="fa fa-calendar"> {{ news.published_date|date:"d M Y" }}</i>#}
 {#        <i class="fa fa-folder-open">{{ news.category.name }}</i> {% trans 'in' %}#}

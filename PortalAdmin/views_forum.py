@@ -12,3 +12,4 @@ class ListCategoryView(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
 class ListForumView(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
     model = Forum
     template_name = 'Administration/forum/forum_list.html'
+    ordering = ('category__name')

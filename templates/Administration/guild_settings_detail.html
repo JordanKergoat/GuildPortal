@@ -5,3 +5,34 @@
     {% trans 'Guild settings'%}
     <a href="{% url 'admin_guild_setting_update' pk=guild.pk %}"><i class="fa fa-edit"></i></a>
 {% endblock %}
+
+{% block body %}
+    <div class="col-lg-12 col-md-7 col-xs-12">
+        <div class="guild-header">
+            <div class="col-lg-3">
+                <img src="{{ guildsettings.icon_guild.url }}">
+            </div>
+            <div class="col-lg-9">
+                <p>{% trans 'Name and TAG' %}: {{ guildsettings.guild_name }} - {{ guildsettings.tag }}</p>
+                <p>{% trans 'Guild Motto' %}: {{ guildsettings.guild_motto }}</p>
+                <p>{% trans 'Chief' %}: {{ guildsettings.guild_chief }}</p>
+                <p>{% trans 'Description' %}:{{ guildsettings.guild_description }}</p>
+            </div>
+        </div>
+        <div class="options">
+
+            <p>{% trans 'Forum active' %}: {{ guildsettings.forum_active }}</p>
+            <p>{% trans 'Slider active' %}: {{ guildsettings.slider_active }}</p>
+            <p>{% trans 'Youtube' %}: {{ guildsettings.youtube_channel }}</p>
+            <p>{% trans 'Twitch' %}: {{ guildsettings.twitch_channel }}</p>
+            <p>{% trans 'Facebook' %}: {{ guildsettings.facebook_page }}</p>
+            <p>{% trans 'Twitter' %}: {{ guildsettings.twitter_page }}</p>
+            <p>{% trans 'Category for slider' %}: {{ guildsettings.category_slider }}</p>
+        </div>
+        <div class="rights">
+            <p>{% trans 'Group can vote new members' %}: {% for group in guildsettings.group_can_vote.all %}{{ group }},{% endfor %}</p>
+            <p>{% trans 'Group can can write news' %}: {% for group in guildsettings.group_can_write_news.all %}{{ group }},{% endfor %}</p>
+            <p>{% trans 'Group can write wiki' %}: {% for group in guildsettings.group_can_write_wiki.all %}{{ group }},{% endfor %}</p>
+        </div>
+    </div>
+{% endblock %}

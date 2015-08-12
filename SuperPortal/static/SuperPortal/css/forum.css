@@ -1,9 +1,32 @@
 #category-forum {
-    margin-top: 30px;
+    /*margin-top: 30px;*/
+    background-color: #212121;
+    padding: 5px;
+    padding-bottom: 10px;
+    border: 3px solid #4e4e4e;
+    box-shadow: 0 2px 5px #000;
+    margin: 5px !important;
+    margin-bottom: 20px !important;
 }
+
+.category-name {
+    background-color: #000000;
+    padding: 5px;
+}
+
+.category-name a{
+    color: #bdc3c7;
+    margin: 0 auto;
+}
+
+.category-name a h3{
+    margin: 0 auto;
+}
+
 #forum-head {
     display: inline-block;
     width: 100%;
+    padding-top: 10px;
 }
 
 .forum-title {

@@ -3,10 +3,19 @@
 {% block meta_description %}{% endblock %}
 {% block body %}
     <div class="col-xs-12 col-lg-8 col-lg-offset-2 content-wrapper">
-    <ul>
+
         {% for userprofile in userprofile_list %}
-            <li>{{ userprofile.user.username }} - {% for group in userprofile.user.groups.all %}{{ group.name }} {% endfor %}</li>
+            <div class="member-card col-lg-3 col-md-2 col-xs-1">
+                <div class="member-photo">
+                    <img src="{% if userprofile.image_profile %}{{ userprofile.image_profile.url }}{% else %}{% endif %}" class="gravatar avatar avatar-190 um-avatar tie-appear" width="190" height="190" alt="">
+                </div>
+                <div class="member-name">
+                    {{ userprofile.user.username }}
+                </div>
+                <div class="member-group">
+                    {% for group in userprofile.user.groups.all %}{{ group.name }} {% endfor %}
+                </div>
+            </div>
         {% endfor %}
-    </ul>
     </div>
 {% endblock %}
