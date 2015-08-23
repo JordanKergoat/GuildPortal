@@ -42,13 +42,15 @@ INSTALLED_APPS = (
     # 'usersettings',
     'guardian',
     'debug_toolbar',
+    'account',
     'PortalAdmin',
     'SuperPortal',
     'Portal',
     'PortalEnrollment',
     'Forum',
     'PortalMessaging',
-    'PortalRaid'
+    'PortalRaid',
+    'pinax_theme_bootstrap'
 )
 
 TEMPLATE_LOADERS = (
@@ -75,7 +77,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'GuildPortal.middlewares.ProfilerMiddleware'
+    'GuildPortal.middlewares.ProfilerMiddleware',
+    'account.middleware.LocaleMiddleware',
+    'account.middleware.TimezoneMiddleware',
+
 )
 
 ROOT_URLCONF = 'GuildPortal.urls'
@@ -148,6 +153,7 @@ TEMPLATES = [
                 # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
                 # list if you haven't customized them:
                 'GuildPortal.ContextProcessor.menu.menu',
+                'account.context_processors.account',
                 'GuildPortal.ContextProcessor.menu.guild_info',
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
@@ -156,6 +162,9 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
+                'pinax_theme_bootstrap.context_processors.theme'
+
             ],
         },
     }

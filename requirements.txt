@@ -7,3 +7,5 @@ django-battlenet
 requests_oauthlib
 django-guardian
 django-braces
+django-user-accounts
+pinax-theme-bootstrap

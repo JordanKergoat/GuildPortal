@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from Portal.views import index
 from django.contrib.auth import views as auth_view
+from PortalAdmin.views import SignupView
 
 urlpatterns = patterns('',
     # Examples:
@@ -18,6 +19,10 @@ urlpatterns = patterns('',
     url(r'^recrutement/', include('PortalEnrollment.urls')),
     url(r'^administration/', include('PortalAdmin.urls')),
     url(r'^accounts/login/', auth_view.login),
+                       url(r"^account/signup/$",
+                           SignupView.as_view(),
+                           name="account_signup"),
+    # url(r"^account/", include("account.urls")),
     url(r'', include('SuperPortal.urls')),
 )
 
