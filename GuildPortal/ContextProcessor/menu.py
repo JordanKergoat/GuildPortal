@@ -1,3 +1,5 @@
+from PortalMessaging.models import Message
+
 __author__ = 'Alexandre Cloquet'
 
 from Portal.models import Portal
@@ -6,7 +8,9 @@ from PortalEnrollment.models import Enrollement
 
 def menu(request):
     return {
-        'list_portal': Portal.objects.all()
+        'list_portal': Portal.objects.all(),
+        'messages_number': Message.objects.filter(receiver=request.user,
+                                                  time_read=None).count()
     }
 
 
@@ -18,7 +22,8 @@ def guild_info(request):
                     return {
                         'guild': GuildSettings.objects.all().first(),
                         'super_portal': SuperPortal.objects.all().first(),
-                        'number_enrollment': len(Enrollement.objects.filter(open=True))
+                        'number_enrollment': len(Enrollement.objects.filter(open=True)),
+
                     }
     return {
         'guild': GuildSettings.objects.all().first(),

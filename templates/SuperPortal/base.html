@@ -113,7 +113,11 @@
                         <li><a href="{% url 'profile' %}">{% trans 'Profile' %}</a></li>
                     {% endif %}
                 {% if user.is_authenticated  %}
-                    <li><a href="{% url 'message_index' %}">0 message</a></li>
+                    {% if messages_number < 1 %}
+                    <li><a href="{% url 'message_index' %}">{{ messages_number }} message</a></li>
+                        {% else %}
+                        <li><a href="{% url 'message_index' %}">{{ messages_number }} messages</a></li>
+                        {% endif %}
                 {% endif %}
                 </ul>
             </div>

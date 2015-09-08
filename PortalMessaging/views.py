@@ -69,6 +69,7 @@ class MessageDetails(TemplateView):
             context['message'] = message
             if not message.time_read:
                 message.time_read = datetime.datetime.today()
+                message.read = True
                 message.save()
             return self.render_to_response(context)
         else:
