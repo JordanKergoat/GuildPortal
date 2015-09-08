@@ -10,7 +10,7 @@ def menu(request):
     return {
         'list_portal': Portal.objects.all(),
         'messages_number': Message.objects.filter(receiver=request.user,
-                                                  time_read=None).count()
+                                                  read=False).count()
     }
 
 
